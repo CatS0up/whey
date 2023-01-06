@@ -82,7 +82,12 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE'),
+
+    'available_locales' => [
+        'lang.english' => 'en',
+        'lang.polish' => 'pl',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +100,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +113,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => env('FAKER_LOCALE'),
 
     /*
     |--------------------------------------------------------------------------
