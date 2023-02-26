@@ -1,0 +1,69 @@
+version: '3.8'
+services:
+    # PHP Service
+    app:
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        container_name: app
+        restart: unless-stopped
+        working_dir: /var/www/html/
+        volumes:
+            - ./:/var/www/html/
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+            - ./docker/php/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+        networks:
+            - whey-network
+        extra_hosts:
+            - host.docker.internal:host-gateway
+
+    # Nginx Service
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        container_name: nginx
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - ./:/var/www/html/
+        ports:
+            - 80:80
+            - 433:433
+        networks:
+            - whey-network
+
+    # Postgres Service
+    postgres:
+        image: postgres:14.5
+        container_name: postgres
+        restart: unless-stopped
+        tty: true
+        ports:
+            - 5432:5432
+        volumes:
+            - postgres_data:/var/lib/postgres/data
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        networks:
+            - whey-network
+
+    # Redis Service
+    redis:
+        image: redis:7.0
+        container_name: redis
+        ports:
+            - 6380:6379
+        networks:
+            - whey-network
+
+# Docker Volumes
+volumes:
+    postgres_data:
+
+# Docker Networks
+networks:
+    whey-network:
+        driver: bridge
