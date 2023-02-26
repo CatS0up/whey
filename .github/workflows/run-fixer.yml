@@ -1,0 +1,24 @@
+name: Run Fixer
+
+on: [push]
+
+jobs:
+  pint:
+    name: pint
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+
+      - name: Install composer dependencies
+        run: composer install -n --prefer-dist
+
+      - name: Run Fixer
+        run: ./vendor/bin/pint
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply Laravel Pint changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
