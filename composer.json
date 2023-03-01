@@ -47,6 +47,12 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "style-fix": [
+            "./vendor/bin/pint --ansi"
+        ],
+        "static-analysis": [
+            "./vendor/bin/phpstan analyse --ansi"
         ]
     },
     "extra": {
