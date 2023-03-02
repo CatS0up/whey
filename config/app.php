@@ -99,6 +99,21 @@ return [
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE'),
 
+
+        /*
+    |--------------------------------------------------------------------------
+    | Available locales
+    |--------------------------------------------------------------------------
+    |
+    | List all locales that your application works with
+    |
+    */
+
+    'available_locales' => [
+        'English' => 'en',
+        'Polish' => 'pl',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Faker Locale
@@ -143,20 +158,6 @@ return [
     'maintenance' => [
         'driver' => 'file',
         // 'store'  => 'redis',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Available locales
-    |--------------------------------------------------------------------------
-    |
-    | List all locales that your application works with
-    |
-    */
-
-    'available_locales' => [
-        'English' => 'en',
-        'Polish' => 'pl',
     ],
 
     /*
