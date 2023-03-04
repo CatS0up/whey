@@ -8,7 +8,7 @@ use App\Actions\Shared\SwitchLocaleAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
-class LocaleController extends Controller
+class SwitchLocaleController extends Controller
 {
     public function __invoke(SwitchLocaleAction $switchLocaleAction, string $locale): RedirectResponse
     {
