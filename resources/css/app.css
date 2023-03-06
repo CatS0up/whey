@@ -1,3 +1,12 @@
+/* Font Awesome free - start */
+@import "@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "@fortawesome/fontawesome-free/css/solid.css";
+@import "@fortawesome/fontawesome-free/css/brands.css";
+@import "@fortawesome/fontawesome-free/css/regular.css";
+/* Font Awesome free - end */
+
+/* Tailwind CSS - start */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Tailwind CSS - end */
