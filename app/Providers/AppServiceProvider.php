@@ -22,5 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::shouldBeStrict( ! app()->isProduction());
+
+        view()->share('appTitle', config('app.name'));
     }
 }
