@@ -20,7 +20,9 @@
         @resize.window="adjustPosition"
         @load.window="adjustPosition"
         class="fixed z-50 lg:static lg:translate-x-0 max-w-[300px] inset-0 flex flex-col p-8 bg-white overflow-y-scroll shadow">
-    <x-dashboard.sidebar.toggler class="ml-auto"/>
+    <section>
+        <x-dashboard.sidebar.toggler class="ml-auto"/>
+    </section>
     <section class="mb-24">
          <ul>
             <li class="mt-6">

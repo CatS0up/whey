@@ -1,5 +1,7 @@
 <header class="flex items-center justify-between p-4 bg-green-50/40">
-    <x-dashboard.sidebar.toggler/>
+    <section>
+        <x-dashboard.sidebar.toggler/>
+    </section>
     <section class="flex items-center ml-auto">
         <button class="mr-12">
             <span class="fa-solid fa-magnifying-glass text-2xl"></span>
