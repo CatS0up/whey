@@ -30,7 +30,7 @@ enum ExerciseType: string
         };
     }
 
-    public function avaliableColumns(): array
+    public function availableColumns(): array
     {
         return match ($this) {
             self::Cardio => ['distance', 'time'],
