@@ -5,8 +5,15 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
+                // Styles
                 'resources/css/app.css',
+                'node_modules/filepond/dist/filepond.min.css',
+                'node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css',
+
+                // Scripts
                 'resources/js/app.js',
+                'node_modules/filepond/dist/filepond.min.js',
+                'node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js',
             ],
             refresh: true,
         }),
