@@ -34,6 +34,7 @@ enum ExerciseType: string
     {
         return match ($this) {
             self::Cardio => ['distance', 'time'],
+            self::Sprint => ['distance', 'time'],
             self::Interval => ['time','reps', 'rest'],
             self::Strength => ['sets', 'reps', 'weight', 'tempo', 'rir/sir', 'rest'],
             self::Calisthenic => ['sets', 'reps', 'tempo', 'rir/sir', 'rest'],
