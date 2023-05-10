@@ -13,7 +13,7 @@
     'previewMaxHeight' => 200,
 ])
 
-<div
+<input
     wire:ignore
     x-data
     x-init="$nextTick(() => {
@@ -33,9 +33,8 @@
             }
         });
     })"
->
-    <input type="file" x-ref="input"  {{ $attributes }}/>
-</div>
+    x-ref="input"
+    type="file"  {{ $attributes }}/>
 
 @push('scripts')
     @once
