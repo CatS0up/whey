@@ -160,6 +160,11 @@ return [
         // 'store'  => 'redis',
     ],
 
+    'uploads' => [
+        'hash' => env('APP_UPLOADS_HASH', 'sha256'),
+        'disk' => env('APP_UPLOADS_DISK', 'public'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -211,7 +216,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*
