@@ -1,6 +1,6 @@
 name: Run Fixer
 
-on: [push]
+on: [commit]
 
 jobs:
   pint:
