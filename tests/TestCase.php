@@ -12,6 +12,7 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     protected const TEST_DISK = 'test';
+    protected const DEFAULT_TESTING_FILENAME = 'thumbnail.jpg';
 
     protected function setUp(): void
     {
