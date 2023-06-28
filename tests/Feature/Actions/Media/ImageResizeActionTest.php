@@ -9,15 +9,11 @@ use App\DataObjects\FileData;
 use App\Exceptions\Media\FileNotFound;
 use App\Services\Media\UploadService;
 use App\ValueObjects\Media\Dimension;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ImageResizeActionTest extends TestCase
 {
-    private const DEFAULT_IMAGE_WIDTH = 100;
-    private const DEFAULT_IMAGE_HEIGHT = 150;
-
     private ImageResizeAction $actionUnderTest;
     private UploadService $uploadService;
 
@@ -130,20 +126,6 @@ class ImageResizeActionTest extends TestCase
         $this->assertEquals($fullPath, $this->readFullImagePath($resized));
     }
 
-    private function uploadTestingFile(
-        int $width = self::DEFAULT_IMAGE_WIDTH,
-        int $height = self::DEFAULT_IMAGE_HEIGHT,
-        string $name = self::DEFAULT_TESTING_FILENAME,
-        ): FileData {
-        $image = UploadedFile::fake()->image(
-            name: $name,
-            width: $width,
-            height: $height,
-        );
-
-        return $this->uploadService->thumbnail($image);
-    }
-
     private function getImageDimensionInfo(FileData $fileData): array
     {
         $fullPath = $this->readFullImagePath($fileData);
@@ -155,8 +137,17 @@ class ImageResizeActionTest extends TestCase
         ];
     }
 
-    private function readFullImagePath(FileData $fileData): string
-    {
-        return Storage::disk($fileData->disk)->path($fileData->path);;
+    private function uploadTestingFile(
+        int $width = self::DEFAULT_TEST_IMAGE_WIDTH,
+        int $height = self::DEFAULT_TEST_IMAGE_HEIGHT,
+        string $name = self::TEST_IMAGE_NAME,
+    ): FileData {
+        return $this->uploadService->thumbnail(
+            $this->createTestImage(
+                width: $width,
+                height: $height,
+                name: $name,
+            )
+        );
     }
 }

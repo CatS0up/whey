@@ -6,9 +6,6 @@ namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UploadThumbnailAction;
 use App\DataObjects\FileData;
-use Illuminate\Filesystem\FilesystemManager;
-use Illuminate\Http\Testing\File;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -20,12 +17,7 @@ class UploadThumbnailActionTest extends TestCase
     {
         parent::setUp();
 
-        Storage::fake(self::TEST_DISK);
-
-        $this->actionUnderTest = new UploadThumbnailAction(
-            manager: app()->make(FilesystemManager::class),
-            disk: self::TEST_DISK,
-        );
+        $this->actionUnderTest = app()->make(UploadThumbnailAction::class);
     }
 
     /**
@@ -33,7 +25,7 @@ class UploadThumbnailActionTest extends TestCase
      */
     public function it_should_upload_thumbnail(): void
     {
-        $thumbnail = $this->createFakeThumbnail();
+        $thumbnail = $this->createTestImage();
 
         $thumbnailData = $this->actionUnderTest->execute($thumbnail);
 
@@ -45,7 +37,7 @@ class UploadThumbnailActionTest extends TestCase
      */
     public function it_should_return_correct_file_data_object_when_upload_is_succeed(): void
     {
-        $thumbnail = $this->createFakeThumbnail();
+        $thumbnail = $this->createTestImage();
 
         $actual = $this->actionUnderTest->execute($thumbnail);
 
@@ -65,10 +57,5 @@ class UploadThumbnailActionTest extends TestCase
         $this->assertEquals($thumbnail->getSize(), $actual->size);
         $this->assertEquals($expectedHash, $actual->hash);
         $this->assertEquals('thumbnails', $actual->collection);
-    }
-
-    private function createFakeThumbnail(): File
-    {
-        return UploadedFile::fake()->image('thumbnail.jpg');
     }
 }
