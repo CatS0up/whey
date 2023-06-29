@@ -29,7 +29,7 @@ class ImageResizeAction
     {
         if ($this->fileManager->disk($fileData->disk)->missing($fileData->path)) {
             // TODO: Tłumaczenia
-            throw FileNotFound::because('File not found ' . $fileData->path);
+            throw FileNotFound::because('File not found '.$fileData->path);
         }
 
         $fullPath = $this->fileManager->disk($fileData->disk)->path($fileData->path);

@@ -7,7 +7,6 @@ namespace App\Actions\Media;
 use App\DataObjects\FileData;
 use Illuminate\Filesystem\FilesystemManager as FileManager;
 use Illuminate\Http\UploadedFile;
-use Livewire\TemporaryUploadedFile;
 
 class UploadThumbnailAction
 {
@@ -17,7 +16,7 @@ class UploadThumbnailAction
     ) {
     }
 
-    public function execute(UploadedFile|TemporaryUploadedFile $file): FileData
+    public function execute(UploadedFile $file): FileData
     {
         $name = $file->hashName();
 
