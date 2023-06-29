@@ -8,6 +8,7 @@ use App\DataObjects\FileData;
 use App\Exceptions\Media\FileNotFound;
 use App\ValueObjects\Media\Dimension;
 use Illuminate\Filesystem\FilesystemManager as FileManager;
+use Intervention\Image\Constraint;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 
@@ -60,7 +61,7 @@ class ImageResizeAction
             ->resize(
                 $dimension->width,
                 $dimension->height,
-                fn ($constraint) => $constraint->aspectRatio(),
+                fn (Constraint $constraint) => $constraint->aspectRatio(),
             )
             ->save();
     }
