@@ -23,13 +23,13 @@ class UploadSmallThumbnailActionTest extends TestCase
     /**
      * @test
      */
-    public function it_should_upload_thumbnail(): void
+    public function it_should_upload_small_thumbnail(): void
     {
-        $thumbnail = $this->createTestImage();
+        $smallThumbnail = $this->createTestImage();
 
-        $thumbnailData = $this->actionUnderTest->execute($thumbnail);
+        $smallThumbnailData = $this->actionUnderTest->execute($smallThumbnail);
 
-        Storage::disk(self::TEST_DISK)->assertExists($thumbnailData->path);
+        Storage::disk(self::TEST_DISK)->assertExists($smallThumbnailData->path);
     }
 
     /**
@@ -37,9 +37,9 @@ class UploadSmallThumbnailActionTest extends TestCase
      */
     public function it_should_return_correct_file_data_object_when_upload_is_succeed(): void
     {
-        $thumbnail = $this->createTestImage();
+        $smallThumbnail = $this->createTestImage();
 
-        $actual = $this->actionUnderTest->execute($thumbnail);
+        $actual = $this->actionUnderTest->execute($smallThumbnail);
 
         // Hash comes from config(app.uploads.hash)
         $expectedHash = hash_file(
@@ -49,12 +49,12 @@ class UploadSmallThumbnailActionTest extends TestCase
 
         $this->assertInstanceOf(FileData::class, $actual);
         $this->assertNull($actual->id);
-        $this->assertEquals($thumbnail->hashName(), $actual->name);
-        $this->assertEquals($thumbnail->getClientOriginalName(), $actual->file_name);
-        $this->assertEquals($thumbnail->getMimeType(), $actual->mime_type);
+        $this->assertEquals($smallThumbnail->hashName(), $actual->name);
+        $this->assertEquals($smallThumbnail->getClientOriginalName(), $actual->file_name);
+        $this->assertEquals($smallThumbnail->getMimeType(), $actual->mime_type);
         $this->assertEquals("small_thumbnails/{$actual->name}", $actual->path);
         $this->assertEquals(self::TEST_DISK, $actual->disk);
-        $this->assertEquals($thumbnail->getSize(), $actual->size);
+        $this->assertEquals($smallThumbnail->getSize(), $actual->size);
         $this->assertEquals($expectedHash, $actual->hash);
         $this->assertEquals('small_thumbnails', $actual->collection);
     }
