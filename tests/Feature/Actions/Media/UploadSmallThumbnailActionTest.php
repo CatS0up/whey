@@ -55,7 +55,7 @@ class UploadSmallThumbnailActionTest extends TestCase
         $this->assertEquals("small_thumbnails/{$actual->name}", $actual->path);
         $this->assertEquals(self::TEST_DISK, $actual->disk);
         $this->assertEquals($smallThumbnail->getSize(), $actual->size);
-        $this->assertEquals($expectedHash, $actual->hash);
+        $this->assertEquals($expectedHash, $actual->file_hash);
         $this->assertEquals('small_thumbnails', $actual->collection);
     }
 }

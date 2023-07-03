@@ -40,7 +40,7 @@ class ImageResizeActionTest extends TestCase
             mime_type: 'image/png',
             path: 'none/existing/path/none_existing_file.png',
             disk: self::TEST_DISK,
-            hash: 'dummy_hash',
+            file_hash: 'dummy_hash',
             collection: 'dummy_collection',
             size: 64,
         );
