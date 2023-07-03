@@ -30,7 +30,7 @@ class UploadSmallThumbnailAction
             mime_type: $file->getMimeType(),
             path: $path,
             disk: $this->disk,
-            hash: hash_file(
+            file_hash: hash_file(
                 config('app.uploads.hash'),
                 $fullPath,
             ),
