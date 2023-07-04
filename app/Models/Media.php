@@ -22,6 +22,8 @@ class Media extends Model
      * @var array<string>
      */
     protected $fillable = [
+        'mediable_id',
+        'mediable_type',
         'name',
         'file_name',
         'mime_type',
