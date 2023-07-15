@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Actions\Muscle;
+namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UpsertSmallThumbnailAction;
 use App\Models\Media;
