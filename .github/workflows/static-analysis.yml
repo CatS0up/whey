@@ -21,5 +21,3 @@ jobs:
 
       - name: Run Static Analysis
         run: ./vendor/bin/phpstan --error-format=github
-        with:
-          configuration: ../phpstan.neon
