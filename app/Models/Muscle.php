@@ -31,4 +31,7 @@ class Muscle extends Model implements ThumbnailInterface, SmallThumbnailInterfac
 
     /** @var string */
     protected $dataClass = MuscleData::class;
+
+    /** @var bool */
+    public $timestamps = false;
 }
