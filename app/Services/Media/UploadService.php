@@ -22,7 +22,7 @@ class UploadService
         return $this->uploadThumbnailAction->execute($file);
     }
 
-    public function thumbnailSmall(UploadedFile $file): FileData
+    public function smallThumbnail(UploadedFile $file): FileData
     {
         return $this->uploadSmallThumbnailAction->execute($file);
     }
