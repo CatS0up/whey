@@ -28,32 +28,31 @@ class UpsertSmallThumbnailActionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_upsert_muscle_small_thumbnail_when_small_thumbnail_not_exists(): void
+    public function it_should_upsert_target_small_thumbnail_when_small_thumbnail_not_exists(): void
     {
         // It implements SmallThumbnailInterface
-        $muscle = Muscle::factory()->create();
+        $target = Muscle::factory()->create();
 
-        $this->assertFalse($muscle->smallThumbnail->exists());
+        $this->assertFalse($target->smallThumbnail->exists());
 
         $this->actionUnderTest->execute(
-            target: $muscle,
+            target: $target,
             thumbnail: $this->createTestImage(),
         );
 
-        $this->assertTrue($muscle->smallThumbnail->exists());
+        $this->assertTrue($target->smallThumbnail->exists());
     }
 
     /** @test */
-    public function it_should_upsert_muscle_small_thumbnail_when_small_thumbnail_exists(): void
+    public function it_should_upsert_target_small_thumbnail_when_small_thumbnail_exists(): void
     {
         // It implements SmallThumbnailInterface
-        $muscle = Muscle::factory()->create();
+        $target = Muscle::factory()->create();
         $smallThumbnailData = $this->uploadService->smallThumbnail($this->createTestImage());
         $smallThumbnail = Media::query()->create(Arr::except($smallThumbnailData->all(), ['id']));
+        $target->smallThumbnail()->save($smallThumbnail);
 
-        $muscle->smallThumbnail()->save($smallThumbnail);
-
-        $this->assertTrue($muscle->smallThumbnail->exists());
+        $this->assertTrue($target->smallThumbnail->exists());
 
         $newSmallThumbnailFile = $this->createTestImage(
             name: 'new_small_thumbnail.jpg',
@@ -61,12 +60,10 @@ class UpsertSmallThumbnailActionTest extends TestCase
             height: 10,
         );
         $newSmallThumbnailData = $this->actionUnderTest->execute(
-            target: $muscle,
+            target: $target,
             thumbnail: $newSmallThumbnailFile
         )
             ->getData();
-
-        $muscle->smallThumbnail->refresh();
 
         $this->assertNotEquals($smallThumbnailData->path, $newSmallThumbnailData->path);
     }

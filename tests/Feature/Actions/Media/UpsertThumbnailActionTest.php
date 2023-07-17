@@ -28,32 +28,31 @@ class UpsertThumbnailActionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_upsert_muscle_thumbnail_when_thumbnail_not_exists(): void
+    public function it_should_upsert_target_thumbnail_when_thumbnail_not_exists(): void
     {
         // It implements ThumbnailInterface
-        $muscle = Muscle::factory()->create();
+        $target = Muscle::factory()->create();
 
-        $this->assertFalse($muscle->thumbnail->exists());
+        $this->assertFalse($target->thumbnail->exists());
 
         $this->actionUnderTest->execute(
-            target: $muscle,
+            target: $target,
             thumbnail: $this->createTestImage(),
         );
 
-        $this->assertTrue($muscle->thumbnail->exists());
+        $this->assertTrue($target->thumbnail->exists());
     }
 
     /** @test */
-    public function it_should_upsert_muscle_thumbnail_when_thumbnail_exists(): void
+    public function it_should_upsert_target_thumbnail_when_thumbnail_exists(): void
     {
         // It implements ThumbnailInterface
-        $muscle = Muscle::factory()->create();
+        $target = Muscle::factory()->create();
         $thumbnailData = $this->uploadService->thumbnail($this->createTestImage());
         $thumbnail = Media::query()->create(Arr::except($thumbnailData->all(), ['id']));
+        $target->thumbnail()->save($thumbnail);
 
-        $muscle->thumbnail()->save($thumbnail);
-
-        $this->assertTrue($muscle->thumbnail->exists());
+        $this->assertTrue($target->thumbnail->exists());
 
         $newThumbnailFile = $this->createTestImage(
             name: 'new_thumbnail.jpg',
@@ -61,12 +60,10 @@ class UpsertThumbnailActionTest extends TestCase
             height: 10,
         );
         $newThumbnailData = $this->actionUnderTest->execute(
-            target: $muscle,
+            target: $target,
             thumbnail: $newThumbnailFile
         )
             ->getData();
-
-        $muscle->thumbnail->refresh();
 
         $this->assertNotEquals($thumbnailData->path, $newThumbnailData->path);
     }
