@@ -7,4 +7,5 @@ namespace App\Exceptions\Media;
 use App\Exceptions\Exception;
 
 class FileNotFound extends Exception
-{}
+{
+}

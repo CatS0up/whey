@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DataObjects;
 
-use App\Models\Media;
 use Spatie\LaravelData\Data;
 
 final class FileData extends Data
@@ -19,5 +18,6 @@ final class FileData extends Data
         public readonly string $file_hash,
         public readonly ?string $collection = null,
         public readonly int $size,
-    ) {}
+    ) {
+    }
 }
