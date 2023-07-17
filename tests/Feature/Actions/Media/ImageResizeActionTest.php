@@ -126,17 +126,6 @@ class ImageResizeActionTest extends TestCase
         $this->assertEquals($fullPath, $this->readFullImagePath($resized));
     }
 
-    private function getImageDimensionInfo(FileData $fileData): array
-    {
-        $fullPath = $this->readFullImagePath($fileData);
-        $imageInfo = getimagesize($fullPath);
-
-        return [
-            'width' => $imageInfo[0],
-            'height' => $imageInfo[1],
-        ];
-    }
-
     private function uploadTestingFile(
         int $width = self::DEFAULT_TEST_IMAGE_WIDTH,
         int $height = self::DEFAULT_TEST_IMAGE_HEIGHT,

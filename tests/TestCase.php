@@ -53,4 +53,15 @@ abstract class TestCase extends BaseTestCase
     {
         return Storage::disk($fileData->disk)->path($fileData->path);
     }
+
+    protected function getImageDimensionInfo(FileData $fileData): array
+    {
+        $fullPath = $this->readFullImagePath($fileData);
+        $imageInfo = getimagesize($fullPath);
+
+        return [
+            'width' => $imageInfo[0],
+            'height' => $imageInfo[1],
+        ];
+    }
 }
