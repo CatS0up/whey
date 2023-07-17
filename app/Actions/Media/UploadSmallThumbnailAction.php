@@ -20,7 +20,7 @@ class UploadSmallThumbnailAction
     {
         $name = $file->hashName();
 
-        $path = $this->manager->disk($this->disk)->put("small_thumbnails", $file);
+        $path = $file->store('small_thumbnails', $this->disk);
         $fullPath = $this->manager->disk($this->disk)->path($path);
 
         return new FileData(
