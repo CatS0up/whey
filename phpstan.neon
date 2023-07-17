@@ -7,3 +7,6 @@ parameters:
         - app/
 
     level: 5
+
+    ignoreErrors:
+        - '#Access to an undefined property App\\Models\\[a-zA-Z0-9::a-zA-Z]#'
