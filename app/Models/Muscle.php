@@ -21,13 +21,13 @@ class Muscle extends Model implements ThumbnailInterface, SmallThumbnailInterfac
     use WithData;
 
     /** @var int */
-    public const THUMBNAIL_WIDTH = 0; // TODO: Set default value
+    public const THUMBNAIL_WIDTH = 200;
     /** @var int */
-    public const THUMBNAIL_HEIGHT = 0; // TODO: Set default value
+    public const THUMBNAIL_HEIGHT = 200;
     /** @var int */
-    public const SMALL_THUMBNAIL_WIDTH = 0; // TODO: Set default value
+    public const SMALL_THUMBNAIL_WIDTH = 50;
     /** @var int */
-    public const SMALL_THUMBNAIL_HEIGHT = 0; // TODO: Set default value
+    public const SMALL_THUMBNAIL_HEIGHT = 50;
 
     /** @var string */
     protected $dataClass = MuscleData::class;
