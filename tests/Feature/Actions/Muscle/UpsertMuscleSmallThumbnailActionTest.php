@@ -4,23 +4,64 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Actions\Muscle;
 
+use App\Actions\Muscle\UpsertMuscleSmallThumbnailAction;
+use App\Models\Media;
+use App\Models\Muscle;
+use App\Services\Media\UploadService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class UpsertMuscleSmallThumbnailActionTest extends TestCase
 {
-    /** @test */
-    public function it_should_create_and_resize_muscle_small_thumbnail_when_choosen_muscle_does_not_have_own_small_thumbnail(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    private UpsertMuscleSmallThumbnailAction $actionUnderTest;
+    private UploadService $uploadService;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->actionUnderTest = app()->make(UpsertMuscleSmallThumbnailAction::class);
+        $this->uploadService = app()->make(UploadService::class);
     }
 
     /** @test */
-    public function it_should_create_and_resize_muscle_small_thumbnail_when_choosen_muscle_have_own_small_thumbnail(): void
+    public function it_should_create_and_resize_muscle_small_thumbnail_when_choosen_muscle_does_not_has_own_small_thumbnail(): void
     {
-        $response = $this->get('/');
+        $muscle = Muscle::factory()->create();
+        $smallThumbnail = $this->createTestImage(width: 20, height: 20);
 
-        $response->assertStatus(200);
+        $this->assertFalse($muscle->smallThumbnail->exists());
+
+        $upsertedSmallThumbnail = $this->actionUnderTest->execute($muscle->id, $smallThumbnail);
+        $dimension = $this->getImageDimensionInfo($upsertedSmallThumbnail->getData());
+
+        $this->assertTrue($muscle->smallThumbnail->exists());
+        $this->assertEquals(200, $dimension['width']);
+        $this->assertEquals(200, $dimension['height']);
+    }
+
+    /** @test */
+    public function it_should_create_and_resize_muscle_small_thumbnail_when_choosen_muscle_has_own_small_thumbnail(): void
+    {
+        $muscle = Muscle::factory()->create();
+        $smallThumbnailData = $this->uploadService->thumbnail($this->createTestImage());
+        $smallThumbnail = Media::query()->create(Arr::except($smallThumbnailData->all(), ['id']));
+        $muscle->thumbnail()->save($smallThumbnail);
+
+        $this->assertTrue($muscle->smallThumbnail->exists());
+
+        $newThumbnail = $this->createTestImage(width: 20, height: 20);
+        $upsertedSmallThumbnail = $this->actionUnderTest->execute($muscle->id, $newThumbnail);
+        $newSmallThumbnailData = $upsertedSmallThumbnail->getData();
+        $dimension = $this->getImageDimensionInfo($newSmallThumbnailData);
+
+        $this->assertTrue($muscle->thumbnail->exists());
+        $this->assertEquals(200, $dimension['width']);
+        $this->assertEquals(200, $dimension['height']);
+
+        $this->assertNotEquals($smallThumbnailData->name, $newSmallThumbnailData->name);
     }
 }
