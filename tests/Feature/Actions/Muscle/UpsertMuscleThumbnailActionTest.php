@@ -28,7 +28,7 @@ class UpsertMuscleThumbnailActionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_create_and_resize_muscle_thumbnail_when_choosen_muscle_does_not_have_own_thumbnail(): void
+    public function it_should_create_and_resize_muscle_thumbnail_when_choosen_muscle_does_not_has_own_thumbnail(): void
     {
         $muscle = Muscle::factory()->create();
         $thumbnail = $this->createTestImage(width: 20, height: 20);
@@ -44,7 +44,7 @@ class UpsertMuscleThumbnailActionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_create_and_resize_muscle_thumbnail_when_choosen_muscle_have_own_thumbnail(): void
+    public function it_should_create_and_resize_muscle_thumbnail_when_choosen_muscle_has_own_thumbnail(): void
     {
         $muscle = Muscle::factory()->create();
         $thumbnailData = $this->uploadService->thumbnail($this->createTestImage());
