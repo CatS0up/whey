@@ -21,12 +21,12 @@ class UpsertMuscleThumbnailAction
     ) {
     }
 
-    public function execute(int $id, UploadedFile $thumbnail): Media
+    public function execute(int $id, UploadedFile $file): Media
     {
         /** @var Muscle $target */
         $target = $this->muscle->query()->findOrFail($id);
 
-        $thumbnail = $this->upsertThumbnailAction->execute($target, $thumbnail);
+        $thumbnail = $this->upsertThumbnailAction->execute($target, $file);
 
         /** @var FileData $fileData */
         $fileData = $thumbnail->getData();
