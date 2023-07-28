@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\DataObjects\FileData;
+use App\Models\Muscle;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -63,5 +64,10 @@ abstract class TestCase extends BaseTestCase
             'width' => $imageInfo[0],
             'height' => $imageInfo[1],
         ];
+    }
+
+    protected function createMediableModel(): Muscle
+    {
+        return Muscle::factory()->create();
     }
 }
