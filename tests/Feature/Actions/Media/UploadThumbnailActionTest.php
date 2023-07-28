@@ -6,18 +6,24 @@ namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UploadThumbnailAction;
 use App\DataObjects\FileData;
+use App\Models\Muscle;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class UploadThumbnailActionTest extends TestCase
 {
+    use RefreshDatabase;
+
     private UploadThumbnailAction $actionUnderTest;
+    private Muscle $mediableModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(UploadThumbnailAction::class);
+        $this->mediableModel = $this->createMediableModel();
     }
 
     /**
@@ -27,7 +33,7 @@ class UploadThumbnailActionTest extends TestCase
     {
         $thumbnail = $this->createTestImage();
 
-        $thumbnailData = $this->actionUnderTest->execute($thumbnail);
+        $thumbnailData = $this->actionUnderTest->execute($thumbnail, $this->mediableModel->mediable_info);
 
         Storage::disk(self::TEST_DISK)->assertExists($thumbnailData->path);
     }
@@ -38,8 +44,9 @@ class UploadThumbnailActionTest extends TestCase
     public function it_should_return_correct_file_data_object_when_upload_is_succeed(): void
     {
         $thumbnail = $this->createTestImage();
+        $mediableModelInfo = $this-> mediableModel->mediable_info;
 
-        $actual = $this->actionUnderTest->execute($thumbnail);
+        $actual = $this->actionUnderTest->execute($thumbnail, $mediableModelInfo);
 
         // Hash comes from config(app.uploads.hash)
         $expectedHash = hash_file(
@@ -52,7 +59,7 @@ class UploadThumbnailActionTest extends TestCase
         $this->assertEquals($thumbnail->hashName(), $actual->name);
         $this->assertEquals($thumbnail->getClientOriginalName(), $actual->file_name);
         $this->assertEquals($thumbnail->getMimeType(), $actual->mime_type);
-        $this->assertEquals("thumbnails/{$actual->name}", $actual->path);
+        $this->assertEquals("thumbnails/{$mediableModelInfo->getSubDirectoryFilePath()}/{$actual->name}", $actual->path);
         $this->assertEquals(self::TEST_DISK, $actual->disk);
         $this->assertEquals($thumbnail->getSize(), $actual->size);
         $this->assertEquals($expectedHash, $actual->file_hash);

@@ -7,15 +7,20 @@ namespace Tests\Feature\Actions\Media;
 use App\Actions\Media\ImageResizeAction;
 use App\DataObjects\FileData;
 use App\Exceptions\Media\FileNotFound;
+use App\Models\Muscle;
 use App\Services\Media\UploadService;
 use App\ValueObjects\Media\Dimension;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ImageResizeActionTest extends TestCase
 {
+    use RefreshDatabase;
+
     private ImageResizeAction $actionUnderTest;
     private UploadService $uploadService;
+    private Muscle $mediableModel;
 
     protected function setUp(): void
     {
@@ -23,6 +28,7 @@ class ImageResizeActionTest extends TestCase
 
         $this->actionUnderTest = app()->make(ImageResizeAction::class);
         $this->uploadService = app()->make(UploadService::class);
+        $this->mediableModel = $this->createMediableModel();
     }
 
     /**
@@ -53,7 +59,7 @@ class ImageResizeActionTest extends TestCase
      */
     public function it_should_resize_given_image(): void
     {
-        $imageFileData = $this->uploadTestingFile();
+        $imageFileData = $this->createTestingFileWithModel();
 
         $dimension = $this->getImageDimensionInfo($imageFileData);
         $this->assertEquals(100, $dimension['width']);
@@ -75,7 +81,7 @@ class ImageResizeActionTest extends TestCase
     /** @test */
     public function it_should_resize_given_image_with_aspect_ratio(): void
     {
-        $imageFileData = $this->uploadTestingFile();
+        $imageFileData = $this->createTestingFileWithModel();
 
         $dimension = $this->getImageDimensionInfo($imageFileData);
         $this->assertEquals(100, $dimension['width']);
@@ -100,7 +106,7 @@ class ImageResizeActionTest extends TestCase
      */
     public function it_should_overwrite_previous_image_after_resize(): void
     {
-        $imageFileData = $this->uploadTestingFile();
+        $imageFileData = $this->createTestingFileWithModel();
 
         $this->assertCount(1, Storage::disk(self::TEST_DISK)->allFiles());
 
@@ -118,7 +124,7 @@ class ImageResizeActionTest extends TestCase
     /** @test */
     public function it_should_not_change_image_path_after_resize(): void
     {
-        $image = $this->uploadTestingFile();
+        $image = $this->createTestingFileWithModel();
         $fullPath = Storage::disk($image->disk)->path($image->path);
 
         $resized = $this->actionUnderTest->execute($image, new Dimension(10, 10));
@@ -126,17 +132,20 @@ class ImageResizeActionTest extends TestCase
         $this->assertEquals($fullPath, $this->readFullImagePath($resized));
     }
 
-    private function uploadTestingFile(
+    private function createTestingFileWithModel(
         int $width = self::DEFAULT_TEST_IMAGE_WIDTH,
         int $height = self::DEFAULT_TEST_IMAGE_HEIGHT,
         string $name = self::TEST_IMAGE_NAME,
     ): FileData {
+        $mediableModelInfo = $this->mediableModel->mediable_info;
+
         return $this->uploadService->thumbnail(
             $this->createTestImage(
                 width: $width,
                 height: $height,
                 name: $name,
-            )
+            ),
+            $mediableModelInfo,
         );
     }
 }

@@ -36,8 +36,8 @@ class UpsertSmallThumbnailActionTest extends TestCase
         $this->assertFalse($target->smallThumbnail->exists());
 
         $this->actionUnderTest->execute(
-            target: $target,
-            thumbnail: $this->createTestImage(),
+            file: $this->createTestImage(),
+            mediableInfo: $target->mediable_info,
         );
 
         $this->assertTrue($target->smallThumbnail->exists());
@@ -48,7 +48,7 @@ class UpsertSmallThumbnailActionTest extends TestCase
     {
         // It implements SmallThumbnailInterface
         $target = Muscle::factory()->create();
-        $smallThumbnailData = $this->uploadService->smallThumbnail($this->createTestImage());
+        $smallThumbnailData = $this->uploadService->smallThumbnail($this->createTestImage(), $target->mediable_info);
         $smallThumbnail = Media::query()->create(Arr::except($smallThumbnailData->all(), ['id']));
         $target->smallThumbnail()->save($smallThumbnail);
 
@@ -60,8 +60,8 @@ class UpsertSmallThumbnailActionTest extends TestCase
             height: 10,
         );
         $newSmallThumbnailData = $this->actionUnderTest->execute(
-            target: $target,
-            thumbnail: $newSmallThumbnailFile
+            file: $newSmallThumbnailFile,
+            mediableInfo: $target->mediable_info,
         )
             ->getData();
 

@@ -36,8 +36,8 @@ class UpsertThumbnailActionTest extends TestCase
         $this->assertFalse($target->thumbnail->exists());
 
         $this->actionUnderTest->execute(
-            target: $target,
-            thumbnail: $this->createTestImage(),
+            file: $this->createTestImage(),
+            mediableInfo: $target->mediable_info,
         );
 
         $this->assertTrue($target->thumbnail->exists());
@@ -48,7 +48,7 @@ class UpsertThumbnailActionTest extends TestCase
     {
         // It implements ThumbnailInterface
         $target = Muscle::factory()->create();
-        $thumbnailData = $this->uploadService->thumbnail($this->createTestImage());
+        $thumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $target->mediable_info);
         $thumbnail = Media::query()->create(Arr::except($thumbnailData->all(), ['id']));
         $target->thumbnail()->save($thumbnail);
 
@@ -60,8 +60,8 @@ class UpsertThumbnailActionTest extends TestCase
             height: 10,
         );
         $newThumbnailData = $this->actionUnderTest->execute(
-            target: $target,
-            thumbnail: $newThumbnailFile
+            file: $newThumbnailFile,
+            mediableInfo: $target->mediable_info,
         )
             ->getData();
 
