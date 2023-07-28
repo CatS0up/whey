@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects\Media;
 
-use App\ValueObjects\Media\Dimension as MediaDimension;
+use App\ValueObjects\Media\Dimension;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
@@ -18,7 +18,7 @@ class DimensionTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Width should be greater or equal to 1');
 
-        new MediaDimension(-1, 100);
+        new Dimension(-1, 100);
     }
 
     /**
@@ -29,6 +29,6 @@ class DimensionTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Height should be greater or equal to 1');
 
-        new MediaDimension(100, -1);
+        new Dimension(100, -1);
     }
 }
