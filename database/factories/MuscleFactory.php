@@ -26,7 +26,6 @@ class MuscleFactory extends Factory
         );
         return [
             'name' => fake()->word(),
-            'description' => fake()->sentence(),
             'muscle_group' => fake()->randomElement($groupValues),
         ];
     }
