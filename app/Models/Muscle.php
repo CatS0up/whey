@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\DataObjects\MuscleData;
 use App\Models\Concerns\HasMediableRelationship;
+use App\Models\Concerns\HasSelectInputData;
 use App\Models\Concerns\HasSmallThumbnail;
 use App\Models\Concerns\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ class Muscle extends Model
 {
     use HasFactory;
     use HasMediableRelationship;
+    use HasSelectInputData;
     use HasSmallThumbnail;
     use HasThumbnail;
     use WithData;
