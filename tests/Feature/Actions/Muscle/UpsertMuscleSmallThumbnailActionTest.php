@@ -39,8 +39,8 @@ class UpsertMuscleSmallThumbnailActionTest extends TestCase
         $dimension = $this->getImageDimensionInfo($upsertedSmallThumbnail->getData());
 
         $this->assertTrue($muscle->smallThumbnail->exists());
-        $this->assertEquals(200, $dimension['width']);
-        $this->assertEquals(200, $dimension['height']);
+        $this->assertEquals(50, $dimension['width']);
+        $this->assertEquals(50, $dimension['height']);
     }
 
     /** @test */
@@ -59,8 +59,8 @@ class UpsertMuscleSmallThumbnailActionTest extends TestCase
         $dimension = $this->getImageDimensionInfo($newSmallThumbnailData);
 
         $this->assertTrue($muscle->thumbnail->exists());
-        $this->assertEquals(200, $dimension['width']);
-        $this->assertEquals(200, $dimension['height']);
+        $this->assertEquals(50, $dimension['width']);
+        $this->assertEquals(50, $dimension['height']);
 
         $this->assertNotEquals($smallThumbnailData->name, $newSmallThumbnailData->name);
     }

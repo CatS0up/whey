@@ -32,7 +32,7 @@ class UpsertMuscleSmallThumbnailAction
         $fileData = $smallThumbnail->getData();
         $this->imageResizeAction->execute(
             fileData: $fileData,
-            dimension: new Dimension(Muscle::THUMBNAIL_WIDTH, Muscle::THUMBNAIL_HEIGHT),
+            dimension: new Dimension(Muscle::SMALL_THUMBNAIL_WIDTH, Muscle::SMALL_THUMBNAIL_HEIGHT),
             shouldAspectRatio: ImageResizeAction::SHOULD_ASPECT_RATIO,
         );
 
