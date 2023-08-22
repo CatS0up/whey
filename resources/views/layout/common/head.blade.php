@@ -4,5 +4,5 @@
     <title>{{ $appTitle }}</title>
 
     @include('layout.common.css')
-    @yield('styles')
+    @stack('styles')
 </head>
