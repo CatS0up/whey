@@ -42,4 +42,19 @@ class Muscle extends Model
         'name',
         'muscle_group',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'muscle_group' => MuscleGroup::class,
+    ];
+
+    /** @var string */
+    protected $dataClass = MuscleData::class;
+
+    /** @var bool */
+    public $timestamps = false;
 }
