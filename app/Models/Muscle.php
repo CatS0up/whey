@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\DataObjects\MuscleData;
+use App\Enums\MuscleGroup;
 use App\Models\Concerns\HasMediableRelationship;
 use App\Models\Concerns\HasSelectInputData;
 use App\Models\Concerns\HasSmallThumbnail;
 use App\Models\Concerns\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\LaravelData\WithData;
 
 class Muscle extends Model
@@ -31,9 +33,13 @@ class Muscle extends Model
     /** @var int */
     public const SMALL_THUMBNAIL_HEIGHT = 50;
 
-    /** @var string */
-    protected $dataClass = MuscleData::class;
-
-    /** @var bool */
-    public $timestamps = false;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'muscle_group',
+    ];
 }
