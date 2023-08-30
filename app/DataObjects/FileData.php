@@ -21,4 +21,9 @@ final class FileData extends Data
         public readonly int $size,
     ) {
     }
+
+    public function allForUpsert(): array
+    {
+        return Arr::except($this->all(), ['id']);
+    }
 }
