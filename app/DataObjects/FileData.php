@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataObjects;
 
+use Illuminate\Support\Arr;
 use Spatie\LaravelData\Data;
 
 final class FileData extends Data
@@ -13,10 +14,10 @@ final class FileData extends Data
         public readonly string $name,
         public readonly string $file_name,
         public readonly string $mime_type,
-        public readonly ?string $path = null,
+        public readonly string $path,
         public readonly string $disk,
         public readonly string $file_hash,
-        public readonly ?string $collection = null,
+        public readonly string $collection,
         public readonly int $size,
     ) {
     }
