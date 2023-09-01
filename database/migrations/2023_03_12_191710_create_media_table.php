@@ -19,7 +19,7 @@ return new class () extends Migration {
             $table->string('file_name');
             $table->string('mime_type');
             $table->string('path');
-            $table->string('disk')->default('local');
+            $table->string('disk')->default(config('app.uploads.disk'));
             $table->string('file_hash', 64);
             $table->string('collection')->nullable();
 
