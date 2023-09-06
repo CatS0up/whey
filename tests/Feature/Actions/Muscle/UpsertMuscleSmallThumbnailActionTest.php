@@ -47,7 +47,7 @@ class UpsertMuscleSmallThumbnailActionTest extends TestCase
     public function it_should_create_and_resize_muscle_small_thumbnail_when_choosen_muscle_has_own_small_thumbnail(): void
     {
         $muscle = Muscle::factory()->create();
-        $smallThumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $muscle->mediable_info);
+        $smallThumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $muscle);
         $smallThumbnail = Media::query()->create(Arr::except($smallThumbnailData->all(), ['id']));
         $muscle->thumbnail()->save($smallThumbnail);
 

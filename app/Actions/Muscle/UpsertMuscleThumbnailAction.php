@@ -26,7 +26,7 @@ class UpsertMuscleThumbnailAction
         /** @var Muscle $target */
         $target = $this->muscle->query()->findOrFail($id);
 
-        $thumbnail = $this->upsertThumbnailAction->execute($file, $target->mediable_info);
+        $thumbnail = $this->upsertThumbnailAction->execute($file, $target);
 
         /** @var FileData $fileData */
         $fileData = $thumbnail->getData();
