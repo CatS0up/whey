@@ -45,7 +45,7 @@ final class ExerciseData extends Data
         $smallThumbnailId = data_get($data, 'small_thumbnail_id');
         $muscleIds =  data_get($data, 'muscle_ids');
 
-        return static::from(
+        return self::from(
             [
                 'id' => data_get($data, 'id'),
                 'name' => data_get($data, 'name'),
