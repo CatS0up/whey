@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Actions\Media;
 
 use App\Exceptions\Media\ModelWithoutThumbnailRelationship;
+use App\Models\Contracts\Mediable;
 use App\Models\Media;
 use App\Services\Media\UploadService;
-use App\ValueObjects\Media\MediableInfo;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
 
 class UpsertThumbnailAction
 {
@@ -19,29 +18,26 @@ class UpsertThumbnailAction
     ) {
     }
 
-    public function execute(UploadedFile $file, MediableInfo $mediableInfo): Media
+    public function execute(UploadedFile $file, Mediable $model): Media
     {
-        if ( ! method_exists($mediableInfo->type, 'thumbnail')) {
+        if ( ! method_exists($model, 'thumbnail')) {
             // TODO: Tłumaczenia
-            throw ModelWithoutThumbnailRelationship::because("{$mediableInfo->type} model does not have thumbnail relationship");
+            throw ModelWithoutThumbnailRelationship::because("{$model->type()} model does not have thumbnail relationship");
         }
 
-
-        $target = $mediableInfo->type::query()->findOrFail($mediableInfo->id);
-
-        if ($target->thumbnail()->exists()) {
-            $this->deleteFileAction->execute($target->thumbnail->getData());
+        if ($model->thumbnail()->exists()) {
+            $this->deleteFileAction->execute($model->thumbnail->getData());
         }
 
-        $newThumbnailData = $this->uploadService->thumbnail($file, $mediableInfo);
+        $newThumbnailData = $this->uploadService->thumbnail($file, $model);
 
-        return $target->thumbnail->updateOrCreate(
+        return $model->thumbnail->updateOrCreate(
             [
-                'mediable_id' => $mediableInfo->id,
-                'mediable_type' => $mediableInfo->type,
+                'mediable_id' => $model->id(),
+                'mediable_type' => $model->type(),
                 'collection' => 'thumbnails',
             ],
-            Arr::except($newThumbnailData->all(), ['id']),
+            $newThumbnailData->allForUpsert(),
         );
     }
 }

@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Actions\Media;
 
 use App\Exceptions\Media\ModelWithoutSmallThumbnailRelationship;
+use App\Models\Contracts\Mediable;
 use App\Models\Media;
 use App\Services\Media\UploadService;
-use App\ValueObjects\Media\MediableInfo;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
 
 class UpsertSmallThumbnailAction
 {
@@ -19,28 +18,25 @@ class UpsertSmallThumbnailAction
     ) {
     }
 
-    public function execute(UploadedFile $file, MediableInfo $mediableInfo): Media
+    public function execute(UploadedFile $file, Mediable $model): Media
     {
-        if ( ! method_exists($mediableInfo->type, 'smallThumbnail')) {
-            // TODO: Tłumaczenia
-            throw ModelWithoutSmallThumbnailRelationship::because("{$mediableInfo->type} model does not have smallThumbnail relationship");
+        if ( ! method_exists($model, 'smallThumbnail')) {
+            throw ModelWithoutSmallThumbnailRelationship::because("{$model->type()} model does not have smallThumbnail relationship");
         }
 
-        $target = $mediableInfo->type::query()->findOrFail($mediableInfo->id);
-
-        if ($target->smallThumbnail()->exists()) {
-            $this->deleteFileAction->execute($target->smallThumbnail->getData());
+        if ($model->smallThumbnail()->exists()) {
+            $this->deleteFileAction->execute($model->smallThumbnail->getData());
         }
 
-        $newSmallThumbnailData = $this->uploadService->smallThumbnail($file, $mediableInfo);
+        $newSmallThumbnailData = $this->uploadService->smallThumbnail($file, $model);
 
-        return $target->smallThumbnail->updateOrCreate(
+        return $model->smallThumbnail->updateOrCreate(
             [
-                'mediable_id' => $mediableInfo->id,
-                'mediable_type' => $mediableInfo->type,
+                'mediable_id' => $model->id(),
+                'mediable_type' => $model->type(),
                 'collection' => 'small_thumbnails',
             ],
-            Arr::except($newSmallThumbnailData->all(), ['id']),
+            $newSmallThumbnailData->allForUpsert()
         );
     }
 }

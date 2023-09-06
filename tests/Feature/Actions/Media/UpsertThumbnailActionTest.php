@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UpsertThumbnailAction;
+use App\Models\Contracts\Mediable;
 use App\Models\Media;
-use App\Models\Muscle;
 use App\Services\Media\UploadService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
@@ -18,6 +18,7 @@ class UpsertThumbnailActionTest extends TestCase
 
     private UpsertThumbnailAction $actionUnderTest;
     private UploadService $uploadService;
+    private Mediable $mediableModel;
 
     protected function setUp(): void
     {
@@ -25,19 +26,19 @@ class UpsertThumbnailActionTest extends TestCase
 
         $this->actionUnderTest = app()->make(UpsertThumbnailAction::class);
         $this->uploadService = app()->make(UploadService::class);
+        $this->mediableModel = $this->createMediableModel();
     }
 
     /** @test */
     public function it_should_upsert_target_thumbnail_when_thumbnail_not_exists(): void
     {
-        // It implements ThumbnailInterface
-        $target = Muscle::factory()->create();
+        $target = $this->mediableModel;
 
         $this->assertFalse($target->thumbnail->exists());
 
         $this->actionUnderTest->execute(
             file: $this->createTestImage(),
-            mediableInfo: $target->mediable_info,
+            model: $target,
         );
 
         $this->assertTrue($target->thumbnail->exists());
@@ -46,8 +47,8 @@ class UpsertThumbnailActionTest extends TestCase
     /** @test */
     public function it_should_upsert_target_thumbnail_when_thumbnail_exists(): void
     {
-        $target = Muscle::factory()->create();
-        $thumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $target->mediable_info);
+        $target = $this->mediableModel;
+        $thumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $target);
         $thumbnail = Media::query()->create(Arr::except($thumbnailData->all(), ['id']));
         $target->thumbnail()->save($thumbnail);
 
@@ -60,7 +61,7 @@ class UpsertThumbnailActionTest extends TestCase
         );
         $newThumbnailData = $this->actionUnderTest->execute(
             file: $newThumbnailFile,
-            mediableInfo: $target->mediable_info,
+            model: $target,
         )
             ->getData();
 

@@ -34,7 +34,7 @@ class DeleteFileActionTest extends TestCase
     public function it_should_delete_thumbnail(): void
     {
         $thumbnail = $this->createTestImage();
-        $thumbnailData = $this->uploadService->thumbnail($thumbnail, $this->mediableModel->mediable_info);
+        $thumbnailData = $this->uploadService->thumbnail($thumbnail, $this->mediableModel);
 
         Storage::disk(self::TEST_DISK)->assertExists($thumbnailData->path);
 

@@ -137,15 +137,13 @@ class ImageResizeActionTest extends TestCase
         int $height = self::DEFAULT_TEST_IMAGE_HEIGHT,
         string $name = self::TEST_IMAGE_NAME,
     ): FileData {
-        $mediableModelInfo = $this->mediableModel->mediable_info;
-
         return $this->uploadService->thumbnail(
             $this->createTestImage(
                 width: $width,
                 height: $height,
                 name: $name,
             ),
-            $mediableModelInfo,
+            $this->mediableModel,
         );
     }
 }

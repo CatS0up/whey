@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\Media;
 
 use App\DataObjects\FileData;
-use App\ValueObjects\Media\MediableInfo;
+use App\Models\Contracts\Mediable;
 use Illuminate\Filesystem\FilesystemManager as FileManager;
 use Illuminate\Http\UploadedFile;
 
@@ -17,11 +17,11 @@ class UploadThumbnailAction
     ) {
     }
 
-    public function execute(UploadedFile $file, MediableInfo $mediableInfo): FileData
+    public function execute(UploadedFile $file, Mediable $model): FileData
     {
         $name = $file->hashName();
 
-        $path = $file->store("thumbnails/{$mediableInfo->getSubDirectoryFilePath()}", $this->disk);
+        $path = $file->store("thumbnails/{$model->getSubDirectoryFilePath()}", $this->disk);
         $fullPath = $this->manager->disk($this->disk)->path($path);
 
         return new FileData(
