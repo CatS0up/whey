@@ -8,19 +8,22 @@ use App\DataObjects\ExerciseData;
 use App\Enums\DifficultyLevel;
 use App\Enums\ExerciseType;
 use App\Models\Concerns\HasSmallThumbnail;
+use App\Models\Concerns\HasSubdirectoryFilePath;
 use App\Models\Concerns\HasThumbnail;
+use App\Models\Contracts\Mediable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\LaravelData\WithData;
 
-class Exercise extends Model
+class Exercise extends Model implements Mediable
 {
     use HasFactory;
     use HasSmallThumbnail;
     use HasThumbnail;
     use WithData;
+    use HasSubdirectoryFilePath;
 
     /** @var bool */
     public const IS_PUBLIC = true;
@@ -60,6 +63,16 @@ class Exercise extends Model
 
     /** @var string */
     protected $dataClass = ExerciseData::class;
+
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function type(): string
+    {
+        return self::class;
+    }
 
     public function author(): BelongsTo
     {
