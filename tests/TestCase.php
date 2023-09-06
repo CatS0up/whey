@@ -6,6 +6,7 @@ namespace Tests;
 
 use App\DataObjects\FileData;
 use App\Models\Muscle;
+use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -69,5 +70,10 @@ abstract class TestCase extends BaseTestCase
     protected function createMediableModel(): Muscle
     {
         return Muscle::factory()->create();
+    }
+
+    protected function createUser(): User
+    {
+        return User::factory()->create();
     }
 }
