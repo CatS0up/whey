@@ -40,13 +40,4 @@ class ExerciseFactory extends Factory
             'is_public' => fake()->boolean(),
         ];
     }
-
-    public function withAuthor(): self
-    {
-        return $this->state(
-            fn (array $attributes): array => [
-                'author_id' => User::factory()->create()->value('id'),
-            ],
-        );
-    }
 }
