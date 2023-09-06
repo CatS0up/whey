@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\DataObjects\FileData;
+use App\Models\Contracts\Mediable;
 use App\Models\Muscle;
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -67,7 +68,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    protected function createMediableModel(): Muscle
+    protected function createMediableModel(): Mediable|Muscle
     {
         return Muscle::factory()->create();
     }
