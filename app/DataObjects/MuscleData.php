@@ -8,6 +8,7 @@ use App\Enums\MuscleGroup;
 use App\Models\Muscle;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\EnumCast;
+use Spatie\LaravelData\Contracts\DataObject;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
 
@@ -30,12 +31,12 @@ final class MuscleData extends Data
             'thumbnail' => Lazy::whenLoaded(
                 relation: 'thumbnail',
                 model: $muscle,
-                value: fn (): FileData => $muscle->thumbnail->getData(),
+                value: fn (): DataObject|FileData => $muscle->thumbnail->getData(),
             ),
             'small_thumbnail' => Lazy::whenLoaded(
                 relation: 'small_thumbnail',
                 model: $muscle,
-                value: fn (): FileData => $muscle->smallThumbnail->getData(),
+                value: fn (): DataObject|FileData => $muscle->smallThumbnail->getData(),
             ),
         ]);
     }

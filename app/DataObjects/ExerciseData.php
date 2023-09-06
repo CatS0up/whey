@@ -14,6 +14,7 @@ use Illuminate\Support\Arr;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\EnumCast;
+use Spatie\LaravelData\Contracts\DataObject;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 use Spatie\LaravelData\Lazy;
@@ -68,12 +69,12 @@ final class ExerciseData extends Data
             'thumbnail' => Lazy::whenLoaded(
                 relation: 'thumbnail',
                 model: $exercise,
-                value: fn (): FileData => $exercise->thumbnail->getData(),
+                value: fn (): DataObject|FileData => $exercise->thumbnail->getData(),
             ),
             'small_thumbnail' => Lazy::whenLoaded(
                 relation: 'small_thumbnail',
                 model: $exercise,
-                value: fn (): FileData => $exercise->smallThumbnail->getData(),
+                value: fn (): DataObject|FileData => $exercise->smallThumbnail->getData(),
             ),
             'muscles' => Lazy::whenLoaded(
                 relation: 'muscles',
