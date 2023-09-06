@@ -6,21 +6,22 @@ namespace App\Models;
 
 use App\DataObjects\MuscleData;
 use App\Enums\MuscleGroup;
-use App\Models\Concerns\HasMediableRelationship;
 use App\Models\Concerns\HasSelectOption;
 use App\Models\Concerns\HasSmallThumbnail;
+use App\Models\Concerns\HasSubdirectoryFilePath;
 use App\Models\Concerns\HasThumbnail;
+use App\Models\Contracts\Mediable;
 use App\Models\Contracts\Selectable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\WithData;
 
-class Muscle extends Model implements Selectable
+class Muscle extends Model implements Selectable, Mediable
 {
     use HasFactory;
-    use HasMediableRelationship;
     use HasSelectOption;
     use HasSmallThumbnail;
+    use HasSubdirectoryFilePath;
     use HasThumbnail;
     use WithData;
 
@@ -66,5 +67,15 @@ class Muscle extends Model implements Selectable
     public function selectOptionLabel(): string
     {
         return $this->name;
+    }
+
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function type(): string
+    {
+        return self::class;
     }
 }
