@@ -46,7 +46,6 @@ class UpsertThumbnailActionTest extends TestCase
     /** @test */
     public function it_should_upsert_target_thumbnail_when_thumbnail_exists(): void
     {
-        // It implements ThumbnailInterface
         $target = Muscle::factory()->create();
         $thumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $target->mediable_info);
         $thumbnail = Media::query()->create(Arr::except($thumbnailData->all(), ['id']));
