@@ -7,19 +7,19 @@ namespace App\Models;
 use App\DataObjects\MuscleData;
 use App\Enums\MuscleGroup;
 use App\Models\Concerns\HasMediableRelationship;
-use App\Models\Concerns\HasSelectInputData;
+use App\Models\Concerns\HasSelectOption;
 use App\Models\Concerns\HasSmallThumbnail;
 use App\Models\Concerns\HasThumbnail;
+use App\Models\Contracts\Selectable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\LaravelData\WithData;
 
-class Muscle extends Model
+class Muscle extends Model implements Selectable
 {
     use HasFactory;
     use HasMediableRelationship;
-    use HasSelectInputData;
+    use HasSelectOption;
     use HasSmallThumbnail;
     use HasThumbnail;
     use WithData;
@@ -57,4 +57,14 @@ class Muscle extends Model
 
     /** @var bool */
     public $timestamps = false;
+
+    public function selectOptionValue(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function selectOptionLabel(): string
+    {
+        return $this->name;
+    }
 }
