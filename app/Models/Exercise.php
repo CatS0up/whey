@@ -11,8 +11,8 @@ use App\Models\Concerns\HasSmallThumbnail;
 use App\Models\Concerns\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\LaravelData\WithData;
 
 class Exercise extends Model
@@ -61,9 +61,9 @@ class Exercise extends Model
     /** @var string */
     protected $dataClass = ExerciseData::class;
 
-    public function author(): HasOne
+    public function author(): BelongsTo
     {
-        return $this->hasOne(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function muscles(): BelongsToMany
