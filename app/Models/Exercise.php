@@ -21,9 +21,9 @@ class Exercise extends Model implements Mediable
 {
     use HasFactory;
     use HasSmallThumbnail;
+    use HasSubdirectoryFilePath;
     use HasThumbnail;
     use WithData;
-    use HasSubdirectoryFilePath;
 
     /** @var bool */
     public const IS_PUBLIC = true;

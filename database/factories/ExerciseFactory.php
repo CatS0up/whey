@@ -6,7 +6,6 @@ namespace Database\Factories;
 
 use App\Enums\DifficultyLevel;
 use App\Enums\ExerciseType;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
