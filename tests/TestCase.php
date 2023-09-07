@@ -6,6 +6,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\Concerns\Media;
+use Tests\Concerns\Authentication;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -26,7 +27,7 @@ abstract class TestCase extends BaseTestCase
             $this->setUpUploadService();
         }
 
-        if (isset($uses[Authenctication::class])) {
+        if (isset($uses[Authentication::class])) {
             $this->setUpUser();
         }
 
