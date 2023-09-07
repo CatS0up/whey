@@ -5,36 +5,31 @@ declare(strict_types=1);
 namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UpsertSmallThumbnailAction;
-use App\Models\Contracts\Mediable;
-use App\Models\Media;
-use App\Models\Muscle;
-use App\Services\Media\UploadService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
+use App\Models\Media;
+use Tests\Concerns\Media as HasMedia;
 use Tests\TestCase;
 
 class UpsertSmallThumbnailActionTest extends TestCase
 {
+    use HasMedia;
     use RefreshDatabase;
 
     private UpsertSmallThumbnailAction $actionUnderTest;
-    private UploadService $uploadService;
-    private Mediable $mediableModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(UpsertSmallThumbnailAction::class);
-        $this->uploadService = app()->make(UploadService::class);
-        $this->mediableModel = $this->createMediableModel();
     }
 
     /** @test */
     public function it_should_upsert_target_small_thumbnail_when_small_thumbnail_not_exists(): void
     {
         // It implements SmallThumbnailInterface
-        $target = Muscle::factory()->create();
+        $target = $this->mediableModel;
 
         $this->assertFalse($target->smallThumbnail->exists());
 
@@ -49,8 +44,7 @@ class UpsertSmallThumbnailActionTest extends TestCase
     /** @test */
     public function it_should_upsert_target_small_thumbnail_when_small_thumbnail_exists(): void
     {
-        // It implements SmallThumbnailInterface
-        $target = Muscle::factory()->create();
+        $target = $this->mediableModel;
         $smallThumbnailData = $this->uploadService->smallThumbnail($this->createTestImage(), $target);
         $smallThumbnail = Media::query()->create(Arr::except($smallThumbnailData->all(), ['id']));
         $target->smallThumbnail()->save($smallThumbnail);

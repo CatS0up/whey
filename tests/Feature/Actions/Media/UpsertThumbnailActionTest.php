@@ -5,28 +5,24 @@ declare(strict_types=1);
 namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UpsertThumbnailAction;
-use App\Models\Contracts\Mediable;
 use App\Models\Media;
-use App\Services\Media\UploadService;
+use Tests\Concerns\Media as HasMedia;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class UpsertThumbnailActionTest extends TestCase
 {
+    use HasMedia;
     use RefreshDatabase;
 
     private UpsertThumbnailAction $actionUnderTest;
-    private UploadService $uploadService;
-    private Mediable $mediableModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(UpsertThumbnailAction::class);
-        $this->uploadService = app()->make(UploadService::class);
-        $this->mediableModel = $this->createMediableModel();
     }
 
     /** @test */

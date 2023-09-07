@@ -5,27 +5,23 @@ declare(strict_types=1);
 namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\DeleteFileAction;
-use App\Models\Muscle;
-use App\Services\Media\UploadService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Tests\Concerns\Media;
 use Tests\TestCase;
 
 class DeleteFileActionTest extends TestCase
 {
+    use Media;
     use RefreshDatabase;
 
     private DeleteFileAction $actionUnderTest;
-    private UploadService $uploadService;
-    private Muscle $mediableModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(DeleteFileAction::class);
-        $this->uploadService = app()->make(UploadService::class);
-        $this->mediableModel = $this->createMediableModel();
     }
 
     /**

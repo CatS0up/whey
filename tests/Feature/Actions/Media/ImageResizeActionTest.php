@@ -7,28 +7,24 @@ namespace Tests\Feature\Actions\Media;
 use App\Actions\Media\ImageResizeAction;
 use App\DataObjects\FileData;
 use App\Exceptions\Media\FileNotFound;
-use App\Models\Muscle;
-use App\Services\Media\UploadService;
 use App\ValueObjects\Media\Dimension;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Tests\Concerns\Media;
 use Tests\TestCase;
 
 class ImageResizeActionTest extends TestCase
 {
+    use Media;
     use RefreshDatabase;
 
     private ImageResizeAction $actionUnderTest;
-    private UploadService $uploadService;
-    private Muscle $mediableModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(ImageResizeAction::class);
-        $this->uploadService = app()->make(UploadService::class);
-        $this->mediableModel = $this->createMediableModel();
     }
 
     /**

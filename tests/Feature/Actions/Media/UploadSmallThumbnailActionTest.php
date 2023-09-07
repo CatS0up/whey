@@ -6,24 +6,23 @@ namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UploadSmallThumbnailAction;
 use App\DataObjects\FileData;
-use App\Models\Contracts\Mediable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Tests\Concerns\Media;
 use Tests\TestCase;
 
 class UploadSmallThumbnailActionTest extends TestCase
 {
+    use Media;
     use RefreshDatabase;
 
     private UploadSmallThumbnailAction $actionUnderTest;
-    private Mediable $mediableModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(UploadSmallThumbnailAction::class);
-        $this->mediableModel = $this->createMediableModel();
     }
 
     /**

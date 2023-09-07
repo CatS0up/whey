@@ -6,7 +6,6 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\Concerns\Media;
-use Tests\Concerns\Authentication;
 
 abstract class TestCase extends BaseTestCase
 {

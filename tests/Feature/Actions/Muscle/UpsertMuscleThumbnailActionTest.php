@@ -7,24 +7,23 @@ namespace Tests\Feature\Actions\Muscle;
 use App\Actions\Muscle\UpsertMuscleThumbnailAction;
 use App\Models\Media;
 use App\Models\Muscle;
-use App\Services\Media\UploadService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
+use Tests\Concerns\Media as HasMedia;
 
 class UpsertMuscleThumbnailActionTest extends TestCase
 {
+    use HasMedia;
     use RefreshDatabase;
 
     private UpsertMuscleThumbnailAction $actionUnderTest;
-    private UploadService $uploadService;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->actionUnderTest = app()->make(UpsertMuscleThumbnailAction::class);
-        $this->uploadService = app()->make(UploadService::class);
     }
 
     /** @test */
