@@ -25,7 +25,7 @@ class MuscleFactory extends Factory
             fn (MuscleGroup $group): string => $group->value,
         );
         return [
-            'name' => fake()->word(),
+            'name' => fake()->unique()->word(),
             'muscle_group' => fake()->randomElement($groupValues),
         ];
     }

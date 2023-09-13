@@ -32,7 +32,7 @@ class ExerciseFactory extends Factory
         );
 
         return [
-            'name' => fake()->word(),
+            'name' => fake()->unique()->word(),
             'difficulty_level' => fake()->randomElement($difficultyLevelValues),
             'type' => fake()->randomElement($typeValues),
             'instructions_html' => fake()->text(),
