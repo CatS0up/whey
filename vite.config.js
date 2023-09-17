@@ -16,6 +16,7 @@ export default defineConfig({
                 'node_modules/filepond/dist/filepond.min.js',
                 'node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js',
                 'node_modules/tippy.js/dist/tippy-bundle.umd.js',
+                'node_modules/@popperjs/core/dist/umd/popper.js',
             ],
             refresh: true,
         }),
