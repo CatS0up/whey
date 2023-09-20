@@ -31,7 +31,7 @@ class UpsertSmallThumbnailActionTest extends TestCase
         // It implements SmallThumbnailInterface
         $target = $this->mediableModel;
 
-        $this->assertFalse($target->smallThumbnail->exists());
+        $this->assertFalse($target->smallThumbnail()->exists());
 
         $this->actionUnderTest->execute(
             file: $this->createTestImage(),

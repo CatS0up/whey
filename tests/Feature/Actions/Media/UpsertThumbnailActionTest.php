@@ -30,7 +30,7 @@ class UpsertThumbnailActionTest extends TestCase
     {
         $target = $this->mediableModel;
 
-        $this->assertFalse($target->thumbnail->exists());
+        $this->assertFalse($target->thumbnail()->exists());
 
         $this->actionUnderTest->execute(
             file: $this->createTestImage(),

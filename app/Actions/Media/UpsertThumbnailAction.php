@@ -31,7 +31,7 @@ class UpsertThumbnailAction
 
         $newThumbnailData = $this->uploadService->thumbnail($file, $model);
 
-        return $model->thumbnail->updateOrCreate(
+        return $model->thumbnail()->updateOrCreate(
             [
                 'mediable_id' => $model->id(),
                 'mediable_type' => $model->type(),

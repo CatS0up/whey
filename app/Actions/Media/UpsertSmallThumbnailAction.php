@@ -30,7 +30,7 @@ class UpsertSmallThumbnailAction
 
         $newSmallThumbnailData = $this->uploadService->smallThumbnail($file, $model);
 
-        return $model->smallThumbnail->updateOrCreate(
+        return $model->smallThumbnail()->updateOrCreate(
             [
                 'mediable_id' => $model->id(),
                 'mediable_type' => $model->type(),
