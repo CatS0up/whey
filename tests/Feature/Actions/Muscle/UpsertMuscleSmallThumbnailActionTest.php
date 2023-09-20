@@ -31,12 +31,12 @@ class UpsertMuscleSmallThumbnailActionTest extends TestCase
         $muscle = Muscle::factory()->create();
         $smallThumbnail = $this->createTestImage(width: 20, height: 20);
 
-        $this->assertFalse($muscle->smallThumbnail->exists());
+        $this->assertFalse($muscle->smallThumbnail()->exists());
 
         $upsertedSmallThumbnail = $this->actionUnderTest->execute($muscle->id, $smallThumbnail);
         $dimension = $this->getImageDimensionInfo($upsertedSmallThumbnail->getData());
 
-        $this->assertTrue($muscle->smallThumbnail->exists());
+        $this->assertTrue($muscle->smallThumbnail()->exists());
         $this->assertEquals(50, $dimension['width']);
         $this->assertEquals(50, $dimension['height']);
     }
