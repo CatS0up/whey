@@ -11,6 +11,6 @@ trait HasThumbnail
 {
     public function thumbnail(): MorphOne
     {
-        return $this->morphOne(Media::class, 'mediable')->withDefault();
+        return $this->morphOne(Media::class, 'mediable');
     }
 }
