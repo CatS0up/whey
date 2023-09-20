@@ -21,7 +21,6 @@ final readonly class Weight implements Stringable
         }
     }
 
-    /** {@inheritdoc} */
     public function __toString()
     {
         $defaultConversion = $this->unit->defaultConversion();
