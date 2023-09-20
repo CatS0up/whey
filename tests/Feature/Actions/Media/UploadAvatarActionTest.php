@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UploadAvatarAction;
@@ -45,10 +47,7 @@ class UploadAvatarActionTest extends TestCase
         $actual = $this->actionUnderTest->execute($avatar, $this->mediableModel);
 
         // Hash comes from config(app.uploads.hash)
-        $expectedHash = hash_file(
-            'sha256',
-            Storage::disk(self::TEST_DISK)->path($actual->path),
-        );
+        $expectedHash = $this->createHashFromPath($actual->path);
 
         $this->assertInstanceOf(FileData::class, $actual);
         $this->assertNull($actual->id);
