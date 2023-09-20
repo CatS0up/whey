@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
+use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
 
 class User extends Authenticatable
 {
@@ -25,6 +27,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
     ];
 
@@ -45,6 +48,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone' => RawPhoneNumberCast::class.':phone_country',
+        'phone_normalized' => RawPhoneNumberCast::class. ':phone_country',
+        'phone_national' => RawPhoneNumberCast::class .':phone_country',
+        'phone_e164' => E164PhoneNumberCast::class .':phone_country',
     ];
 
     public function exercises(): HasMany
