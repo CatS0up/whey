@@ -17,10 +17,11 @@ final readonly class Weight implements Stringable
         public WeightUnit $unit,
     ) {
         if (self::MIN_VALUE > $value) {
-            throw new InvalidArgumentException('Value should be greater or equals to ' . self::MIN_VALUE);
+            throw new InvalidArgumentException('Value should be greater or equals to '.self::MIN_VALUE);
         }
     }
 
+    /** {@inheritdoc} */
     public function __toString()
     {
         $defaultConversion = $this->unit->defaultConversion();
