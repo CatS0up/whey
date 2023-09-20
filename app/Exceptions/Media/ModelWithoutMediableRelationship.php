@@ -6,6 +6,6 @@ namespace App\Exceptions\Media;
 
 use App\Exceptions\Exception;
 
-class ModelWithoutThumbnailRelationship extends Exception
+class ModelWithoutMediableRelationship extends Exception
 {
 }

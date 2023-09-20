@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Media;
 
-use App\Exceptions\Media\ModelWithoutThumbnailRelationship;
+use App\Exceptions\Media\ModelWithoutMediableRelationship;
 use App\Models\Contracts\Mediable;
 use App\Models\Media;
 use App\Services\Media\UploadService;
@@ -22,7 +22,7 @@ class UpsertThumbnailAction
     {
         if ( ! method_exists($model, 'thumbnail')) {
             // TODO: Tłumaczenia
-            throw ModelWithoutThumbnailRelationship::because("{$model->type()} model does not have thumbnail relationship");
+            throw ModelWithoutMediableRelationship::because("{$model->type()} model does not have thumbnail relationship");
         }
 
         if ($model->thumbnail()->exists()) {

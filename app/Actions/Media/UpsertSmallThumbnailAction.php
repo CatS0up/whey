@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Media;
 
-use App\Exceptions\Media\ModelWithoutSmallThumbnailRelationship;
+use App\Exceptions\Media\ModelWithoutMediableRelationship;
 use App\Models\Contracts\Mediable;
 use App\Models\Media;
 use App\Services\Media\UploadService;
@@ -21,7 +21,7 @@ class UpsertSmallThumbnailAction
     public function execute(UploadedFile $file, Mediable $model): Media
     {
         if ( ! method_exists($model, 'smallThumbnail')) {
-            throw ModelWithoutSmallThumbnailRelationship::because("{$model->type()} model does not have smallThumbnail relationship");
+            throw ModelWithoutMediableRelationship::because("{$model->type()} model does not have smallThumbnail relationship");
         }
 
         if ($model->smallThumbnail()->exists()) {
