@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Casts\Height;
+use App\Casts\Weight;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,6 +32,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'weight',
+        'height',
     ];
 
     /**
@@ -49,9 +54,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone' => RawPhoneNumberCast::class.':phone_country',
-        'phone_normalized' => RawPhoneNumberCast::class. ':phone_country',
-        'phone_national' => RawPhoneNumberCast::class .':phone_country',
-        'phone_e164' => E164PhoneNumberCast::class .':phone_country',
+        'phone_normalized' => RawPhoneNumberCast::class.':phone_country',
+        'phone_national' => RawPhoneNumberCast::class.':phone_country',
+        'phone_e164' => E164PhoneNumberCast::class.':phone_country',
+        'weight' => Weight::class,
+        'height' => Height::class,
     ];
 
     public function exercises(): HasMany
