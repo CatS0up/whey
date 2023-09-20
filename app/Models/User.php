@@ -8,6 +8,7 @@ namespace App\Models;
 
 use App\Casts\Height;
 use App\Casts\Weight;
+use App\Enums\PhoneCountry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,6 +58,7 @@ class User extends Authenticatable
         'phone_normalized' => RawPhoneNumberCast::class.':phone_country',
         'phone_national' => RawPhoneNumberCast::class.':phone_country',
         'phone_e164' => E164PhoneNumberCast::class.':phone_country',
+        'phone_country' => PhoneCountry::class,
         'weight' => Weight::class,
         'height' => Height::class,
     ];
