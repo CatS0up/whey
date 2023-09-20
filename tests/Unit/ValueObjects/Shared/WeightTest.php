@@ -58,7 +58,7 @@ class WeightTest extends TestCase
         }
     }
 
-    public function convertedValuesProvider(): array
+    public static function convertedValuesProvider(): array
     {
         return [
             // Grams - start
@@ -155,7 +155,7 @@ class WeightTest extends TestCase
         ];
     }
 
-    public function formattedStringsProvider(): array
+    public static function formattedStringsProvider(): array
     {
         return [
             // Grams - start
