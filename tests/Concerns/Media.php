@@ -61,6 +61,14 @@ trait Media
         );
     }
 
+    protected function createHashFromPath(string $path): string
+    {
+        return hash_file(
+            'sha256',
+            Storage::disk(self::TEST_DISK)->path($path),
+        );
+    }
+
     protected function readFullImagePath(FileData $fileData): string
     {
         return Storage::disk($fileData->disk)->path($fileData->path);
