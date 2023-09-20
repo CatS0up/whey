@@ -105,7 +105,7 @@ class WeightTest extends TestCase
                 WeightUnit::Pounds,
                 2.20462262,
             ],
-            // Kilograms - start
+            // Kilograms - end
 
             // Ounces - start
             'ounces to grams' => [
