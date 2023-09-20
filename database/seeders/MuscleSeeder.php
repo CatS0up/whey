@@ -18,8 +18,8 @@ class MuscleSeeder extends Seeder
         DB::table('muscles')->insert([
             // Deltoid
             ['name' => 'Anterior deltoids', 'muscle_group' => MuscleGroup::Deltoid->value],
-            ['name' =>'Lateral deltoids', 'muscle_group' => MuscleGroup::Deltoid->value],
-            ['name' =>'Posterior deltoids', 'muscle_group' => MuscleGroup::Deltoid->value],
+            ['name' => 'Lateral deltoids', 'muscle_group' => MuscleGroup::Deltoid->value],
+            ['name' => 'Posterior deltoids', 'muscle_group' => MuscleGroup::Deltoid->value],
 
             // Chest
             ['name' => 'Greater pectoral - lower and middle part', 'muscle_group' => MuscleGroup::Chest->value],
