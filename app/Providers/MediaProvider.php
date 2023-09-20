@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Actions\Media\UploadAvatarAction;
 use App\Actions\Media\UploadSmallThumbnailAction;
 use App\Actions\Media\UploadThumbnailAction;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,6 +16,7 @@ class MediaProvider extends ServiceProvider
     private array $actions = [
         UploadThumbnailAction::class,
         UploadSmallThumbnailAction::class,
+        UploadAvatarAction::class,
     ];
 
     /**
