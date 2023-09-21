@@ -30,10 +30,11 @@ class UserObserver
     {
         if ($user->isDirty('phone') && $user->phone) {
             $number = (string) $user->phone;
+            $country = $user->phone->getCountry();
             $user->phone_normalized = preg_replace('[^0-9]', '', $number);
-            $user->phone_national = preg_replace('[^0-9]', '', phone($number, $user->phone_country)->formatNational());
-            $user->phone_e164 = phone($number, $user->phone_country)->formatE164();
-            $user->phone_country = $user->phone->getCountry();
+            $user->phone_national = preg_replace('[^0-9]', '', phone($number, $country)->formatNational());
+            $user->phone_e164 = phone($number, $country)->formatE164();
+            $user->phone_country = $country;
         }
     }
 
