@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'name' => fake()->unique()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => phone(
-                number: fake()->numerify('#########'),
+                number: fake()->unique()->phoneNumber(),
                 country: PhoneCountry::Poland->value,
             ),
             /** @see \App\Observers\UserObserver::upsertPhoneFields() */
