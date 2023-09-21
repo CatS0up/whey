@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use App\Casts\Height;
 use App\Casts\Weight;
 use App\Enums\PhoneCountry;
@@ -26,6 +24,7 @@ class User extends Authenticatable implements Mediable
     use HasSubdirectoryFilePath;
     use Notifiable;
 
+    public const MIN_PASSWORD_LENGTH = 8;
     /** @var int */
     public const AVATAR_WIDTH = 50;
     /** @var int */
