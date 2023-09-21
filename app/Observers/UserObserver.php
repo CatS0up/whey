@@ -29,12 +29,10 @@ class UserObserver
     private function upsertPhoneFields(User $user): void
     {
         if ($user->isDirty('phone') && $user->phone) {
-            $number = (string) $user->phone;
-            $country = $user->phone->getCountry();
-            $user->phone_normalized = preg_replace('[^0-9]', '', $number);
-            $user->phone_national = preg_replace('[^0-9]', '', phone($number, $country)->formatNational());
-            $user->phone_e164 = phone($number, $country)->formatE164();
-            $user->phone_country = $country;
+            $user->phone_normalized = preg_replace('[^0-9]', '', (string) $user->phone);
+            $user->phone_national = preg_replace('[^0-9]', '', $user->phone->formatNational());
+            $user->phone_e164 = $user->phone->formatE164();
+            $user->phone_country = $user->phone->getCountry();
         }
     }
 
