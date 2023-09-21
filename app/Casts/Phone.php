@@ -31,7 +31,7 @@ class Phone implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        if (!$value instanceof PhoneNumber) {
+        if ( ! $value instanceof PhoneNumber) {
             throw new InvalidArgumentException('The given value is not an PhoneNumber instance');
         }
 
