@@ -16,24 +16,12 @@ class UserObserver
 
     public function creating(User $user): void
     {
-        $this->upsertPhoneFields($user);
         $this->upsertBmiField($user);
     }
 
     public function updating(User $user): void
     {
-        $this->upsertPhoneFields($user);
         $this->upsertBmiField($user);
-    }
-
-    private function upsertPhoneFields(User $user): void
-    {
-        if ($user->isDirty('phone') && $user->phone) {
-            $user->phone_normalized = preg_replace('[^0-9]', '', (string) $user->phone);
-            $user->phone_national = preg_replace('[^0-9]', '', $user->phone->formatNational());
-            $user->phone_e164 = $user->phone->formatE164();
-            $user->phone_country = $user->phone->getCountry();
-        }
     }
 
     private function upsertBmiField(User $user): void
