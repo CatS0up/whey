@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Actions\Shared\CalculateBmiAction;
+use App\Enums\HeightUnit;
+use App\Enums\PhoneCountry;
+use App\Enums\WeightUnit;
+use App\ValueObjects\Shared\Height;
+use App\ValueObjects\Shared\Weight;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -20,11 +27,27 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->unique()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => phone(
+                number: fake()->phoneNumber(),
+                country: fake()->randomElement(PhoneCountry::cases())->value,
+            ),
+            /** @see \App\Observers\UserObserver::upsertPhoneFields() */
+            // 'phone_country' => 'PL',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'weight' => Weight::fromValueAndUnit(
+                value: fake()->randomFloat(),
+                unit: fake()->randomElement(WeightUnit::cases()),
+            ),
+            'height' => Height::fromValueAndUnit(
+                value: fake()->randomFloat(),
+                unit: fake()->randomElement(HeightUnit::cases()),
+            ),
+            /** @see \App\Observers\UserObserver::upsertBmiField() */
+            // 'bmi' => 21.0,
         ];
     }
 
