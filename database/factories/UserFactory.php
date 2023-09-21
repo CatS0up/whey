@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'name' => fake()->unique()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => phone(
-                number: fake()->unique()->phoneNumber(),
+                number: fake('pl_PL')->unique()->phoneNumber(),
                 country: PhoneCountry::Poland->value,
             ),
             /** @see \App\Observers\UserObserver::upsertPhoneFields() */
@@ -37,11 +37,11 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'weight' => Weight::fromValueAndUnit(
-                value: fake()->randomFloat(),
+                value: fake()->randomFloat(min: 1),
                 unit: fake()->randomElement(WeightUnit::cases()),
             ),
             'height' => Height::fromValueAndUnit(
-                value: fake()->randomFloat(),
+                value: fake()->randomFloat(min: 1),
                 unit: fake()->randomElement(HeightUnit::cases()),
             ),
             /** @see \App\Observers\UserObserver::upsertBmiField() */
