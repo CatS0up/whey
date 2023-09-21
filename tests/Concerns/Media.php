@@ -7,6 +7,7 @@ namespace Tests\Concerns;
 use App\DataObjects\FileData;
 use App\Models\Contracts\Mediable;
 use App\Models\Muscle;
+use App\Models\User;
 use App\Services\Media\UploadService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -25,10 +26,25 @@ trait Media
     protected Mediable $mediableModel;
     protected UploadService $uploadService;
 
+    /**
+     * Method for configuring a mediable model.
+     * Available keys:
+     * - relationship: Defines which mediable relationship model should be included.
+     *
+     * @return array
+     */
+    protected function getMediableModelConfig(): array
+    {
+        return [
+            'relationship' => 'thumbnail',
+        ];
+    }
+
     protected function setUpMediableModel(): void
     {
         $this->afterApplicationCreated(function (): void {
-            $this->mediableModel = $this->createMediableModel();
+            $config = $this->getMediableModelConfig();
+            $this->mediableModel = $this->createMediableModel($config['relationship']);
         });
     }
 
@@ -84,9 +100,15 @@ trait Media
             'height' => $imageInfo[1],
         ];
     }
-
-    protected function createMediableModel(): Mediable|Muscle
+    protected function createMediableModel(string $relationship): Mediable
     {
-        return Muscle::factory()->create();
+        switch ($relationship) {
+            case 'thumbnail':
+                return Muscle::factory()->create();
+            case 'smallThumbnail':
+                return Muscle::factory()->create();
+            case 'avatar':
+                return User::factory()->create();
+        }
     }
 }
