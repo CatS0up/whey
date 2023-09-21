@@ -6,7 +6,6 @@ namespace Database\Factories;
 
 use App\Enums\MuscleGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Muscle>
@@ -20,13 +19,9 @@ class MuscleFactory extends Factory
      */
     public function definition(): array
     {
-        $groupValues = Arr::map(
-            MuscleGroup::cases(),
-            fn (MuscleGroup $group): string => $group->value,
-        );
         return [
             'name' => fake()->unique()->word(),
-            'muscle_group' => fake()->randomElement($groupValues),
+            'muscle_group' => fake()->randomElement(MuscleGroup::cases())->value,
         ];
     }
 }

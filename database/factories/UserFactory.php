@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Actions\Shared\CalculateBmiAction;
 use App\Enums\HeightUnit;
 use App\Enums\PhoneCountry;
 use App\Enums\WeightUnit;
 use App\ValueObjects\Shared\Height;
 use App\ValueObjects\Shared\Weight;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
