@@ -18,6 +18,9 @@ trait CreatesApplication
 
         $app->make(Kernel::class)->bootstrap();
 
+        // Custom resources directory for mock views
+        view()->addLocation(realpath(base_path('tests/resources/views')));
+
         return $app;
     }
 }
