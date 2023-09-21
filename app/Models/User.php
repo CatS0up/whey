@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\Height;
+use App\Casts\Phone;
 use App\Casts\Weight;
 use App\Enums\PhoneCountry;
 use App\Models\Concerns\HasSubdirectoryFilePath;
@@ -62,7 +63,7 @@ class User extends Authenticatable implements Mediable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'phone' => RawPhoneNumberCast::class.':phone_country',
+        'phone' => Phone::class,
         'phone_normalized' => RawPhoneNumberCast::class.':phone_country',
         'phone_national' => RawPhoneNumberCast::class.':phone_country',
         'phone_e164' => E164PhoneNumberCast::class.':phone_country',
