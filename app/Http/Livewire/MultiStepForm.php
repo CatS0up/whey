@@ -50,6 +50,8 @@ abstract class MultiStepForm extends Component
                 $this->getStepFieldNames($step),
             );
         }
+
+        return false;
     }
 
     public function isCurrentStep(int $step): bool
