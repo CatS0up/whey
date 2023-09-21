@@ -11,6 +11,7 @@ use App\Models\Concerns\HasSubdirectoryFilePath;
 use App\Models\Contracts\Mediable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -80,6 +81,10 @@ class User extends Authenticatable implements Mediable
         return self::class;
     }
 
+    public function avatar(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'mediable');
+    }
 
     public function exercises(): HasMany
     {
