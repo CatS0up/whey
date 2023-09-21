@@ -28,8 +28,8 @@ class UserFactory extends Factory
             'name' => fake()->unique()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => phone(
-                number: fake()->phoneNumber(),
-                country: fake()->randomElement(PhoneCountry::cases())->value,
+                number: fake('en_GB')->mobileNumber(),
+                country: PhoneCountry::GreatBritain->value,
             ),
             /** @see \App\Observers\UserObserver::upsertPhoneFields() */
             // 'phone_country' => 'PL',
