@@ -54,6 +54,17 @@ class User extends Authenticatable implements Mediable
     protected $hidden = [
         'password',
         'remember_token',
+        // These fields are only for searching - start
+        'phone_normalized',
+        'phone_national',
+        'phone_e164',
+        // These fields are only for searching - end
+
+        // These fields are available in the related value objects - start
+        'phone_country',
+        'weight_unit',
+        'height_unit',
+        // These fields are available in the related value objects - end
     ];
 
     /**
