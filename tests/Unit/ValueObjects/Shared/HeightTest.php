@@ -77,9 +77,9 @@ class HeightTest extends TestCase
                 HeightUnit::Inches,
                 0.393700787,
             ],
-            'centimeters to foots' => [
+            'centimeters to feet' => [
                 HeightUnit::Centimeters,
-                HeightUnit::Foots,
+                HeightUnit::Feet,
                 0.032808399,
             ],
             // Centimeters - end
@@ -100,9 +100,9 @@ class HeightTest extends TestCase
                 HeightUnit::Inches,
                 39.3700787,
             ],
-            'meters to foots' => [
+            'meters to feet' => [
                 HeightUnit::Meters,
-                HeightUnit::Foots,
+                HeightUnit::Feet,
                 3.2808399,
             ],
             // Meters - end
@@ -123,35 +123,35 @@ class HeightTest extends TestCase
                 HeightUnit::Inches,
                 1.0,
             ],
-            'inches to foots' => [
+            'inches to feet' => [
                 HeightUnit::Inches,
-                HeightUnit::Foots,
+                HeightUnit::Feet,
                 0.0833333333,
             ],
             // Inches - end
 
-            // Foots - start
-            'foots to centimeters' => [
-                HeightUnit::Foots,
+            // Feet - start
+            'feet to centimeters' => [
+                HeightUnit::Feet,
                 HeightUnit::Centimeters,
                 30.48,
             ],
-            'foots to meters' => [
-                HeightUnit::Foots,
+            'feet to meters' => [
+                HeightUnit::Feet,
                 HeightUnit::Meters,
                 0.3048,
             ],
-            'foots to inches' => [
-                HeightUnit::Foots,
+            'feet to inches' => [
+                HeightUnit::Feet,
                 HeightUnit::Inches,
                 12,
             ],
-            'foots to foots' => [
-                HeightUnit::Foots,
-                HeightUnit::Foots,
+            'feet to feet' => [
+                HeightUnit::Feet,
+                HeightUnit::Feet,
                 1.0,
             ],
-            // Foots - end
+            // Feet - end
         ];
     }
 
@@ -181,7 +181,7 @@ class HeightTest extends TestCase
             // Meters - end
 
             // Inches - start
-            'foots and inches format when height unit are inches' => [
+            'feet and inches format when height unit are inches' => [
                 HeightUnit::Inches,
                 [
                     ['value' => 0.1234, 'string' => '0ft 0.123in',],
@@ -191,16 +191,16 @@ class HeightTest extends TestCase
             ],
             // Inches - end
 
-            // Foots - start
-            'foots and inches format when height unit are foots' => [
-                HeightUnit::Foots,
+            // Feet - start
+            'feet and inches format when height unit are feet' => [
+                HeightUnit::Feet,
                 [
                     ['value' => 0.1234, 'string' => '0ft 1.481in',],
                     ['value' => 1234, 'string' => '1234ft 0in',],
                     ['value' => 12.24, 'string' => '12ft 2.88in',],
                 ],
             ],
-            // Foots - end
+            // Feet - end
         ];
     }
 }
