@@ -62,7 +62,7 @@ class WeightTest extends TestCase
      * @test
      * @dataProvider comparisionTrueResultsProvider
      * */
-    public function it_should_compare_instances_with_other_units_when_given_instances_are_equals(Weight $subject, Weight $comparision): void
+    public function it_should_compare_weight_instances_with_other_units_when_given_instances_are_equals(Weight $subject, Weight $comparision): void
     {
         $this->assertTrue($subject->equalsTo($comparision));
     }
@@ -71,7 +71,7 @@ class WeightTest extends TestCase
      * @test
      * @dataProvider comparisionFalseResultsProvider
      * */
-    public function it_should_compare_instances_with_other_units_when_given_instances_are_not_equals(Weight $subject, Weight $comparision): void
+    public function it_should_compare_weight_instances_with_other_units_when_given_instances_are_not_equals(Weight $subject, Weight $comparision): void
     {
         $this->assertTrue($subject->notEqualsTo($comparision));
     }
