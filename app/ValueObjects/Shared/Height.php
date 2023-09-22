@@ -46,4 +46,18 @@ final readonly class Height implements Stringable
 
         return new self($value, $unit);
     }
+
+    public function equalsTo(Height $compareTo): bool
+    {
+        $inCurrentUnit = $compareTo->toOtherUnit($this->unit);
+
+        return compare_float($this->value, $inCurrentUnit->value);
+    }
+
+    public function notEqualsTo(Height $compareTo): bool
+    {
+        $inCurrentUnit = $compareTo->toOtherUnit($this->unit);
+
+        return ! compare_float($this->value, $inCurrentUnit->value);
+    }
 }

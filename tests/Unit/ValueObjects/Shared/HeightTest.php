@@ -58,6 +58,24 @@ class HeightTest extends TestCase
         }
     }
 
+    /**
+     * @test
+     * @dataProvider comparisionTrueResultsProvider
+     * */
+    public function it_should_compare_height_instances_with_other_units_when_given_instances_are_equals(Height $subject, Height $comparision): void
+    {
+        $this->assertTrue($subject->equalsTo($comparision));
+    }
+
+    /**
+     * @test
+     * @dataProvider comparisionFalseResultsProvider
+     * */
+    public function it_should_compare_height_instances_with_other_units_when_given_instances_are_not_equals(Height $subject, Height $comparision): void
+    {
+        $this->assertTrue($subject->notEqualsTo($comparision));
+    }
+
     public static function convertedValuesProvider(): array
     {
         return [
@@ -199,6 +217,168 @@ class HeightTest extends TestCase
                     ['value' => 1234, 'string' => '1234ft 0in',],
                     ['value' => 12.24, 'string' => '12ft 2.88in',],
                 ],
+            ],
+            // Feet - end
+        ];
+    }
+
+    public static function comparisionTrueResultsProvider(): array
+    {
+        return [
+            // Centimeters - start
+            'centimeters to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+            ],
+            'centimeters to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(0.01, HeightUnit::Meters),
+            ],
+            'centimeters to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(0.393700787, HeightUnit::Inches),
+            ],
+            'centimeters to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(0.032808399, HeightUnit::Feet),
+            ],
+            // Centimeters - end
+
+            // Meters - start
+            'meters to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(100, HeightUnit::Centimeters),
+            ],
+            'meters to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+            ],
+            'meters to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(39.3700787, HeightUnit::Inches),
+            ],
+            'meters to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(3.2808399, HeightUnit::Feet),
+            ],
+            // Meters - end
+
+            // Inches - start
+            'inches to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(2.54, HeightUnit::Centimeters),
+            ],
+            'inches to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(0.0254, HeightUnit::Meters),
+            ],
+            'inches to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+            ],
+            'inches to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(0.0833333333, HeightUnit::Feet),
+            ],
+            // Inches - end
+
+            // Feet - start
+            'feet to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(30.48, HeightUnit::Centimeters),
+            ],
+            'feet to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(0.3048, HeightUnit::Meters),
+            ],
+            'feet to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(12, HeightUnit::Inches),
+            ],
+            'feet to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+            ],
+            // Feet - end
+        ];
+    }
+
+    public static function comparisionFalseResultsProvider(): array
+    {
+        return [
+            // Centimeters - start
+            'centimeters to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(10.0, HeightUnit::Centimeters),
+            ],
+            'centimeters to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(0.0001, HeightUnit::Meters),
+            ],
+            'centimeters to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(0.1, HeightUnit::Inches),
+            ],
+            'centimeters to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Centimeters),
+                Height::fromValueAndUnit(0.2, HeightUnit::Feet),
+            ],
+            // Centimeters - end
+
+            // Meters - start
+            'meters to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(10000, HeightUnit::Centimeters),
+            ],
+            'meters to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(100.0, HeightUnit::Meters),
+            ],
+            'meters to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(39, HeightUnit::Inches),
+            ],
+            'meters to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Meters),
+                Height::fromValueAndUnit(3, HeightUnit::Feet),
+            ],
+            // Meters - end
+
+            // Inches - start
+            'inches to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(2, HeightUnit::Centimeters),
+            ],
+            'inches to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(1.0254, HeightUnit::Meters),
+            ],
+            'inches to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(2.0, HeightUnit::Inches),
+            ],
+            'inches to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Inches),
+                Height::fromValueAndUnit(4, HeightUnit::Feet),
+            ],
+            // Inches - end
+
+            // Feet - start
+            'feet to centimeters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(350.48, HeightUnit::Centimeters),
+            ],
+            'feet to meters' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(6.3048, HeightUnit::Meters),
+            ],
+            'feet to inches' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(169, HeightUnit::Inches),
+            ],
+            'feet to feet' => [
+                Height::fromValueAndUnit(1.0, HeightUnit::Feet),
+                Height::fromValueAndUnit(2.0, HeightUnit::Feet),
             ],
             // Feet - end
         ];
