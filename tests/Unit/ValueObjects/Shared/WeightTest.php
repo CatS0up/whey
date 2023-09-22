@@ -77,7 +77,7 @@ class WeightTest extends TestCase
                 WeightUnit::Ounces,
                 0.0352739619,
             ],
-            'grams to ounces' => [
+            'grams to pounds' => [
                 WeightUnit::Grams,
                 WeightUnit::Pounds,
                 0.00220462262,
