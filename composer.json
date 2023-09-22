@@ -33,7 +33,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
-        "flies": [
+        "files": [
             "app/helpers.php"
         ]
     },
