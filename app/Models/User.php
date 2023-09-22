@@ -10,11 +10,13 @@ use App\Casts\Weight;
 use App\Enums\PhoneCountry;
 use App\Models\Concerns\HasSubdirectoryFilePath;
 use App\Models\Contracts\Mediable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
@@ -91,6 +93,13 @@ class User extends Authenticatable implements Mediable
     public function type(): string
     {
         return self::class;
+    }
+
+    protected function password(): Attribute
+    {
+        return new Attribute(
+            set: fn (string $value): string => Hash::make($value),
+        );
     }
 
     public function avatar(): MorphOne
