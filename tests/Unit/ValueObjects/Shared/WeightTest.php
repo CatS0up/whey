@@ -58,6 +58,24 @@ class WeightTest extends TestCase
         }
     }
 
+    /**
+     * @test
+     * @dataProvider comparisionTrueResultsProvider
+     * */
+    public function it_should_compare_instances_with_other_units_when_given_instances_are_equals(Weight $subject, Weight $comparision): void
+    {
+        $this->assertTrue($subject->equalsTo($comparision));
+    }
+
+    /**
+     * @test
+     * @dataProvider comparisionFalseResultsProvider
+     * */
+    public function it_should_compare_instances_with_other_units_when_given_instances_are_not_equals(Weight $subject, Weight $comparision): void
+    {
+        $this->assertTrue($subject->notEqualsTo($comparision));
+    }
+
     public static function convertedValuesProvider(): array
     {
         return [
@@ -199,6 +217,169 @@ class WeightTest extends TestCase
                     ['value' => 1234, 'string' => '1234lbs 0oz',],
                     ['value' => 12.24, 'string' => '12lbs 3.84oz',],
                 ],
+            ],
+            // Pounds - end
+        ];
+    }
+
+
+    public static function comparisionTrueResultsProvider(): array
+    {
+        return [
+            // Grams - start
+            'grams to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+            ],
+            'grams to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(0.001, WeightUnit::Kilograms),
+            ],
+            'grams to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(0.0352739619, WeightUnit::Ounces),
+            ],
+            'grams to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(0.00220462262, WeightUnit::Pounds),
+            ],
+            // Grams - end
+
+            // Kilograms - start
+            'kilograms to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(1000, WeightUnit::Grams),
+            ],
+            'kilograms to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+            ],
+            'kilograms to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(35.2739619, WeightUnit::Ounces),
+            ],
+            'kilograms to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(2.20462262, WeightUnit::Pounds),
+            ],
+            // Kilograms - end
+
+            // Ounces - start
+            'ounces to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(28.3495231, WeightUnit::Grams),
+            ],
+            'ounces to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(0.0283495231, WeightUnit::Kilograms),
+            ],
+            'ounces to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+            ],
+            'ounces to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(0.0625, WeightUnit::Pounds),
+            ],
+            // Ounces - end
+
+            // Pounds - start
+            'pounds to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(453.59237, WeightUnit::Grams),
+            ],
+            'pounds to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(0.45359237, WeightUnit::Kilograms),
+            ],
+            'pounds to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(16, WeightUnit::Ounces),
+            ],
+            'pounds to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+            ],
+            // Pounds - end
+        ];
+    }
+
+    public static function comparisionFalseResultsProvider(): array
+    {
+        return [
+            // Grams - start
+            'grams to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Grams),
+            ],
+            'grams to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(0.002, WeightUnit::Kilograms),
+            ],
+            'grams to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(0.1, WeightUnit::Ounces),
+            ],
+            'grams to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+                Weight::fromValueAndUnit(0.1, WeightUnit::Pounds),
+            ],
+            // Grams - end
+
+            // Kilograms - start
+            'kilograms to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(1.0, WeightUnit::Grams),
+            ],
+            'kilograms to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Kilograms),
+            ],
+            'kilograms to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(35.0, WeightUnit::Ounces),
+            ],
+            'kilograms to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Kilograms),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Pounds),
+            ],
+            // Kilograms - end
+
+            // Ounces - start
+            'ounces to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Grams),
+            ],
+            'ounces to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Kilograms),
+            ],
+            'ounces to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Ounces),
+            ],
+            'ounces to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Ounces),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Pounds),
+            ],
+            // Ounces - end
+
+            // Pounds - start
+            'pounds to grams' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Grams),
+            ],
+            'pounds to kilograms' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Kilograms),
+            ],
+            'pounds to ounces' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Ounces),
+            ],
+            'pounds to pounds' => [
+                Weight::fromValueAndUnit(1.0, WeightUnit::Pounds),
+                Weight::fromValueAndUnit(2.0, WeightUnit::Pounds),
             ],
             // Pounds - end
         ];

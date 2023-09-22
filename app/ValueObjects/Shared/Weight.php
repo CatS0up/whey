@@ -21,6 +21,11 @@ final readonly class Weight implements Stringable
         }
     }
 
+    public static function fromValueAndUnit(float $value, WeightUnit $unit): self
+    {
+        return new self($value, $unit);
+    }
+
     /** {@inheritdoc} */
     public function __toString()
     {
@@ -35,15 +40,24 @@ final readonly class Weight implements Stringable
         return "{$base}{$defaultConversion->label()} {$rest}{$defaultConversionBaseUnit->label()}";
     }
 
-    public static function fromValueAndUnit(float $value, WeightUnit $unit): self
-    {
-        return new self($value, $unit);
-    }
-
     public function toOtherUnit(WeightUnit $unit): self
     {
         $value = $this->value * $this->unit->otherUnitValue($unit);
 
         return new self($value, $unit);
+    }
+
+    public function equalsTo(Weight $compareTo): bool
+    {
+        $inCurrentUnit = $compareTo->toOtherUnit($this->unit);
+
+        dump($this, $compareTo);
+
+        return compare_float($this->value, $inCurrentUnit->value);
+    }
+
+    public function notEqualsTo(Weight $compareTo): bool
+    {
+        return ! $this->equalsTo($compareTo);
     }
 }
