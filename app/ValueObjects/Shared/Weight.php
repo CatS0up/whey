@@ -51,8 +51,6 @@ final readonly class Weight implements Stringable
     {
         $inCurrentUnit = $compareTo->toOtherUnit($this->unit);
 
-        dump($this, $compareTo);
-
         return compare_float($this->value, $inCurrentUnit->value);
     }
 
