@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unique(['phone', 'phone_normalized', 'phone_national', 'phone_e164']);
+            $table->unique(['phone']);
+            $table->unique(['phone_normalized']);
+            $table->unique(['phone_national']);
+            $table->unique(['phone_e164']);
         });
     }
 
@@ -22,7 +25,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('user', function (Blueprint $table) {
-            $table->dropIndex(['phone', 'phone_normalized', 'phone_national', 'phone_e164']);
+            $table->dropIndex([
+                'users_phone_unique',
+                'users_phone_normalized_unique',
+                'users_phone_national_unique',
+                'users_phone_e164_unique',
+            ]);
         });
     }
 };
