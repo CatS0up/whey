@@ -7,4 +7,5 @@ namespace App\Exceptions\Shared;
 use App\Exceptions\Exception;
 
 class ModelHasNoProperty extends Exception
-{}
+{
+}
