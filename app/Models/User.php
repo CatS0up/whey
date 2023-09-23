@@ -9,6 +9,7 @@ use App\Casts\Phone;
 use App\Casts\Weight;
 use App\Enums\PhoneCountry;
 use App\Models\Concerns\HasSubdirectoryFilePath;
+use App\Models\Concerns\Sluggable;
 use App\Models\Contracts\Mediable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +28,7 @@ class User extends Authenticatable implements Mediable
     use HasFactory;
     use HasSubdirectoryFilePath;
     use Notifiable;
+    use Sluggable;
 
     public const MIN_PASSWORD_LENGTH = 8;
     /** @var int */
@@ -84,6 +86,11 @@ class User extends Authenticatable implements Mediable
         'weight' => Weight::class,
         'height' => Height::class,
     ];
+
+    public function sluggableField(): string
+    {
+        return 'name';
+    }
 
     public function id(): int
     {
