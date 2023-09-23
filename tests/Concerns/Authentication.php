@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Concerns;
 
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 trait Authentication
 {
@@ -20,5 +21,10 @@ trait Authentication
     protected function createUser(): User
     {
         return User::factory()->create();
+    }
+
+    public function authenticated(Authenticatable $user = null)
+    {
+        return $this->actingAs($user ?? $this->user);
     }
 }
