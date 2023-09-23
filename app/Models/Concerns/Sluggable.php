@@ -10,7 +10,7 @@ trait Sluggable
 {
     abstract public function sluggableField(): string;
 
-    public static function bootSluggable()
+    public static function bootSluggable(): void
     {
         static::saving(function (Model $model): void {
             $sluggableField = $model->getAttribute($model->sluggableField());
