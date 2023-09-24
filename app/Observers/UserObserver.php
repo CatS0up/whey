@@ -14,12 +14,7 @@ class UserObserver
     ) {
     }
 
-    public function creating(User $user): void
-    {
-        $this->upsertBmiField($user);
-    }
-
-    public function updating(User $user): void
+    public function saving(User $user): void
     {
         $this->upsertBmiField($user);
     }
