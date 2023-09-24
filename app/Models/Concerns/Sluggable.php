@@ -16,7 +16,7 @@ trait Sluggable
 
     public static function bootSluggable(): void
     {
-        static::creating(function (Model $model): void {
+        static::saving(function (Model $model): void {
             // @phpstan-ignore-next-line
             $sluggableField = $model->getSluggableField($model);
 
