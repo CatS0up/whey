@@ -11,18 +11,6 @@ trait Authentication
 {
     protected User $user;
 
-    protected function setUpUser(): void
-    {
-        $this->afterApplicationCreated(function (): void {
-            $this->user = $this->createUser();
-        });
-    }
-
-    protected function createUser(): User
-    {
-        return User::factory()->create();
-    }
-
     public function authenticated(Authenticatable $user = null)
     {
         return $this->actingAs($user ?? $this->user);
@@ -34,5 +22,17 @@ trait Authentication
         $this->user->save();
 
         return $this->user;
+    }
+
+    protected function setUpUser(): void
+    {
+        $this->afterApplicationCreated(function (): void {
+            $this->user = $this->createUser();
+        });
+    }
+
+    protected function createUser(): User
+    {
+        return User::factory()->create();
     }
 }
