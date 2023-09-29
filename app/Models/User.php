@@ -16,6 +16,7 @@ use App\Models\Contracts\Mediable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -121,6 +122,11 @@ class User extends Authenticatable implements Mediable
     public function verifyEmail(): void
     {
         $this->email_verified_at = now();
+    }
+
+    public function emailVerifyToken(): HasOne
+    {
+        return $this->hasOne(EmailVerify::class)->latest();
     }
 
     public function avatar(): MorphOne
