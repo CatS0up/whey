@@ -20,8 +20,12 @@
         }
     )
 
-    child.addEventListener('focus', () => instance.show());
-    child.addEventListener('blur', () => instance.hide());
+    const showInstance = () => instance.show();
+    const hideInstance = () => instance.hide();
+
+    child.addEventListener('focus', showInstance);
+    child.addEventListener('click', hideInstance);
+    child.addEventListener('blur', hideInstance);
     })"
     x-ref="tooltip">
     {{ $slot }}
