@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Casts;
 
+use App\Enums\HeightUnit;
 use App\ValueObjects\Shared\Height as HeightValueObject;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class Height implements CastsAttributes
     {
         return HeightValueObject::fromValueAndUnit(
             value: $attributes['height'],
-            unit: $attributes['height_unit'],
+            unit: HeightUnit::tryFrom($attributes['height_unit']),
         );
     }
 

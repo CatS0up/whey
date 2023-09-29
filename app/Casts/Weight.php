@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Casts;
 
+use App\Enums\WeightUnit;
 use App\ValueObjects\Shared\Weight as WeightValueObject;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class Weight implements CastsAttributes
     {
         return WeightValueObject::fromValueAndUnit(
             value: $attributes['weight'],
-            unit: $attributes['weight_unit'],
+            unit: WeightUnit::tryFrom($attributes['weight_unit']),
         );
     }
 

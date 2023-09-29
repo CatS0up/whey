@@ -7,7 +7,9 @@ namespace App\Models;
 use App\Casts\Height;
 use App\Casts\Phone;
 use App\Casts\Weight;
+use App\Enums\HeightUnit;
 use App\Enums\PhoneCountry;
+use App\Enums\WeightUnit;
 use App\Models\Concerns\HasSubdirectoryFilePath;
 use App\Models\Concerns\Sluggable;
 use App\Models\Contracts\Mediable;
@@ -85,6 +87,8 @@ class User extends Authenticatable implements Mediable
         'phone_country' => PhoneCountry::class,
         'weight' => Weight::class,
         'height' => Height::class,
+        'weight_unit' => WeightUnit::class,
+        'height_unit' => HeightUnit::class,
     ];
 
     public function sluggableField(): string
