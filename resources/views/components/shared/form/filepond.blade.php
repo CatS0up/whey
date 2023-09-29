@@ -8,6 +8,8 @@
 @endpush
 
 @props([
+    'label' => 'Przeciągnij swoje pliki lub <span class="filepond--label-action"> Wybierz z dysku </span>',
+    'name' => 'file',
     'multiple' => false,
     'preview' => true,
     'previewMaxHeight' => 200,
@@ -21,6 +23,8 @@
             const post = FilePond.create(
                 $refs.input,
                     {
+                        name: {{ $name }},
+                        labelIdle: @js($label),
                         files: @js($initialFiles).map(path => ({ source: path })),
                     },
                 );
