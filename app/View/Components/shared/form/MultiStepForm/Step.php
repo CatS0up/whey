@@ -31,7 +31,7 @@ class Step extends Component
 
     public function isDisabledStep(): bool
     {
-        return ! $this->isActiveStep($this->step) || $this->isCurrentStep($this->step);
+        return ! $this->isActiveStep() || $this->isCurrentStep();
     }
 
     /**

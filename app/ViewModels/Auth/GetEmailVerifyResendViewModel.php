@@ -8,6 +8,7 @@ use App\DataObjects\Auth\EmailVerifyData;
 use App\Exceptions\Auth\UserHasEmailVeirfyActiveToken;
 use App\Exceptions\Auth\UserHasVerifiedEmail;
 use App\Models\EmailVerify;
+use App\Models\User;
 use App\ViewModels\ViewModel;
 
 class GetEmailVerifyResendViewModel extends ViewModel
@@ -32,6 +33,9 @@ class GetEmailVerifyResendViewModel extends ViewModel
 
     public function token(): EmailVerifyData
     {
-        return $this->token->getData();
+        /** @var EmailVerifyData $token */
+        $token = $this->token->getData();
+
+        return $token;
     }
 }

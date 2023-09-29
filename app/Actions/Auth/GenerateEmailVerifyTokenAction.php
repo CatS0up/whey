@@ -19,6 +19,7 @@ class GenerateEmailVerifyTokenAction
 
     public function execute(int $userId): EmailVerify
     {
+        /** @var User $user */
         $user = $this->user->query()->findOrFail($userId);
         $userHasActiveToken = $this->emailVerify->query()
             ->whereIsActiveForUser($userId)

@@ -17,6 +17,7 @@ class SendVerificationEmailAction
 
     public function execute(int $userId): bool
     {
+        /** @var User $user */
         $user = $this->user->query()->findOrFail($userId);
         $token = $this->generateEmailVerifyTokenAction->execute($user->id);
 
