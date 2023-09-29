@@ -4,6 +4,7 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 import './libs/alpine';
+import './libs/sweetalert2';
 import axios from 'axios';
 window.axios = axios;
 
