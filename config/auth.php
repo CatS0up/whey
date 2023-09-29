@@ -114,4 +114,7 @@ return [
 
     'password_timeout' => 10800,
 
+    'email_verify' => [
+        'token_lifetime' => env('EMAIL_VERIFY_TOKEN_LIFETIME', 1800),
+    ],
 ];
