@@ -113,6 +113,16 @@ class User extends Authenticatable implements Mediable
         );
     }
 
+    public function hasVerifiedEmail(): bool
+    {
+        return ! empty($this->email_verified_at);
+    }
+
+    public function verifyEmail(): void
+    {
+        $this->email_verified_at = now();
+    }
+
     public function avatar(): MorphOne
     {
         return $this->morphOne(Media::class, 'mediable');
