@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\DB;
 use Tests\Concerns\Media;
 use Tests\Concerns\Authentication;
 
@@ -32,5 +33,10 @@ abstract class TestCase extends BaseTestCase
         }
 
         return $uses;
+    }
+
+    protected function clearTable(string $table): void
+    {
+        DB::table($table)->truncate();
     }
 }
