@@ -27,4 +27,12 @@ trait Authentication
     {
         return $this->actingAs($user ?? $this->user);
     }
+
+    public function markUserAsUnverified(): User
+    {
+        $this->user->email_verified_at = null;
+        $this->user->save();
+
+        return $this->user;
+    }
 }
