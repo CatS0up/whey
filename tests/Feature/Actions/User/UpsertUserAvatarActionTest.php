@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Actions\User;
 
 use Tests\TestCase;
-use App\Actions\Muscle\UpsertMuscleThumbnailAction;
 use App\Actions\User\UpsertUserAvatarAction;
 use App\Models\Media;
-use App\Models\Muscle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Tests\Concerns\Authentication;
 use Tests\Concerns\Media as HasMedia;
-
 
 class UpsertUserAvatarActionTest extends TestCase
 {
