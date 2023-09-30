@@ -12,7 +12,7 @@ use Illuminate\Validation\Rules\Enum;
 
 class UserValidator
 {
-    public function rulesForRegisteration(RegisterForm $context): array
+    public function rulesForRegistrationForm(RegisterForm $context): array
     {
         return [
             1 => [

@@ -104,6 +104,6 @@ class RegisterForm extends MultiStepForm
 
     protected function rulesForStep(): array
     {
-        return (new UserValidator())->rulesForRegisteration($this);
+        return (new UserValidator())->rulesForRegistrationForm($this);
     }
 }
