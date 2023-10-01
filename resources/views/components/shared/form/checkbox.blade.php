@@ -3,6 +3,7 @@
     'label',
     'name',
     'invalid' => false,
+    'required' => false,
 ])
 <div {{ $attributes->class([
     'flex flex-row items-center',
@@ -12,5 +13,5 @@
         name="{{ $name }}"
         type="checkbox"
         class="cursor-pointer">
-    <x-shared.form.label for="{{ $id }}" @class(['text-red-400' => $invalid, 'ml-2'])>{{ $label }}</x-shared.form.label>
+    <x-shared.form.label for="{{ $id }}" @class(['text-red-400' => $invalid, 'ml-2'])>{{ $label . ($required ? ' *' : '')}}</x-shared.form.label>
 </div>
