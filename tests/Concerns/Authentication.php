@@ -11,7 +11,7 @@ trait Authentication
 {
     protected User $user;
 
-    public function authenticated(Authenticatable $user = null)
+    public function authenticated(Authenticatable $user = null): self
     {
         return $this->actingAs($user ?? $this->user);
     }
