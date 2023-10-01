@@ -35,4 +35,9 @@ trait Authentication
     {
         return User::factory()->create();
     }
+
+    protected function refreshUser(): void
+    {
+        $this->user = $this->user->fresh();
+    }
 }
