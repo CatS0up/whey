@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Builders\UserBuilder;
 use App\Casts\Height;
 use App\Casts\Phone;
 use App\Casts\Weight;
@@ -107,12 +108,16 @@ class User extends Authenticatable implements Mediable
         return self::class;
     }
 
+    /** Accessors/Mutators - start */
     protected function password(): Attribute
     {
         return new Attribute(
             set: fn (string $value): string => Hash::make($value),
         );
     }
+    /** Accessors/Mutators - end */
+
+    /** Setters/getter/hassers/issers - start */
 
     public function hasVerifiedEmail(): bool
     {
@@ -123,7 +128,9 @@ class User extends Authenticatable implements Mediable
     {
         $this->email_verified_at = now();
     }
+    /** Setters/getter/hassers/issers - end */
 
+    /** Relationships - start */
     public function emailVerifyToken(): HasOne
     {
         return $this->hasOne(EmailVerify::class)->latest();
@@ -138,4 +145,5 @@ class User extends Authenticatable implements Mediable
     {
         return $this->hasMany(Exercise::class, 'author_id');
     }
+    /** Relationships - end */
 }
