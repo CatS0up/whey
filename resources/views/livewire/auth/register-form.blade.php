@@ -41,7 +41,8 @@
                     id="name"
                     name="name"
                     label="Nazwa"
-                    :invalid="$errors->has('name')" required/>
+                    :invalid="$errors->has('name')"
+                    required/>
                 <x-shared.form.error field="name"/>
             </div>
         </section>
@@ -93,8 +94,9 @@
                     name="password"
                     type="password"
                     label="Hasło"
-                    required
-                    :invalid="$errors->has('password')"/>
+                    :invalid="$errors->has('password')"
+                    required/>
+
                     <x-shared.form.error field="password"/>
             </div>
             <div class="mt-6">
@@ -104,8 +106,8 @@
                     name="password_confirmation"
                     type="password"
                     label="Potwierdź hasło"
-                    required
-                    :invalid="$errors->has('password_confirmation')"/>
+                    :invalid="$errors->has('password_confirmation')"
+                    required/>
             </div>
         </section>
         @endif
@@ -120,7 +122,8 @@
                         id="weightUnit"
                         name="weight_unit"
                         label="Jednostka"
-                        :invalid="$errors->has('weight_unit')"/>
+                        :invalid="$errors->has('weight_unit')"
+                        required/>
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
@@ -128,7 +131,8 @@
                         name="weight"
                         type="weight"
                         label="Waga"
-                        :invalid="$errors->has('weight')"/>
+                        :invalid="$errors->has('weight')"
+                        required/>
                 </x-slot:mainInput>
                 <x-slot:errors>
                     <x-shared.form.error field="weight"/>
@@ -142,7 +146,8 @@
                         id="heightUnit"
                         name="height_unit"
                         label="Jednostka"
-                        :invalid="$errors->has('height_unit')"/>
+                        :invalid="$errors->has('height_unit')"
+                        required/>
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
@@ -150,7 +155,8 @@
                         name="height"
                         type="height"
                         label="Wzrost"
-                        :invalid="$errors->has('height')"/>
+                        :invalid="$errors->has('height')"
+                        required/>
                 </x-slot:mainInput>
                 <x-slot:errors>
                     <x-shared.form.error field="height"/>
