@@ -1,5 +1,7 @@
 @extends('layout.auth.layout')
 
+@section('subtitle', ' - logowanie')
+
 @section('content')
 <header>
     <x-shared.rounded-icon icon="fa-solid fa-key" class="mx-auto" />

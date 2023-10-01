@@ -1,5 +1,7 @@
 @extends('layout.auth.layout')
 
+@section('subtitle', ' - wyślij ponownie link aktywacyjny')
+
 @section('content')
 <header>
     <x-shared.rounded-icon icon="fa-solid fa-key" class="mx-auto" />
@@ -12,11 +14,11 @@
         Wygląda na to że twój link aktywacyjny wygasł. Aby aktywować konto należy wysłać ponownie wiadomość z linkiem aktywacyjnym.
     </p>
     <a href="{{ route('auth.emailVerify.resend.resend', ['token' => $model['token']->token]) }}" class="group block mt-6 outline-none">
-        <x-shared.button variant="primary" type="submit" class="w-full">Wyślij ponownie</x-shared.button>
+        <x-shared.button type="submit" class="w-full">Wyślij ponownie</x-shared.button>
     </a>
 </section>
 
 <section class="mt-4">
-        <x-auth.form.back-to-login-page-button/>
+    <x-auth.form.back-to-login-page-button />
 </section>
 @endsection
