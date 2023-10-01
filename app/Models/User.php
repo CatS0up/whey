@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Builders\UserBuilder;
 use App\Casts\Height;
 use App\Casts\Phone;
 use App\Casts\Weight;
@@ -39,6 +38,12 @@ class User extends Authenticatable implements Mediable
     public const AVATAR_WIDTH = 50;
     /** @var int */
     public const AVATAR_HEIGHT = 50;
+    /** @var bool */
+    public const HAS_TEMPORARY_PASSWORD = true;
+
+    protected $attributes = [
+        'has_temporary_password' => false,
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -91,6 +96,7 @@ class User extends Authenticatable implements Mediable
         'height' => Height::class,
         'weight_unit' => WeightUnit::class,
         'height_unit' => HeightUnit::class,
+        'has_temporary_password' => 'boolean',
     ];
 
     public function sluggableField(): string
@@ -118,6 +124,22 @@ class User extends Authenticatable implements Mediable
     /** Accessors/Mutators - end */
 
     /** Setters/getter/hassers/issers - start */
+    public function markPasswordAsTemporary(): void
+    {
+        $this->has_temporary_password = self::HAS_TEMPORARY_PASSWORD;
+        $this->save();
+    }
+
+    public function unmarkPasswordAsTemporary(): void
+    {
+        $this->has_temporary_password = ! self::HAS_TEMPORARY_PASSWORD;
+        $this->save();
+    }
+
+    public function hasTempPassword(): bool
+    {
+        return $this->has_temporary_password;
+    }
 
     public function hasVerifiedEmail(): bool
     {
