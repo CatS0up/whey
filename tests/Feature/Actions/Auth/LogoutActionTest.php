@@ -11,8 +11,8 @@ use Tests\TestCase;
 
 class LogoutActionTest extends TestCase
 {
-    use RefreshDatabase;
     use Authentication;
+    use RefreshDatabase;
 
     private LogoutAction $actionUnderTest;
 

@@ -29,6 +29,6 @@ class LogoutAction
             return self::IS_LOGGED_OUT;
         }
 
-        return !self::IS_LOGGED_OUT;
+        return ! self::IS_LOGGED_OUT;
     }
 }
