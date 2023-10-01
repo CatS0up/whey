@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
+use App\DataObjects\User\UpdatePasswordData;
 use App\Models\User;
 
 class UpdateUserPasswordAction
@@ -12,12 +13,12 @@ class UpdateUserPasswordAction
     {
     }
 
-    public function execute(int $userId, string $newPassword): bool
+    public function execute(UpdatePasswordData $data): bool
     {
         return $this->user->query()
-            ->findOrFail($userId)
+            ->findOrFail($data->userId)
             ->update([
-                'password' => $newPassword,
+                'password' => $data->password,
             ]);
     }
 }

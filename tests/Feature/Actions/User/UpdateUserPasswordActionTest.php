@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Actions\User;
 
 use App\Actions\User\UpdateUserPasswordAction;
+use App\DataObjects\User\UpdatePasswordData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\Concerns\Authentication;
@@ -30,8 +31,10 @@ class UpdateUserPasswordActionTest extends TestCase
         $this->assertTrue(Hash::check('password', $this->user->password));
 
         $actual = $this->actionUnderTest->execute(
-            userId: $this->user->id,
-            newPassword: 'pwd',
+            UpdatePasswordData::from([
+                'userId' => $this->user->id,
+                'password' => 'pwd',
+            ]),
         );
 
         $this->assertTrue($actual);

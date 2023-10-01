@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\Auth;
 
 use App\Actions\User\UpdateUserPasswordAction;
+use App\DataObjects\User\UpdatePasswordData;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -24,10 +25,10 @@ class GenerateTemporaryPasswordAction
         return DB::transaction(function () use ($user, $tempPassword): string {
             $user->markPasswordAsTemporary();
 
-            $this->updateUserPasswordAction->execute(
-                userId: $user->id,
-                newPassword: $tempPassword,
-            );
+            $this->updateUserPasswordAction->execute(UpdatePasswordData::from([
+                'userId' => $user->id,
+                'password' => $tempPassword,
+            ]));
 
             return $tempPassword;
         });
