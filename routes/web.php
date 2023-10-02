@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::as('auth.')->group(base_path('routes/auth.php'));
 Route::as('shared.')->group(base_path('routes/shared.php'));
 Route::middleware('authenticate')->as('web.')->group(base_path('routes/web/web.php'));
