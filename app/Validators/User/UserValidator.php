@@ -16,7 +16,7 @@ class UserValidator
     {
         return [
             1 => [
-                'avatar' => (new AvatarValidator())->rules(),
+                ...(new AvatarValidator())->rules(),
                 'name' => [
                     'required',
                     'string',
@@ -45,7 +45,7 @@ class UserValidator
                     'max:3',
                     new Enum(PhoneCountry::class),
                 ],
-                'password' => (new PasswordValidator())->rules(),
+                ...(new PasswordValidator())->rules(),
             ],
             3 => [
                 'weight' => [
