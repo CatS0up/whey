@@ -32,7 +32,11 @@
         @if ($this->isVisibleSection(1))
         <section>
             <div>
-                <x-shared.form.filepond wire:model="avatar" id="avatar" name="avatar" :initialFiles="$this->avatarPath"/>
+                <x-shared.form.filepond
+                    wire:model="avatar"
+                    id="avatar"
+                    name="avatar"
+                    :initialFiles="$this->avatarPath"/>
                 <x-shared.form.error field="avatar"/>
             </div>
             <div class="mt-6">
