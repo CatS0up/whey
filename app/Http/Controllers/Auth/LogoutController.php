@@ -23,7 +23,7 @@ class LogoutController extends Controller
         }
 
         // TODO: Tłumaczenia
-        return to_route('auth.login.show')
+        return back()
             ->with(
                 key: SweetAlertToastType::Error->type(),
                 value: 'Logout failed',

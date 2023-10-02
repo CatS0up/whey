@@ -16,7 +16,7 @@ class SendTemporaryPasswordController extends Controller
 {
     public function show(): View
     {
-        return view('auth.sections.send-password-reset-link');
+        return view('auth.sections.send-temporary-password-reset-link');
     }
 
     public function send(
