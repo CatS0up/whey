@@ -11,10 +11,12 @@ class AvatarValidator
     public function rules(): array
     {
         return [
-            'nullable',
-            'image',
-            File::types(['png', 'jpg', 'jpg'])
-                ->max(5 * 1024),
+            'avatar' => [
+                'nullable',
+                'image',
+                File::types(['png', 'jpg', 'gif'])
+                    ->max(5 * 1024),
+            ],
         ];
     }
 }
