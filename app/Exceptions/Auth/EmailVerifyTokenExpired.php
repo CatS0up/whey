@@ -17,7 +17,7 @@ class EmailVerifyTokenExpired extends Exception implements Renderable
         if ($request->route()->hasParameter('token')) {
             // TODO: Tłumaczenia
             return to_route(
-                route: 'auth.emailVerify.resend.show',
+                route: 'auth.emailVerification.resend.show',
                 parameters: [
                     'token' => $request->route('token'),
                 ],
