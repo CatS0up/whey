@@ -10,79 +10,72 @@ use App\Http\Controllers\Auth\ResetTemporaryPasswordController;
 use App\Http\Controllers\Auth\SendTemporaryPasswordController;
 use Illuminate\Support\Facades\Route;
 
-// Guest routes - start
 Route::middleware('guest')
-    ->group(
-        function (): void {
-            Route::view('/register', 'auth.sections.register')
-                ->name('register.show');
-
-            Route::controller(LoginController::class)
-                ->as('login.')
-                ->group(
-                    function (): void {
-                        Route::get('/login', 'show')
-                            ->name('show');
-
-                        Route::post('/login', 'login')
-                            ->name('login');
-                    },
-                );
-
-            Route::prefix('email-verification')
-                ->as('emailVerify.')
-                ->group(function (): void {
-                    Route::post('{token:token}', EmailVerifyController::class)
-                        ->name('verify');
-
-                    Route::controller(EmailVerifyResendController::class)
-                        ->prefix('resend')
-                        ->as('resend.')
-                        ->group(
-                            function (): void {
-                                Route::get('{token:token}', 'show')
-                                    ->name('show');
-
-                                Route::post('{token:token}', 'resend')
-                                    ->name('resend');
-                            },
-                        );
-                }, );
-
-            Route::prefix('temporary-password')
-                ->as('temporaryPassword.')
-                ->group(function (): void {
-                    Route::controller(SendTemporaryPasswordController::class)
-                        ->group(
-                            function (): void {
-                                Route::get('/', 'show')
-                                    ->name('show');
-
-                                Route::post('/', 'send')
-                                    ->name('send');
-                            },
-                        );
-                });
-        },
-    );
-// Guest routes - end
-
-// Auth routes - start
-Route::middleware('authenticate')
     ->group(function (): void {
-        Route::post('/logout', LogoutController::class)
-            ->name('logout');
+        /** REGISTRATION - START */
+        Route::view('/register', 'auth.sections.register')->name('register.show');
+        /** REGISTRATION - END */
 
-        Route::controller(ResetTemporaryPasswordController::class)
-            ->prefix('reset-password')
-            ->as('resetPassword.')
-            ->withoutMiddleware('reset_password')
+        /** LOGIN - START */
+        Route::prefix('login')
+            ->as('login.')
+            ->controller(LoginController::class)
             ->group(function (): void {
-                Route::get('/', 'show')
-                    ->name('show');
+                Route::get('/', 'show')->name('show');
+                Route::post('/', 'login')->name('request');
+        });
+        /** LOGIN - END */
 
-                Route::post('/', 'reset')
-                    ->name('reset');
-            });
+        /** LOGOUT - START */
+        Route::post('logout', LogoutController::class)->name('logout');
+        /** LOGOUT - END */
+
+        /** EMAIL VERIFICATION - START */
+        Route::prefix('email-verification/{token:token}')
+            ->as('emailVerification.')
+            ->group(function (): void {
+                /** VERIFY - START */
+                Route::post('/', EmailVerifyController::class)->name('verify');
+                /** VERIFY - END */
+
+                /** RESEND - START */
+                Route::prefix('resend')
+                    ->as('resend.')
+                    ->controller(EmailVerifyResendController::class)
+                    ->group(function (): void {
+                        Route::get('/', 'show')->name('show');
+                        Route::post('/', 'resend')->name('request');
+                });
+                /** RESEND - END */
+        });
+        /** EMAIL VERIFICATION - END */
     });
-// Auth routes - end
+
+/** TEMPORARY PASSWORD - START */
+Route::prefix('temporary-password')
+    ->as('temporaryPassword.')
+    ->group(function (): void {
+        /** RESET - START */
+        Route::middleware('authenticate')
+            ->withoutMiddleware('reset_password')
+            ->prefix('reset')
+            ->as('reset.')
+            ->controller(ResetTemporaryPasswordController::class)
+            ->group(function (): void {
+                Route::get('/', 'show')->name('show');
+                Route::post('/', 'reset')->name('request');
+        });
+        /** RESET - END */
+
+        /** SEND - START */
+        Route::middleware('guest')
+            ->prefix('send')
+            ->as('send.')
+            ->controller(SendTemporaryPasswordController::class)
+            ->group(function (): void {
+                Route::get('/', 'show')->name('show');
+                Route::get('/', 'send')->name('request');
+        });
+        /** SEND - END */
+});
+/** TEMPORARY PASSWORD - END */
