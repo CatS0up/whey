@@ -161,6 +161,7 @@ class User extends Authenticatable implements Mediable
     public function verifyEmail(): void
     {
         $this->email_verified_at = now();
+        $this->save();
     }
     /** Setters/getter/hassers/issers - end */
 
