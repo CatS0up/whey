@@ -15,7 +15,7 @@ class UserHasNoTemporaryPassword extends Exception implements Renderable
     public function render(Request $request): RedirectResponse
     {
         // TODO: Tłumaczenia
-        return to_route('auth.login.show')
+        return back()
             ->with(
                 key: SweetAlertToastType::Error->type(),
                 value: 'User has no temporary password assigned',
