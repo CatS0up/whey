@@ -143,7 +143,7 @@ class User extends Authenticatable implements Mediable
         $this->save();
     }
 
-    public function hasTempPassword(): bool
+    public function hasTemporaryPassword(): bool
     {
         return $this->has_temporary_password;
     }

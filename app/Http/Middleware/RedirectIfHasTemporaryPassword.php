@@ -19,7 +19,7 @@ class RedirectIfHasTemporaryPassword
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
-            if(auth()->user()->hasTempPassword()) {
+            if(auth()->user()->hasTemporaryPassword()) {
                 // TODO: Tłumaczenia
                 return to_route('auth.resetPassword.show')
                     ->with(
