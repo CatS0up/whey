@@ -30,9 +30,11 @@ class RedirectIfHasTemporaryPasswordTest extends TestCase
         $response = $this->authenticated()
             ->get('/dummy-test-route')
             ->assertDontSeeText('Dummy info from dummy route')
-            ->assertRedirect('/reset-password');
+            ->assertRedirect('/reset-password')
+            ->assertSessionHas('warning', 'You have a temporary password. If you want to continue, you should set a new password');
 
         $this->followRedirects($response)
+            ->assertSeeText('You have a temporary password. If you want to continue, you should set a new password')
             ->assertSeeText('Reset hasła');
     }
 
