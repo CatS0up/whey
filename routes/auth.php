@@ -23,7 +23,7 @@ Route::middleware('guest')
             ->group(function (): void {
                 Route::get('/', 'show')->name('show');
                 Route::post('/', 'login')->name('request');
-        });
+            });
         /** LOGIN - END */
 
         /** LOGOUT - START */
@@ -45,9 +45,9 @@ Route::middleware('guest')
                     ->group(function (): void {
                         Route::get('/', 'show')->name('show');
                         Route::post('/', 'resend')->name('request');
-                });
+                    });
                 /** RESEND - END */
-        });
+            });
         /** EMAIL VERIFICATION - END */
     });
 
@@ -64,7 +64,7 @@ Route::prefix('temporary-password')
             ->group(function (): void {
                 Route::get('/', 'show')->name('show');
                 Route::post('/', 'reset')->name('request');
-        });
+            });
         /** RESET - END */
 
         /** SEND - START */
@@ -75,7 +75,7 @@ Route::prefix('temporary-password')
             ->group(function (): void {
                 Route::get('/', 'show')->name('show');
                 Route::get('/', 'send')->name('request');
-        });
+            });
         /** SEND - END */
-});
+    });
 /** TEMPORARY PASSWORD - END */
