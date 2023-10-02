@@ -39,7 +39,7 @@ class VerifyEmailTest extends TestCase
     /** @test */
     public function it_should_let_auth_user_to_choosen_page_when_given_user_has_activated_account(): void
     {
-        $response = $this->authenticated()
+        $this->authenticated()
             ->get('/dummy-test-route')
             ->assertOk()
             ->assertSeeText('Dummy info from dummy route');
