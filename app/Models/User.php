@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Builders\UserBuilder;
 use App\Casts\Height;
 use App\Casts\Phone;
 use App\Casts\Weight;
@@ -98,6 +99,12 @@ class User extends Authenticatable implements Mediable
         'height_unit' => HeightUnit::class,
         'has_temporary_password' => 'boolean',
     ];
+
+    /** {@inheritdoc} */
+    public function newEloquentBuilder($query)
+    {
+        return new UserBuilder($query);
+    }
 
     public function sluggableField(): string
     {
