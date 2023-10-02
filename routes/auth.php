@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\EmailVerifyController;
 use App\Http\Controllers\Auth\EmailVerifyResendController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ResetTemporaryPasswordController;
 use App\Http\Controllers\Auth\SendTemporaryPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,7 +73,7 @@ Route::middleware('authenticate')
         Route::post('/logout', LogoutController::class)
             ->name('logout');
 
-        Route::controller(ResetPasswordController::class)
+        Route::controller(ResetTemporaryPasswordController::class)
             ->prefix('reset-password')
             ->as('resetPassword.')
             ->withoutMiddleware('reset_password')
