@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Requests\User;
 
 use App\DataObjects\User\UpdatePasswordData;
+use App\Http\Requests\Contracts\DataObjectConvertable;
 use App\Validators\User\PasswordValidator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePasswordRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest implements DataObjectConvertable
 {
     /**
      * Determine if the user is authorized to make this request.

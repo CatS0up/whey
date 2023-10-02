@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Requests\Auth;
 
 use App\DataObjects\Auth\LoginData;
+use App\Http\Requests\Contracts\DataObjectConvertable;
 use App\Validators\Auth\LoginValidator;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends FormRequest implements DataObjectConvertable
 {
     /**
      * Determine if the user is authorized to make this request.
