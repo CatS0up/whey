@@ -24,7 +24,7 @@ class RedirectIfHasTemporaryPassword
                 return to_route('auth.resetPassword.show')
                     ->with(
                         key: SweetAlertToastType::Warning->type(),
-                        value: 'You have temporary password yet. If you want cointune, you should set new password',
+                        value: 'You have a temporary password. If you want to continue, you should set a new password',
                     );
             }
         }
