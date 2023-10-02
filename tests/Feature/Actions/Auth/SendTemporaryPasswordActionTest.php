@@ -8,7 +8,6 @@ use App\Actions\Auth\GenerateTemporaryPasswordAction;
 use App\Actions\Auth\SendTemporaryPasswordAction;
 use App\Notifications\Auth\UserTemporaryPasswordNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Mockery;
 use Mockery\Mock;
@@ -29,7 +28,7 @@ class SendTemporaryPasswordActionTest extends TestCase
 
         Mockery::globalHelpers();
 
-        $this->generateTemporaryPasswordActionMock = mock(GenerateTemporaryPasswordAction::class);
+        $this->generateTemporaryPasswordActionMock = mock(GenerateTemporaryPasswordAction::class)->makePartial();
         app()->instance(GenerateTemporaryPasswordAction::class, $this->generateTemporaryPasswordActionMock);
         $this->actionUnderTest = app()->make(SendTemporaryPasswordAction::class);
     }
@@ -40,8 +39,8 @@ class SendTemporaryPasswordActionTest extends TestCase
         Notification::fake();
 
         $this->generateTemporaryPasswordActionMock
-            ->shouldReceive('execute')
-            ->with($this->user->id)
+            ->expects()
+            ->execute($this->user->id)
             ->once();
 
         $this->actionUnderTest = app()->make(SendTemporaryPasswordAction::class);
