@@ -26,7 +26,6 @@ class ResetTemporaryPasswordController extends Controller
 
     public function reset(UpdatePasswordRequest $request, ResetTemporaryPasswordAction $action): RedirectResponse
     {
-        dd($action->execute($request->toDataObject()));
         if ($action->execute($request->toDataObject())) {
             // TODO: Tłumaczenia
             return to_route('auth.login.show')
