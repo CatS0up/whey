@@ -26,10 +26,6 @@ Route::middleware('guest')
             });
         /** LOGIN - END */
 
-        /** LOGOUT - START */
-        Route::post('logout', LogoutController::class)->name('logout');
-        /** LOGOUT - END */
-
         /** EMAIL VERIFICATION - START */
         Route::prefix('email-verification/{token:token}')
             ->as('emailVerification.')
@@ -79,3 +75,7 @@ Route::prefix('temporary-password')
         /** SEND - END */
     });
 /** TEMPORARY PASSWORD - END */
+
+/** LOGOUT - START */
+Route::post('logout', LogoutController::class)->middleware('authenticate')->name('logout');
+/** LOGOUT - END */
