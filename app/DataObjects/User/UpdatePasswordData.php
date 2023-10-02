@@ -18,7 +18,7 @@ final class UpdatePasswordData extends Data
     public static function fromFormRequest(UpdatePasswordRequest $request): self
     {
         return self::from([
-            'userId' => $request->user->id,
+            'userId' => $request->user()->id(),
             'password' => $request->password,
         ]);
     }
