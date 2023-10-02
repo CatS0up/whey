@@ -148,6 +148,11 @@ class User extends Authenticatable implements Mediable
         return $this->has_temporary_password;
     }
 
+    public function hasNoTemporaryPassword(): bool
+    {
+        return ! $this->hasTemporaryPassword();
+    }
+
     public function hasVerifiedEmail(): bool
     {
         return ! empty($this->email_verified_at);
