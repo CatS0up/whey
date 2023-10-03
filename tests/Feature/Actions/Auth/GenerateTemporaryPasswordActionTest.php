@@ -38,11 +38,11 @@ class GenerateTemporaryPasswordActionTest extends TestCase
     /** @test */
     public function it_should_mark_user_as_temporary_password_owner_when_temporary_password_has_been_generated(): void
     {
-        $this->assertFalse($this->user->hasTempPassword());
+        $this->assertFalse($this->user->hasTemporaryPassword());
 
         $this->actionUnderTest->execute($this->user->id);
 
         $this->refreshUser();
-        $this->assertTrue($this->user->hasTempPassword());
+        $this->assertTrue($this->user->hasTemporaryPassword());
     }
 }

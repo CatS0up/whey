@@ -63,7 +63,7 @@ class ResetTemporaryPasswordActionTest extends TestCase
     {
         $this->user->markPasswordAsTemporary();
 
-        $this->assertTrue($this->user->hasTempPassword());
+        $this->assertTrue($this->user->hasTemporaryPassword());
 
         $this->actionUnderTest->execute(
             UpdatePasswordData::from([
@@ -73,6 +73,6 @@ class ResetTemporaryPasswordActionTest extends TestCase
         );
 
         $this->refreshUser();
-        $this->assertFalse($this->user->hasTempPassword());
+        $this->assertFalse($this->user->hasTemporaryPassword());
     }
 }
