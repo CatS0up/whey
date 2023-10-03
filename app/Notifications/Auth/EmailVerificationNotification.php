@@ -41,7 +41,7 @@ class EmailVerificationNotification extends Notification implements ShouldQueue
             // TODO: Tłumaczenia
             ->subject('Email Verification')
             ->greeting('Hello,')
-            ->action('Verify', route('auth.emailVerify.verify', ['token' => $this->token,]))
+            ->action('Verify', route('auth.emailVerification.verify', ['token' => $this->token,]))
             ->line('Thank you for using our application!');
     }
 
