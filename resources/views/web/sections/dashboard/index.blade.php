@@ -1,1 +1,5 @@
-<h1>Test</h1>
+@extends('layout.dashboard.layout')
+
+@section('content')
+
+@endsection
