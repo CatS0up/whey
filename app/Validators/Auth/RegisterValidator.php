@@ -2,15 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Validators\User;
+namespace App\Validators\Auth;
 
 use App\Enums\HeightUnit;
 use App\Enums\PhoneCountry;
 use App\Enums\WeightUnit;
 use App\Http\Livewire\Auth\RegisterForm;
+use App\Rules\Recaptcha;
+use App\Validators\User\AvatarValidator;
+use App\Validators\User\PasswordValidator;
 use Illuminate\Validation\Rules\Enum;
 
-class UserValidator
+class RegisterValidator
 {
     public function rulesForRegistrationForm(RegisterForm $context): array
     {
@@ -70,6 +73,7 @@ class UserValidator
                     'string',
                     new Enum(HeightUnit::class),
                 ],
+                'recaptcha' => new Recaptcha(),
             ],
         ];
     }
