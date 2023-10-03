@@ -18,15 +18,13 @@ class RedirectIfHasTemporaryPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            if(auth()->user()->hasTemporaryPassword()) {
-                // TODO: Tłumaczenia
-                return to_route('auth.resetPassword.show')
-                    ->with(
-                        key: SweetAlertToastType::Warning->type(),
-                        value: 'You have a temporary password. If you want to continue, you should set a new password',
-                    );
-            }
+        if(auth()->user()->hasTemporaryPassword()) {
+            // TODO: Tłumaczenia
+            return to_route('auth.temporaryPassword.reset.show')
+                ->with(
+                    key: SweetAlertToastType::Warning->type(),
+                    value: 'You have a temporary password. If you want to continue, you should set a new password',
+                );
         }
 
         return $next($request);
