@@ -13,7 +13,7 @@
     <p class="mt-6 text-md">
         Wygląda na to że twój link aktywacyjny wygasł. Aby aktywować konto należy wysłać ponownie wiadomość z linkiem aktywacyjnym.
     </p>
-    <a href="{{ route('auth.emailVerify.resend.resend', ['token' => $model['token']->token]) }}" class="group block mt-6 outline-none">
+    <a href="{{ route('auth.emailVerification.resend.request', ['token' => $model['token']->token]) }}" class="group block mt-6 outline-none">
         <x-shared.button type="submit" class="w-full">Wyślij ponownie</x-shared.button>
     </a>
 </section>

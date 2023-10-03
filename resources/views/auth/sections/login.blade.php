@@ -8,7 +8,7 @@
 
     <x-auth.form.title>Logowanie</x-auth.form.title>
 </header>
-<form action="{{ route('auth.login.login') }}" method="post">
+<form action="{{ route('auth.login.request') }}" method="post">
     @csrf
 
     <div class="mt-6">
