@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
 use Tests\Concerns\Media;
 use Tests\Concerns\Authentication;
+use Tests\Concerns\SkipReCaptchaValidation;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -30,6 +31,10 @@ abstract class TestCase extends BaseTestCase
 
         if (isset($uses[Authentication::class])) {
             $this->setUpUser();
+        }
+
+        if (isset($uses[SkipReCaptchaValidation::class])) {
+            $this->skipReCaptchaValidation();
         }
 
         return $uses;
