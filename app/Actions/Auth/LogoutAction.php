@@ -29,6 +29,7 @@ class LogoutAction
             return self::IS_LOGGED_OUT;
         }
 
+        // @phpstan-ignore-next-line
         return ! self::IS_LOGGED_OUT;
     }
 }

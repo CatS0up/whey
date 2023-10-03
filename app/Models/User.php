@@ -26,6 +26,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
 
+/**
+ * @method static UserBuilder<User> query()
+ */
 class User extends Authenticatable implements Mediable
 {
     use HasApiTokens;
@@ -100,8 +103,12 @@ class User extends Authenticatable implements Mediable
         'has_temporary_password' => 'boolean',
     ];
 
-    /** {@inheritdoc} */
-    public function newEloquentBuilder($query)
+    /**
+     * @param \Illuminate\Database\Query\Builder $query
+     *
+     * @return UserBuilder<User>
+     */
+    public function newEloquentBuilder($query): UserBuilder
     {
         return new UserBuilder($query);
     }
@@ -139,6 +146,7 @@ class User extends Authenticatable implements Mediable
 
     public function unmarkPasswordAsTemporary(): void
     {
+        // @phpstan-ignore-next-line
         $this->has_temporary_password = ! self::HAS_TEMPORARY_PASSWORD;
         $this->save();
     }

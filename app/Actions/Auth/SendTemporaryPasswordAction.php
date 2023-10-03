@@ -17,6 +17,7 @@ class SendTemporaryPasswordAction
 
     public function execute(int $userId): User
     {
+        /** @var User $user */
         $user = $this->user->query()->findOrFail($userId);
         $tempPassword = $this->generateTemporaryPasswordAction->execute($userId);
 

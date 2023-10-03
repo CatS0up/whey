@@ -19,6 +19,7 @@ class GenerateTemporaryPasswordAction
 
     public function execute(int $userId): string
     {
+        /** @var User $user */
         $user = $this->user->query()->findOrFail($userId);
         $tempPassword = str()->random();
 
