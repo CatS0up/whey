@@ -28,6 +28,11 @@
             />
     </x-slot:stepper>
     <x-slot:body>
+        <div>
+            <x-shared.form.recaptcha wire:model="recaptcha"/>
+            <x-shared.form.error field="recaptcha"/>
+        </div>
+
         {{-- Step 1 - start --}}
         @if ($this->isVisibleSection(1))
         <section>

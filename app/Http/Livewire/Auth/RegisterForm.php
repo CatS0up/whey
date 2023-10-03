@@ -11,7 +11,7 @@ use App\Enums\PhoneCountry;
 use App\Enums\SweetAlertToastType;
 use App\Enums\WeightUnit;
 use App\Http\Livewire\MultiStepForm;
-use App\Validators\User\UserValidator;
+use App\Validators\Auth\RegisterValidator;
 use Illuminate\View\View;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -43,6 +43,7 @@ class RegisterForm extends MultiStepForm
     public string $weight_unit = WeightUnit::Kilograms->value;
     public float $height;
     public string $height_unit = HeightUnit::Centimeters->value;
+    public string $recaptcha;
     // Step 3 - end
 
     public function boot(
@@ -104,6 +105,6 @@ class RegisterForm extends MultiStepForm
 
     protected function rulesForStep(): array
     {
-        return (new UserValidator())->rulesForRegistrationForm($this);
+        return (new RegisterValidator())->rulesForRegistrationForm($this);
     }
 }
