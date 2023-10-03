@@ -70,7 +70,7 @@ Route::prefix('temporary-password')
             ->controller(SendTemporaryPasswordController::class)
             ->group(function (): void {
                 Route::get('/', 'show')->name('show');
-                Route::get('/', 'send')->name('request');
+                Route::post('/', 'send')->name('request');
             });
         /** SEND - END */
     });
