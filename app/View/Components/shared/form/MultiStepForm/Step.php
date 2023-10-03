@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\View\Components\shared\form\MultiStepForm;
+namespace App\View\Components\Shared\Form\MultiStepForm;
 
 use Closure;
 use Illuminate\Contracts\View\View;
