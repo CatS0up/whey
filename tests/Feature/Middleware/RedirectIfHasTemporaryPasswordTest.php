@@ -23,6 +23,14 @@ class RedirectIfHasTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
+    public function it_should_abort_request_with_401_status_code_when_RedirectIfHasTemporaryPassword_middleware_has_been_called_by_guest_user(): void
+    {
+        $this->get('/dummy-test-route')
+            ->assertDontSeeText('Dummy info from dummy route')
+            ->assertUnauthorized();
+    }
+
+    /** @test */
     public function it_should_redirect_auth_user_to_reset_password_page_when_user_has_temporary_password(): void
     {
         $this->user->markPasswordAsTemporary();

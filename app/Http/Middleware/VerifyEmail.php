@@ -18,6 +18,11 @@ class VerifyEmail
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
+        abort_if(
+            boolean: auth()->guest(),
+            code: Response::HTTP_UNAUTHORIZED,
+        );
+
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {

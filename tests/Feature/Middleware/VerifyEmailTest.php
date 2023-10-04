@@ -22,6 +22,14 @@ class VerifyEmailTest extends TestCase
     }
 
     /** @test */
+    public function it_should_abort_request_with_401_status_code_when_VerifyEmail_middleware_has_been_called_by_guest_user(): void
+    {
+        $this->get('/dummy-test-route')
+            ->assertDontSeeText('Dummy info from dummy route')
+            ->assertUnauthorized();
+    }
+
+    /** @test */
     public function it_sould_redirect_auth_user_to_login_page_when_user_has_unactivated_account(): void
     {
         $this->markUserAsUnverified();

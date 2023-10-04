@@ -18,6 +18,11 @@ class RedirectIfHasTemporaryPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
+        abort_if(
+            boolean: auth()->guest(),
+            code: Response::HTTP_UNAUTHORIZED,
+        );
+
         if(auth()->user()->hasTemporaryPassword()) {
             // TODO: Tłumaczenia
             return to_route('auth.temporaryPassword.reset.show')
