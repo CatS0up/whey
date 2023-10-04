@@ -11,7 +11,7 @@ use App\ValueObjects\Shared\Height;
 use App\ValueObjects\Shared\Weight;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use \Propaganistas\LaravelPhone\PhoneNumber;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -76,7 +76,7 @@ class UserFactory extends Factory
                     column_key: 'value',
                 ),
             );
-        } while (!$phone->getCountry());
+        } while ( ! $phone->getCountry());
 
         return $phone;
     }
