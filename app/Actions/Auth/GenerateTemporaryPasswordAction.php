@@ -27,7 +27,7 @@ class GenerateTemporaryPasswordAction
             $user->markPasswordAsTemporary();
 
             $this->updateUserPasswordAction->execute(UpdatePasswordData::from([
-                'userId' => $user->id,
+                'user_id' => $user->id,
                 'password' => $tempPassword,
             ]));
 

@@ -32,7 +32,7 @@ class UpdateUserPasswordActionTest extends TestCase
 
         $actual = $this->actionUnderTest->execute(
             UpdatePasswordData::from([
-                'userId' => $this->user->id,
+                'user_id' => $this->user->id,
                 'password' => 'pwd',
             ]),
         );

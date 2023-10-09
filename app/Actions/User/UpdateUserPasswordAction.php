@@ -16,7 +16,7 @@ class UpdateUserPasswordAction
     public function execute(UpdatePasswordData $data): bool
     {
         return $this->user->query()
-            ->findOrFail($data->userId)
+            ->findOrFail($data->user_id)
             ->update([
                 'password' => $data->password,
             ]);

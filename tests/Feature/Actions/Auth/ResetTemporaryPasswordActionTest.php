@@ -34,7 +34,7 @@ class ResetTemporaryPasswordActionTest extends TestCase
 
         $this->actionUnderTest->execute(
             UpdatePasswordData::from([
-                'userId' => $this->user->id,
+                'user_id' => $this->user->id,
                 'password' => 'new_password',
             ]),
         );
@@ -49,7 +49,7 @@ class ResetTemporaryPasswordActionTest extends TestCase
 
         $this->actionUnderTest->execute(
             UpdatePasswordData::from([
-                'userId' => $this->user->id,
+                'user_id' => $this->user->id,
                 'password' => 'new_password',
             ]),
         );
@@ -67,7 +67,7 @@ class ResetTemporaryPasswordActionTest extends TestCase
 
         $this->actionUnderTest->execute(
             UpdatePasswordData::from([
-                'userId' => $this->user->id,
+                'user_id' => $this->user->id,
                 'password' => 'new_password',
             ]),
         );

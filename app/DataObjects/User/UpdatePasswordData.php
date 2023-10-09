@@ -10,7 +10,7 @@ use Spatie\LaravelData\Data;
 final class UpdatePasswordData extends Data
 {
     public function __construct(
-        public readonly int $userId,
+        public readonly int $user_id,
         public readonly string $password,
     ) {
     }
@@ -18,7 +18,7 @@ final class UpdatePasswordData extends Data
     public static function fromFormRequest(UpdatePasswordRequest $request): self
     {
         return self::from([
-            'userId' => $request->user()->id(),
+            'user_id' => $request->user()->id(),
             'password' => $request->password,
         ]);
     }

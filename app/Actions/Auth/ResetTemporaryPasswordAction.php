@@ -21,7 +21,7 @@ class ResetTemporaryPasswordAction
     public function execute(UpdatePasswordData $data): bool
     {
         /** @var User $user */
-        $user = $this->user->query()->findOrFail($data->userId);
+        $user = $this->user->query()->findOrFail($data->user_id);
 
         if ($user->hasNoTemporaryPassword()) {
             throw UserHasNoTemporaryPassword::because('Given user has no temporary password assigned');
