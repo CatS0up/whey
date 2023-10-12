@@ -11,6 +11,11 @@ trait Authentication
 {
     protected User $user;
 
+    public function getUserFactoryAttributes(): array
+    {
+        return [];
+    }
+
     public function authenticated(Authenticatable $user = null): self
     {
         return $this->actingAs($user ?? $this->user);
@@ -27,13 +32,15 @@ trait Authentication
     protected function setUpUser(): void
     {
         $this->afterApplicationCreated(function (): void {
-            $this->user = $this->createUser();
+            $attributes = $this->getUserFactoryAttributes();
+
+            $this->user = $this->createUser($attributes);
         });
     }
 
-    protected function createUser(): User
+    protected function createUser(array $attributes): User
     {
-        return User::factory()->create();
+        return User::factory()->create($attributes);
     }
 
     protected function refreshUser(): void
