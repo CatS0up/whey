@@ -6,7 +6,7 @@ namespace App\Http\Requests\Auth;
 
 use App\DataObjects\Auth\PasswordConfirmationData;
 use App\Http\Requests\Contracts\DataObjectConvertable;
-use App\Validators\User\PasswordValidator;
+use App\Validators\Auth\PasswordConfirmationValidator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordConfirmationRequest extends FormRequest implements DataObjectConvertable
@@ -26,7 +26,7 @@ class PasswordConfirmationRequest extends FormRequest implements DataObjectConve
      */
     public function rules(): array
     {
-        return (new PasswordValidator())->rules();
+        return (new PasswordConfirmationValidator())->rules();
     }
 
     public function toDataObject(): PasswordConfirmationData
