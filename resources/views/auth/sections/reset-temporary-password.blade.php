@@ -12,10 +12,23 @@
     @csrf
 
     <div class="mt-6">
-        <x-shared.form.input id="password" name="password" type="password" label="Hasło" :invalid="$errors->has('password')" required />
+        <x-shared.form.input
+            id="password"
+            name="password"
+            type="password"
+            label="Hasło"
+            :invalid="$errors->has('password')"
+            required />
+
+            <x-shared.form.error field="password"/>
     </div>
     <div class="mt-6">
-        <x-shared.form.input id="passwordConfirmation" name="password_confirmation" type="password" label="Potwierdź hasło" required />
+        <x-shared.form.input
+            id="passwordConfirmation"
+            name="password_confirmation"
+            type="password"
+            label="Potwierdź hasło"
+            required />
     </div>
 
     <div class="mt-4">
