@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\PasswordConfirmationController;
 use App\Http\Controllers\Auth\EmailVerifyController;
 use App\Http\Controllers\Auth\EmailVerifyResendController;
 use App\Http\Controllers\Auth\LoginController;
@@ -75,6 +76,17 @@ Route::prefix('temporary-password')
         /** SEND - END */
     });
 /** TEMPORARY PASSWORD - END */
+
+/** CONFIRM PASSWORD - START */
+Route::middleware('authenticate')
+    ->prefix('confirm-password')
+    ->as('confirmPassword.')
+    ->controller(PasswordConfirmationController::class)
+    ->group(function (): void {
+        Route::get('/', 'show')->name('show');
+        Route::post('/', 'confirm')->name('request');
+    });
+/** CONFIRM PASSWORD - END */
 
 /** LOGOUT - START */
 Route::post('logout', LogoutController::class)->middleware('authenticate')->name('logout');
