@@ -16,6 +16,7 @@ use App\Models\Concerns\Sluggable;
 use App\Models\Contracts\Mediable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -187,6 +188,16 @@ class User extends Authenticatable implements Mediable
     public function exercises(): HasMany
     {
         return $this->hasMany(Exercise::class, 'author_id');
+    }
+
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
     }
     /** Relationships - end */
 }
