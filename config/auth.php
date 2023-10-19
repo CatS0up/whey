@@ -117,4 +117,6 @@ return [
     'email_verify' => [
         'token_lifetime' => env('EMAIL_VERIFY_TOKEN_LIFETIME', 1800),
     ],
+
+    'demo_users_enable' => env('DEMO_USERS_ENABLE', false),
 ];
