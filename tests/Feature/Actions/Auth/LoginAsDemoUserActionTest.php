@@ -6,6 +6,7 @@ namespace Tests\Feature\Actions\Auth;
 
 use App\Actions\Auth\LoginAsDemoUserAction;
 use App\Enums\Role;
+use App\Models\User;
 use Database\Seeders\DemoUserSeeder;
 use Database\Seeders\PermissionRoleSeeder;
 use Database\Seeders\PermissionSeeder;
@@ -53,10 +54,11 @@ class LoginAsDemoUserActionTest extends TestCase
             DemoUserSeeder::class,
         ]);
 
-        $authUser = $this->actionUnderTest->execute($role);
+        $isLoggedIn = $this->actionUnderTest->execute($role);
 
-        $this->assertEquals($userName, $authUser->name);
-        $this->assertAuthenticatedAs($authUser);
+        $this->assertTrue($isLoggedIn);
+        $this->assertEquals($userName, auth()->user()->name);
+        $this->assertAuthenticatedAs(User::firstWhere('name', $userName));
     }
 
     public static function usersProvider(): array

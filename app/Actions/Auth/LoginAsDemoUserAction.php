@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use RuntimeException;
 
 class LoginAsDemoUserAction
@@ -20,7 +21,7 @@ class LoginAsDemoUserAction
     ) {
     }
 
-    public function execute(Role $role): User
+    public function execute(Role $role): bool
     {
         if ( ! config('auth.demo_users_enable')) {
             throw new RuntimeException('Demo users are disabled');
@@ -30,7 +31,7 @@ class LoginAsDemoUserAction
 
         $this->auth->loginUsingId($user->id);
 
-        return $user;
+        return $this->auth->check() && $this->auth->id() === $user->id;
     }
 
     /** @return Model&User */
