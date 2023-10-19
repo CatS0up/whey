@@ -22,13 +22,14 @@ class PermissionsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $permissions = Cache::remember(
-            key: 'permissions',
-            ttl: self::PERMISSIONS_CACHE_TTL,
-            callback: fn (): Collection => Permission::all()
-        );
-
+        // It's not an elegant way, but it works ;)
         try {
+            $permissions = Cache::remember(
+                key: 'permissions',
+                ttl: self::PERMISSIONS_CACHE_TTL,
+                callback: fn (): Collection => Permission::all()
+            );
+
             foreach ($permissions as $permission) {
                 Gate::define(
                     ability: $permission->slug,
