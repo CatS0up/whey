@@ -17,7 +17,7 @@ class PermissionRoleSeeder extends Seeder
     public function run(): void
     {
         Role::query()
-            ->findOrFail(RoleType::User->value)
+            ->findOrFail(RoleType::User->id())
             ->permissions()
             ->sync(
                 Permission::query()
@@ -30,7 +30,7 @@ class PermissionRoleSeeder extends Seeder
             );
 
         Role::query()
-            ->findOrFail(RoleType::User->value)
+            ->findOrFail(RoleType::User->id())
             ->permissions()
             ->sync(
                 Permission::query()
@@ -48,7 +48,7 @@ class PermissionRoleSeeder extends Seeder
             );
 
         Role::query()
-            ->findOrFail(RoleType::User->value)
+            ->findOrFail(RoleType::User->id())
             ->permissions()
             ->sync(
                 Permission::query()

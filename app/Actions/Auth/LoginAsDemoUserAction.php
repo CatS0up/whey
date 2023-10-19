@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use RuntimeException;
 
 class LoginAsDemoUserAction

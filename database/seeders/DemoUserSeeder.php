@@ -29,8 +29,8 @@ class DemoUserSeeder extends Seeder
             ))
             ->create();
 
-        User::firstWhere('name', 'user')->roles()->sync(Role::find(RoleType::User->value)->pluck('id')->toArray());
-        User::firstWhere('name', 'trainer')->roles()->sync(Role::find(RoleType::Trainer->value)->pluck('id')->toArray());
-        User::firstWhere('name', 'admin')->roles()->sync(Role::find(RoleType::Admin->value)->pluck('id')->toArray());
+        User::firstWhere('name', 'user')->roles()->sync(Role::find(RoleType::User->id())->pluck('id')->toArray());
+        User::firstWhere('name', 'trainer')->roles()->sync(Role::find(RoleType::Trainer->id())->pluck('id')->toArray());
+        User::firstWhere('name', 'admin')->roles()->sync(Role::find(RoleType::Admin->id())->pluck('id')->toArray());
     }
 }
