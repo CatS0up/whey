@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Throwable;
 
@@ -24,6 +25,10 @@ class PermissionsServiceProvider extends ServiceProvider
     {
         // It's not an elegant way, but it works ;)
         try {
+            if ( ! Schema::hasTable('permissions')) {
+                return;
+            }
+
             $permissions = Cache::remember(
                 key: 'permissions',
                 ttl: self::PERMISSIONS_CACHE_TTL,
