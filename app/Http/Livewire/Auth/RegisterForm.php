@@ -12,13 +12,19 @@ use App\Enums\SweetAlertToastType;
 use App\Enums\WeightUnit;
 use App\Http\Livewire\MultiStepForm;
 use App\Validators\Auth\RegisterValidator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Livewire\Redirector;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
 class RegisterForm extends MultiStepForm
 {
     use WithFileUploads;
+
+    protected $listeners = [
+        'recaptcha-ready' => 'register',
+    ];
 
     protected int $minStep = 1;
     protected int $maxStep = 3;
@@ -63,7 +69,12 @@ class RegisterForm extends MultiStepForm
         return [];
     }
 
-    public function submit(): mixed
+    /**
+     * This is the location for the registration logic, which is not included in the submit method.
+     * The registration logic is executed after the form is accepted and the Recaptcha triggers the 'recaptcha-ready' event,
+     * which initiates the actual registration process.
+     */
+    public function register(): Redirector|RedirectResponse
     {
         $this->validate();
 
@@ -91,11 +102,24 @@ class RegisterForm extends MultiStepForm
         ));
 
         return to_route('auth.login.show')
-            // TODO: Tłumaczenia
+        // TODO: Tłumaczenia
             ->with(
                 key: SweetAlertToastType::Success->type(),
                 value: 'Activation email has been sent',
             );
+    }
+
+    /**
+     * Trigger the execution of Recaptcha v3, which is asynchronous.
+     * After processing the Recaptcha, the 'recaptcha-ready' event is invoked,
+     * allowing the registration process to continue.
+     *
+     * This method is marked as abstract because it is inherited from the abstract class MultiStepForm,
+     * and must be implemented in concrete subclasses.
+     */
+    public function submit(): mixed
+    {
+        return null;
     }
 
     public function render(): View

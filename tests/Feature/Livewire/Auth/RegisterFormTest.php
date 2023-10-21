@@ -40,7 +40,7 @@ class RegisterFormTest extends TestCase
             ->set('weight_unit', WeightUnit::Kilograms->value)
             ->set('height', 1.75)
             ->set('height_unit', HeightUnit::Meters->value)
-            ->call('submit')
+            ->emit('recaptcha-ready') // This event is triggered when reCAPTCHA is ready, after form submission
             ->assertHasErrors('email');
 
         $this->assertDatabaseCount('users', 0); // User was'nt created
@@ -63,7 +63,7 @@ class RegisterFormTest extends TestCase
             ->set('weight_unit', WeightUnit::Kilograms->value)
             ->set('height', 1.75)
             ->set('height_unit', HeightUnit::Meters->value)
-            ->call('submit')
+            ->emit('recaptcha-ready') // This event is triggered when reCAPTCHA is ready, after form submission
             ->assertHasNoErrors()
             ->assertRedirect('/login')
             ->assertSessionHas('success', 'Activation email has been sent');
@@ -90,7 +90,7 @@ class RegisterFormTest extends TestCase
             ->set('weight_unit', WeightUnit::Kilograms->value)
             ->set('height', 1.75)
             ->set('height_unit', HeightUnit::Meters->value)
-            ->call('submit');
+            ->emit('recaptcha-ready'); // This event is triggered when reCAPTCHA is ready, after form submission
 
         $this->assertDatabaseCount('users', 1);
 

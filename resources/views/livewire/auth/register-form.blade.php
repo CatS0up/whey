@@ -136,6 +136,7 @@
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
+                        wire:model="weight"
                         id="weight"
                         name="weight"
                         type="weight"
@@ -160,6 +161,7 @@
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
+                        wire:model="height"
                         id="height"
                         name="height"
                         type="height"
