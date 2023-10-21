@@ -17,7 +17,7 @@ class Recaptcha implements ValidationRule
             data: [
                 'secret' => config('services.recaptcha.secret_key'),
                 'response' => $value,
-                'ip' => request()->ip(),
+                'remoteip' => request()->ip(),
             ],
         );
 
