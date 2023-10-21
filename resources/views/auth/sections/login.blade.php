@@ -50,6 +50,9 @@
     </div>
 </form>
 <section class="mt-4">
-    <x-auth.form.back-to-login-page-button />
+    <div class="flex justify-between flex-wrap">
+        <x-shared.link href="{{ route('auth.temporaryPassword.send.show') }}">Nie pamiętasz hasła?</x-shared.link>
+        <x-shared.link href="{{ route('auth.demoUser.show') }}">Wypróbuj (Demo)</x-shared.link>
+    </div>
 </section>
 @endsection
