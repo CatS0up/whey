@@ -5,11 +5,22 @@
 ])
 
 <p x-data x-init="$nextTick(() => {
-        grecaptcha.ready(() => {
-            grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', { action: {{ $action }} })
-            .then(token => {
-                $refs.input.value = token;
-                @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', token)
+        const parentForm = $refs.input.closest('form');
+
+        if (! parentForm)
+        {
+            throw new Error('The given input does not have a parent form');
+        }
+
+        parentForm.addEventListener('submit', e => {
+            e.preventDefault();
+            grecaptcha.ready(() => {
+                grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', { action: @js($action) })
+                .then(token => {
+                    $refs.input.value = token;
+                    @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', token);
+                    @this.emitSelf('recaptcha-ready');
+                });
             });
         });
      })">
