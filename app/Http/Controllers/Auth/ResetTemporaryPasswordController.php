@@ -9,6 +9,7 @@ use App\Enums\SweetAlertToastType;
 use App\Exceptions\Auth\UserHasNoTemporaryPassword;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdatePasswordRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -28,7 +29,7 @@ class ResetTemporaryPasswordController extends Controller
     {
         if ($action->execute($request->toDataObject())) {
             // TODO: Tłumaczenia
-            return to_route('auth.login.show')
+            return to_route(RouteServiceProvider::HOME)
                 ->with(
                     key: SweetAlertToastType::Success->type(),
                     value: 'Your password has been reset. You can sign up now :)',
