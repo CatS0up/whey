@@ -62,7 +62,7 @@
         <section>
             <div class="mt-6">
                 <x-shared.form.input
-                    wire:model.lazy="email"
+                    wire:model.defer="email"
                     id="email"
                     name="email"
                     type="email"
@@ -83,7 +83,7 @@
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
-                        wire:model.lazy="phone"
+                        wire:model.defer="phone"
                         id="phone"
                         name="phone"
                         type="phone"
@@ -127,7 +127,7 @@
             <x-shared.form.double-input-container>
                 <x-slot:selectInput>
                     <x-shared.form.pre-build-fields.weight-unit-field
-                        wire:model="weight_unit"
+                        wire:model.defer="weight_unit"
                         id="weightUnit"
                         name="weight_unit"
                         label="Jednostka"
@@ -136,7 +136,7 @@
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
-                        wire:model="weight"
+                        wire:model.defer="weight"
                         id="weight"
                         name="weight"
                         type="weight"
@@ -152,7 +152,7 @@
             <x-shared.form.double-input-container class="mt-6">
                 <x-slot:selectInput>
                     <x-shared.form.pre-build-fields.height-unit-field
-                        wire:model="height_unit"
+                        wire:model.defer="height_unit"
                         id="heightUnit"
                         name="height_unit"
                         label="Jednostka"
@@ -161,7 +161,7 @@
                 </x-slot:selectInput>
                 <x-slot:mainInput>
                     <x-shared.form.input
-                        wire:model="height"
+                        wire:model.defer="height"
                         id="height"
                         name="height"
                         type="height"
