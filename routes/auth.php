@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\DemoUserLoginController;
 use App\Http\Controllers\Auth\PasswordConfirmationController;
 use App\Http\Controllers\Auth\EmailVerifyController;
 use App\Http\Controllers\Auth\EmailVerifyResendController;
@@ -91,3 +92,16 @@ Route::middleware('authenticate')
 /** LOGOUT - START */
 Route::post('logout', LogoutController::class)->middleware('authenticate')->name('logout');
 /** LOGOUT - END */
+
+/** DEMO USERS - START */
+if (config('auth.demo_users_enable')) {
+    Route::middleware('guest')
+        ->prefix('demo-user')
+        ->as('demoUser.')
+        ->controller(DemoUserLoginController::class)
+        ->group(function (): void {
+            Route::get('/', 'show')->name('show');
+            Route::post('/{role}', 'login')->name('request');
+        });
+}
+/** DEMO USERS - END */
