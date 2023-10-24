@@ -18,4 +18,14 @@ enum Role: string
             self::Admin => 3,
         };
     }
+
+    public function label(): string
+    {
+        // TODO: Tłumaczenia
+        return match ($this) {
+            self::User => 'User',
+            self::Trainer => 'Trainer',
+            self::Admin => 'Admin',
+        };
+    }
 }
