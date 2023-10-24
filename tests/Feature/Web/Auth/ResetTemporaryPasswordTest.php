@@ -27,7 +27,7 @@ class ResetTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
-    public function guest_user_can_not_display_reset_temporary_password_page_and_should_be_redirect_to_login_page(): void
+    public function guest_user_can_not_display_reset_temporary_password_page_and_should_be_redirected_to_the_login_page(): void
     {
         $response = $this->get('temporary-password/reset')
             ->assertDontSeeText('Reset hasła')
@@ -38,7 +38,7 @@ class ResetTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
-    public function auth_user_can_not_display_reset_temporary_password_page_and_should_be_redirect_back_when_user_does_not_have_temporary_password(): void
+    public function auth_user_can_not_display_reset_temporary_password_page_and_should_be_redirected_back_when_they_do_not_have_a_temporary_password(): void
     {
         $response = $this->authenticated()
             ->from('/dummy-test-route')
@@ -52,7 +52,7 @@ class ResetTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
-    public function auth_user_can_display_reset_temporary_password_page_when_user_has_temporary_password(): void
+    public function auth_user_can_display_reset_temporary_password_page_when_they_do_not_have_a_temporary_password(): void
     {
         $this->user->markPasswordAsTemporary();
 
@@ -63,7 +63,7 @@ class ResetTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
-    public function guest_user_can_not_reset_temporary_password_and_should_be_redirect_to_login_page(): void
+    public function guest_user_can_not_reset_temporary_password_and_should_be_redirected_to_login_page(): void
     {
         $this->post(
             uri: 'temporary-password/reset',
@@ -77,7 +77,7 @@ class ResetTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
-    public function auth_user_can_not_reset_temporary_password_and_should_be_redirect_back_when_user_does_not_have_temporary_password(): void
+    public function auth_user_can_not_reset_temporary_password_and_should_be_redirect_back_when_user_does_not_have_a_temporary_password(): void
     {
         $response = $this->authenticated()
             ->from('/dummy-test-route')
@@ -127,7 +127,7 @@ class ResetTemporaryPasswordTest extends TestCase
     }
 
     /** @test */
-    public function auth_user_can_reset_password_and_should_be_redirect_to_login_page_when_user_has_temporary_password(): void
+    public function auth_user_can_reset_temporary_password_and_should_be_redirected_to_the_auth_user_home_page_when_they_have_a_temporary_password(): void
     {
         $this->user->markPasswordAsTemporary();
 
@@ -139,7 +139,7 @@ class ResetTemporaryPasswordTest extends TestCase
                     'password_confirmation' => 'NewCorrectPassword!2345',
                 ],
             )
-            ->assertRedirect('/login')
+            ->assertRedirect('/dashboard')
             ->assertSessionHas('success', 'Your password has been reset. You can sign up now :)');
 
 
