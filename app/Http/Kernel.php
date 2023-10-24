@@ -75,5 +75,6 @@ class Kernel extends HttpKernel
         'verify_email' => \App\Http\Middleware\VerifyEmail::class,
         'reset_password' => \App\Http\Middleware\RedirectIfHasTemporaryPassword::class,
         'confirm_password' => \App\Http\Middleware\ConfirmPassword::class,
+        'role' => \App\Http\Middleware\Role::class,
     ];
 }
