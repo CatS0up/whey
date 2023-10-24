@@ -57,11 +57,11 @@ class LoginAsDemoUserTest extends LoginAsDemoUserTestCase
     /** @test */
     public function it_should_abort_request_with_404_code_when_guest_user_try_to_login_as_demo_user_page_but_demo_users_are_disabled(): void
     {
-        $this->enableDemoUsersInConfig();
+        $this->disableDemoUsersInConfig();
 
-        $this->post('/demo-user')
-            ->assertOk()
-            ->assertSeeText('Choose your fighter');
+        $this->post('/demo-user/user')
+            ->assertNotFound()
+            ->assertDontSeeText('Choose your fighter');
     }
 
     /** @test */
