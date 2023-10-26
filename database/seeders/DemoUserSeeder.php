@@ -32,16 +32,16 @@ class DemoUserSeeder extends Seeder
         User::query()
             ->firstWhere('name', 'user')
             ->roles()
-            ->sync(Role::find(RoleType::User->id())->pluck('id')->toArray());
+            ->sync(Role::find(RoleType::User->id())->value('id'));
 
         User::query()
             ->firstWhere('name', 'trainer')
             ->roles()
-            ->sync(Role::find(RoleType::Trainer->id())->pluck('id')->toArray());
+            ->sync(Role::find(RoleType::Trainer->id())->value('id'));
 
         User::query()
             ->firstWhere('name', 'admin')
             ->roles()
-            ->sync(Role::find(RoleType::Admin->id())->pluck('id')->toArray());
+            ->sync(Role::find(RoleType::Admin->id())->value('id'));
     }
 }
