@@ -23,8 +23,6 @@ class PermissionRoleSeeder extends Seeder
                 Permission::query()
                     ->whereSlugIn([
                         'create-exercises',
-                        'edit-exercises',
-                        'delete-exercises',
                     ])
                     ->pluck('id'),
             );
