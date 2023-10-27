@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\View\Components\auth;
+namespace App\View\Components\Auth;
 
 use App\Enums\Role;
 use Closure;
