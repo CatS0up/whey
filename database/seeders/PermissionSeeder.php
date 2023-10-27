@@ -12,31 +12,31 @@ class PermissionSeeder extends Seeder
     private static function dataTable(): array
     {
         return [
-            // Exercise - start
-            'add-exercise',
-            'edit-exercise',
-            'delete-exercise',
-            'verify-exercise',
-            // Exercise - end
+            // Exercise   start
+            'create exercises',
+            'edit exercises',
+            'delete exercises',
+            'verify exercises',
+            // Exercise   end
 
-            // Muscle - start
-            'add-muscle',
-            'edit-muscle',
-            'delete-muscle',
-            'verify-muscle',
-            // Muscle - end
+            // Muscle   start
+            'create muscles',
+            'edit muscles',
+            'delete muscles',
+            'verify muscles',
+            // Muscle   end
 
-            // Permission - start
-            'give-permission',
-            'withdraw-permission',
-            'reset-permission',
-            // Permission - end
+            // Permission   start
+            'give permissions',
+            'withdraw permissions',
+            'reset permissions',
+            // Permission   end
 
-            // Role - start
-            'give-role',
-            'withdraw-role',
-            'reset-role',
-            // Role - end
+            // Role   start
+            'give roles',
+            'withdraw roles',
+            'reset roles',
+            // Role   end
         ];
     }
 

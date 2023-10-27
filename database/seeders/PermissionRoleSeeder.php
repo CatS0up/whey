@@ -22,9 +22,9 @@ class PermissionRoleSeeder extends Seeder
             ->sync(
                 Permission::query()
                     ->whereSlugIn([
-                        'exercise-add',
-                        'exercise-edit',
-                        'exercise-delete',
+                        'create-exercises',
+                        'edit-exercises',
+                        'delete-exercises',
                     ])
                     ->pluck('id'),
             );
@@ -35,14 +35,14 @@ class PermissionRoleSeeder extends Seeder
             ->sync(
                 Permission::query()
                     ->whereSlugIn([
-                        'exercise-add',
-                        'exercise-edit',
-                        'exercise-delete',
-                        'exercise-verify',
-                        'add-muscle',
-                        'edit-muscle',
-                        'delete-muscle',
-                        'verify-muscle',
+                        'create-exercises',
+                        'edit-exercises',
+                        'delete-exercises',
+                        'verify-exercises',
+                        'add-muscles',
+                        'edit-muscles',
+                        'delete-muscles',
+                        'verify-muscles',
                     ])
                     ->pluck('id'),
             );
@@ -53,20 +53,20 @@ class PermissionRoleSeeder extends Seeder
             ->sync(
                 Permission::query()
                     ->whereSlugIn([
-                        'exercise-add',
-                        'exercise-edit',
-                        'exercise-delete',
-                        'exercise-verify',
-                        'add-muscle',
-                        'edit-muscle',
-                        'delete-muscle',
-                        'verify-muscle',
-                        'give-permission',
-                        'withdraw-permission',
-                        'reset-permission',
-                        'give-role',
-                        'withdraw-role',
-                        'reset-role',
+                        'create-exercises',
+                        'edit-exercises',
+                        'delete-exercises',
+                        'verify-exercises',
+                        'create-muscles',
+                        'edit-muscles',
+                        'delete-muscles',
+                        'verify-muscles',
+                        'give-permissions',
+                        'withdraw-permissions',
+                        'reset-permissions',
+                        'give-roles',
+                        'withdraw-roles',
+                        'reset-roles',
                     ])
                     ->pluck('id'),
             );
