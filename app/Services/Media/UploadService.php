@@ -14,31 +14,23 @@ use Illuminate\Http\UploadedFile;
 
 class UploadService
 {
-    public function __construct(
-        private UploadThumbnailAction $uploadThumbnailAction,
-        private UploadSmallThumbnailAction $uploadSmallThumbnailAction,
-        private UploadAvatarAction $uploadAvatarAction,
-        private UploadCKEditorImageAction $uploadCKEditorImageAction,
-    ) {
-    }
-
     public function thumbnail(UploadedFile $file, Mediable $model): FileData
     {
-        return $this->uploadThumbnailAction->execute($file, $model);
+        return resolve(UploadThumbnailAction::class)->execute($file, $model);
     }
 
     public function smallThumbnail(UploadedFile $file, Mediable $model): FileData
     {
-        return $this->uploadSmallThumbnailAction->execute($file, $model);
+        return resolve(UploadSmallThumbnailAction::class)->execute($file, $model);
     }
 
     public function avatar(UploadedFile $file, Mediable $model): FileData
     {
-        return $this->uploadAvatarAction->execute($file, $model);
+        return resolve(UploadAvatarAction::class)->execute($file, $model);
     }
 
     public function ckeditorImage(UploadedFile $file): FileData
     {
-        return $this->uploadCKEditorImageAction->execute($file);
+        return resolve(UploadCKEditorImageAction::class)->execute($file);
     }
 }
