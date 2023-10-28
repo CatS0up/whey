@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Media;
 
 use App\Actions\Media\UploadAvatarAction;
+use App\Actions\Media\UploadCKEditorImageAction;
 use App\Actions\Media\UploadSmallThumbnailAction;
 use App\Actions\Media\UploadThumbnailAction;
 use App\DataObjects\FileData;
@@ -17,6 +18,7 @@ class UploadService
         private UploadThumbnailAction $uploadThumbnailAction,
         private UploadSmallThumbnailAction $uploadSmallThumbnailAction,
         private UploadAvatarAction $uploadAvatarAction,
+        private UploadCKEditorImageAction $uploadCKEditorImageAction,
     ) {
     }
 
@@ -33,5 +35,10 @@ class UploadService
     public function avatar(UploadedFile $file, Mediable $model): FileData
     {
         return $this->uploadAvatarAction->execute($file, $model);
+    }
+
+    public function ckeditorImage(UploadedFile $file): FileData
+    {
+        return $this->uploadCKEditorImageAction->execute($file);
     }
 }
