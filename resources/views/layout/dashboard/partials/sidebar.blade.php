@@ -19,11 +19,11 @@
         @toggle-sidebar.window="toggle"
         @resize.window="adjustPosition"
         @load.window="adjustPosition"
-        class="fixed z-50 lg:static lg:translate-x-0 max-w-[300px] inset-0 flex flex-col p-8 bg-white overflow-y-scroll shadow">
+        class="fixed inset-0 z-50 lg:static lg:translate-x-0 w-full max-w-[370px] inset-0 flex flex-col p-8 bg-white shadow overflow-y-scroll">
     <section>
         <x-dashboard.sidebar.toggler class="ml-auto"/>
     </section>
-    <section class="mb-24">
+    <section>
          <ul>
             <li class="mt-6">
                 <x-dashboard.sidebar.subheader>Dashboard</x-dashboard.sidebar.subheader>
@@ -114,7 +114,8 @@
             </li>
         </ul>
     </section>
-    <div class="relative mt-auto p-4 m-2 mt-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg text-blue-100">
+
+    {{-- <section class="relative hidden lg:block mt-auto p-4 m-2 mt-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg text-blue-100">
         <img src="{{ Vite::asset('resources/images/kettlebell.png') }}" class="absolute -top-[38%] left-[5%]">
         <div class="mt-[30%]">
             <h2 class="font-semibold text-lg">Zacznij planować swój trening</h2>
@@ -122,5 +123,11 @@
             <i class="fa-regular fa-chevron-right"></i>
             </a>
         </div>
-    </div>
+    </section> --}}
+
+    <hr class="lg:hidden my-6">
+
+    <section class="lg:hidden">
+        <x-dashboard.user.auth-user dropdownPosition="top-right"/>
+    </section>
 </nav>
