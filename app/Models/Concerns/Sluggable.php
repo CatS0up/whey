@@ -11,6 +11,8 @@ trait Sluggable
 {
     /** @var string */
     public const SLUG_FIELD = 'slug';
+    /** @var int */
+    public const INITIAL_SUFFIX = 0;
 
     abstract public function sluggableField(): string;
 
@@ -18,55 +20,113 @@ trait Sluggable
     {
         static::saving(function (Model $model): void {
             // @phpstan-ignore-next-line
-            $sluggableField = $model->getSluggableField($model);
-
-            // @phpstan-ignore-next-line
-            if ($model->modelHasNoSlugField($model)) {
-                throw ModelHasNoProperty::because('Model has no \'slug\' property');
-            }
-            // @phpstan-ignore-next-line
-            if ($model->modelHasNoSluggableField($model)) {
-                throw ModelHasNoProperty::because("Model has no {$sluggableField} property");
-            }
-
-            // @phpstan-ignore-next-line
-            $model->slug = $model->generateSlug($sluggableField);
+            $model->slug = $model->generateUniqueSlug();
         });
     }
 
-    public function generateSlug(string $string): string
+    private function generateRawSlug(string $string): string
     {
-        return str()->slug($string);
+        return str($string)->slug()->toString();
     }
 
-    private function getSluggableField(Model $model): string
+    private function generateUniqueSlug(): string
     {
-        // @phpstan-ignore-next-line
-        return $model->getAttribute($model->sluggableField());
+        $this->ensureModelHasSlugField();
+        $this->ensureModelHasSluggableField();
+
+        $rawSlug = $this->generateRawSlug($this->getSluggableFieldValue());
+        $maxSlugSuffix = $this->findMaxSlugSuffix($rawSlug);
+
+        if ($maxSlugSuffix) {
+            return $this->addSuffiToRawSlug($rawSlug, $maxSlugSuffix);
+        }
+
+        return $rawSlug;
     }
 
-    private function modelHasNoSluggableField(Model $model): bool
+    private function modelHasNoSluggableField(): bool
     {
         // @phpstan-ignore-next-line
-        $sluggableFieldName = $model->sluggableField();
+        $sluggableFieldValueName = $this->sluggableField();
 
         // @phpstan-ignore-next-line
-        return $model->modelHasNoProperty($model, $sluggableFieldName);
+        return $this->modelHasNoProperty($sluggableFieldValueName);
     }
 
-    private function modelHasNoSlugField(Model $model): bool
+    private function modelHasNoSlugField(): bool
     {
         // @phpstan-ignore-next-line
-        return $model->modelHasNoProperty($model, self::SLUG_FIELD);
+        return $this->modelHasNoProperty(self::SLUG_FIELD);
     }
 
-    private function modelHasNoProperty(Model $model, string $property): bool
+    private function ensureModelHasSlugField(): void
     {
-        return ! $model->getConnection()
+        // @phpstan-ignore-next-line
+        if ($this->modelHasNoSlugField()) {
+            throw ModelHasNoProperty::because('Model has no \'slug\' property');
+        }
+    }
+
+    private function ensureModelHasSluggableField(): void
+    {
+        // @phpstan-ignore-next-line
+        if ($this->modelHasNoSluggableField($this->sluggableField())) {
+            throw ModelHasNoProperty::because("Model has no {$this->sluggableField()} property");
+        }
+    }
+
+    private function getSluggableFieldValue(): string
+    {
+        // @phpstan-ignore-next-line
+        return $this->getAttribute($this->sluggableField());
+    }
+
+    private function modelHasNoProperty(string $property): bool
+    {
+        return ! $this->getConnection()
             ->getSchemaBuilder()
             ->hasColumn(
-                table: $model->getTable(),
+                table: $this->getTable(),
                 column: $property,
             );
+    }
+
+    private function rawSlugExists(string $rawSlug): bool
+    {
+        return $this->query()
+            ->where('id', '!=', $this->id)
+            ->whereSlug($rawSlug)
+            ->exists();
+    }
+
+    private function findModelWithMaxSuffix(string $rawSlug): ?self
+    {
+        // @phpstan-ignore-next-line
+        return $this->query()
+            ->selectRaw("SUBSTRING(slug, '[0-9]+$')::int as max_slug_suffix")
+            ->where('slug', 'like', "{$rawSlug}%")
+            ->where('id', '!=', $this->id)
+            ->orderByDesc('max_slug_suffix')
+            ->first();
+    }
+
+    private function findMaxSlugSuffix(string $rawSlug): ?int
+    {
+        if ($this->rawSlugExists($rawSlug)) {
+            return self::INITIAL_SUFFIX;
+        }
+
+        if ($modelWithMaxSuffix = $this->findModelWithMaxSuffix($rawSlug)) {
+            return $modelWithMaxSuffix->max_slug_suffix;
+        }
+
+        return null;
+    }
+
+    private function addSuffiToRawSlug(string $rawSlug, int $maxSuffix): string
+    {
+        return str($rawSlug)
+            ->finish('-'.($maxSuffix + 1))
+            ->toString();
     }
 }
