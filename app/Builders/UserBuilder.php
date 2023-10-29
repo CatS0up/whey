@@ -20,16 +20,15 @@ class UserBuilder extends Builder
         return $this->whereEmail($email)->firstOrFail();
     }
 
-    public function hasPermissionToBySlug(string $slug): bool
+    public function hasPermissionToBySlug(string ...$slugs): bool
     {
-        $roles = $this->model->roles;
-
-        if ($roles->contains('slug', $slug)) {
+        if ($this->model->permissions->contains('slug', ...$slugs)) {
             return true;
         }
 
+        $roles = $this->model->roles;
         foreach ($roles as $role) {
-            if ($role->permissions->contains('slug', $slug)) {
+            if ($role->permissions->contains('slug', ...$slugs)) {
                 return true;
             }
         }
@@ -37,8 +36,8 @@ class UserBuilder extends Builder
         return false;
     }
 
-    public function hasRoleBySlug(string $slug): bool
+    public function hasRoleBySlug(string ...$slugs): bool
     {
-        return $this->model->roles->contains('slug', $slug);
+        return $this->model->roles->contains('slug', ...$slugs);
     }
 }
