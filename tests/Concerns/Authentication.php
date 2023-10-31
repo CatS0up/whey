@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Concerns;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Gate;
 
 trait Authentication
 {
@@ -46,5 +48,15 @@ trait Authentication
     protected function refreshUser(): void
     {
         $this->user = $this->user->fresh();
+    }
+
+    protected function assignPermissionToUser(Permission $permission): void
+    {
+        $this->user->permissions()->save($permission);
+
+        Gate::define(
+            ability: $permission->slug,
+            callback: fn (): bool => $this->user->hasPermissionToBySlug($permission->slug),
+        );
     }
 }
