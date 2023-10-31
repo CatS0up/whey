@@ -19,11 +19,13 @@ final class FileData extends Data
         public readonly string $file_hash,
         public readonly string $collection,
         public readonly int $size,
+        public readonly ?string $full_path = null,
+        public readonly ?string $url = null,
     ) {
     }
 
     public function allForUpsert(): array
     {
-        return Arr::except($this->all(), ['id']);
+        return Arr::except($this->all(), ['id', 'full_path', 'url']);
     }
 }
