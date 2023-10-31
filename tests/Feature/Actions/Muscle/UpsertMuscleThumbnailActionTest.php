@@ -47,7 +47,7 @@ class UpsertMuscleThumbnailActionTest extends TestCase
     {
         $muscle = Muscle::factory()->create();
         $thumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $muscle);
-        $thumbnail = Media::query()->create(Arr::except($thumbnailData->all(), ['id']));
+        $thumbnail = Media::query()->create($thumbnailData->allForUpsert());
         $muscle->thumbnail()->save($thumbnail);
 
         $this->assertTrue($muscle->thumbnail->exists());
