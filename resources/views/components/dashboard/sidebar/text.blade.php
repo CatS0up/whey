@@ -1,1 +1,1 @@
-<span class="font-semibold ml-4">{{ $slot }}</span>
+<span class="ml-4 font-semibold">{{ $slot }}</span>
