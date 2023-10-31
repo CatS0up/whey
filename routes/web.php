@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', HomeController::class)->name('homepage');
 
 Route::as('auth.')->group(base_path('routes/auth.php'));
 Route::as('shared.')->group(base_path('routes/shared.php'));
