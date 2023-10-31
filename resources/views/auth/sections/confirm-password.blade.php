@@ -4,7 +4,7 @@
 
 <body class="antialiased bg-gray-50 h-screen text-gray-900">
     <div class="flex flex-col h-full max-h-screen">
-        @include('layout.auth.subviews.header')
+        @include('layout.auth.partials.header')
         <main class="flex flex-col justify-center items-center w-full max-w-[1080px] mx-auto grow">
             <x-auth.form.container>
                 <header>
@@ -31,7 +31,7 @@
                         </form>
             </x-auth.form.container>
         </main>
-        @include('layout.auth.subviews.footer')
+        @include('layout.auth.partials.footer')
     </div>
     @include('layout.common.js')
 </body>
