@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             PermissionRoleSeeder::class,
             DemoUserSeeder::class,
+            MuscleSeeder::class,
+            MuscleThumbnailSeeder::class,
         ]);
     }
 }
