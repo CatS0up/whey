@@ -55,7 +55,7 @@ class UpsertAvatarActionTest extends TestCase
         /** @var User $target */
         $target = $this->mediableModel;
         $avatarData = $this->uploadService->avatar($this->createTestImage('avatar.png'), $target);
-        $avatar = Media::query()->create(Arr::except($avatarData->all(), ['id']));
+        $avatar = Media::query()->create($avatarData->allForUpsert());
         $target->avatar()->save($avatar);
 
         $this->assertTrue($target->avatar()->exists());

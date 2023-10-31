@@ -45,7 +45,7 @@ class UpsertThumbnailActionTest extends TestCase
     {
         $target = $this->mediableModel;
         $thumbnailData = $this->uploadService->thumbnail($this->createTestImage(), $target);
-        $thumbnail = Media::query()->create(Arr::except($thumbnailData->all(), ['id']));
+        $thumbnail = Media::query()->create($thumbnailData->allForUpsert());
         $target->thumbnail()->save($thumbnail);
 
         $this->assertTrue($target->thumbnail->exists());

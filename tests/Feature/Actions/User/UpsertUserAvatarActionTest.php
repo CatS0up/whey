@@ -47,7 +47,7 @@ class UpsertUserAvatarActionTest extends TestCase
     {
         $avatarData = $this->uploadService->avatar($this->createTestImage(), $this->user);
 
-        $avatar = Media::query()->create(Arr::except($avatarData->all(), ['id']));
+        $avatar = Media::query()->create($avatarData->allForUpsert());
         $this->user->avatar()->save($avatar);
 
         $this->assertTrue($this->user->avatar->exists());
