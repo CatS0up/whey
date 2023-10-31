@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Concerns;
 
 use App\Exceptions\Shared\ModelHasNoProperty;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 trait Sluggable
@@ -94,7 +95,11 @@ trait Sluggable
     private function rawSlugExists(string $rawSlug): bool
     {
         return $this->query()
-            ->where('id', '!=', $this->id)
+            // When the model is being created, the id property is not assigned, so we need to check it
+            ->when(
+                value: property_exists(self::class, 'id'),
+                callback: fn (Builder $q) => $q->where('id', '!=', $this->id),
+            )
             ->whereSlug($rawSlug)
             ->exists();
     }
@@ -103,9 +108,13 @@ trait Sluggable
     {
         // @phpstan-ignore-next-line
         return $this->query()
-            ->selectRaw("SUBSTRING(slug, '[0-9]+$')::int as max_slug_suffix")
+            ->selectRaw("SUBSTRING(slug, '[0-9]+$') as max_slug_suffix")
             ->where('slug', 'like', "{$rawSlug}%")
-            ->where('id', '!=', $this->id)
+            // When the model is being created, the id property is not assigned, so we need to check it.
+            ->when(
+                value: property_exists(self::class, 'id'),
+                callback: fn (Builder $q) => $q->where('id', '!=', $this->id),
+            )
             ->orderByDesc('max_slug_suffix')
             ->first();
     }
