@@ -1,1 +1,1 @@
-<h2 class="px-2 uppercase text-gray-400 font-semibold text-sm">{{ $slot }}</h2>
+<h2 class="px-2 uppercase font-bold text-sm text-gray-500">{{ $slot }}</h2>
