@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\DataObjects\FileData;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -33,6 +34,29 @@ class Media extends Model
         'collection',
         'size',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_path', 'url'];
+
+    /** Accessors/Mutators - start */
+    protected function fullPath(): Attribute
+    {
+        return new Attribute(
+            get: fn (): string => file_full_path($this->disk, $this->path),
+        );
+    }
+
+    protected function url(): Attribute
+    {
+        return new Attribute(
+            get: fn (): string => file_url($this->disk, $this->path),
+        );
+    }
+    /** Accessors/Mutators - end */
 
     public function mediable(): MorphTo
     {
