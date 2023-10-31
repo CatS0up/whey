@@ -48,20 +48,14 @@ class EmailVerify extends Model
         'expire_at' => 'datetime',
     ];
 
-    /** {@inheritdoc} */
+    /**
+     * @param \Illuminate\Database\Query\Builder $query
+     *
+     * @return EmailVerifyBuilder<EmailVerify>
+     */
     public function newEloquentBuilder($query)
     {
         return new EmailVerifyBuilder($query);
-    }
-
-    public function isActive(): bool
-    {
-        return now()->lessThan($this->expire_at);
-    }
-
-    public function isExpired(): bool
-    {
-        return now()->greaterThanOrEqualTo($this->expire_at);
     }
 
     public function user(): BelongsTo
