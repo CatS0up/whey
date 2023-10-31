@@ -8,7 +8,6 @@ use App\Actions\Muscle\UpsertMuscleSmallThumbnailAction;
 use App\Models\Media;
 use App\Models\Muscle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use Tests\Concerns\Media as HasMedia;
 use Tests\TestCase;
 
