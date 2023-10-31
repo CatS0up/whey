@@ -16,9 +16,6 @@ class Media extends Model
     use HasFactory;
     use WithData;
 
-    /** @var string */
-    protected $dataClass = FileData::class;
-
     /**
      * @var array<string>
      */
@@ -41,6 +38,9 @@ class Media extends Model
      * @var array
      */
     protected $appends = ['full_path', 'url'];
+
+    /** @var string */
+    protected $dataClass = FileData::class;
 
     /** Accessors/Mutators - start */
     protected function fullPath(): Attribute
