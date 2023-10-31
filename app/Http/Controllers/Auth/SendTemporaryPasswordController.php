@@ -9,6 +9,7 @@ use App\Enums\SweetAlertToastType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SendTemporaryPasswordRequest;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -33,7 +34,7 @@ class SendTemporaryPasswordController extends Controller
         );
 
         // TODO: Tłumaczenia
-        return to_route('auth.login.show')
+        return to_route(RouteServiceProvider::GUEST_USER_HOME)
             ->with(
                 key: SweetAlertToastType::Success->type(),
                 value: 'Temporary password has been sent',

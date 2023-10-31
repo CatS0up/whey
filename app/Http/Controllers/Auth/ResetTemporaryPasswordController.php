@@ -29,7 +29,7 @@ class ResetTemporaryPasswordController extends Controller
     {
         if ($action->execute($request->toDataObject())) {
             // TODO: Tłumaczenia
-            return to_route(RouteServiceProvider::HOME)
+            return to_route(RouteServiceProvider::AUTH_USER_HOME)
                 ->with(
                     key: SweetAlertToastType::Success->type(),
                     value: 'Your password has been reset. You can sign up now :)',

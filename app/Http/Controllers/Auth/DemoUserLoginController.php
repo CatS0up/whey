@@ -42,7 +42,7 @@ class DemoUserLoginController extends Controller
         }
 
         // TODO: Tłumaczenia
-        return to_route(RouteServiceProvider::HOME)
+        return to_route(RouteServiceProvider::AUTH_USER_HOME)
             ->with(
                 key: SweetAlertToastType::Success->type(),
                 value: 'You are logged in as '.$role->value,

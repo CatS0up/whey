@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Enums\SweetAlertToastType;
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class VerifyEmail
                 auth($guard)->logout();
 
                 // TODO: Tłumaczenie
-                return to_route('auth.login.show')
+                return to_route(RouteServiceProvider::GUEST_USER_HOME)
                     ->with(
                         key: SweetAlertToastType::Info->type(),
                         value: 'You need to confirm your account. We have sent you an activation link, please check your email.',

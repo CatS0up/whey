@@ -19,7 +19,16 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = 'web.dashboard.index';
+    public const AUTH_USER_HOME = 'web.dashboard.index';
+
+    /**
+     * The path to the "home" route for guest users.
+     *
+     * Typically, users are redirected here when they are not authenticated.
+     *
+     * @var string
+     */
+    public const GUEST_USER_HOME = 'auth.login.show';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

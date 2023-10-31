@@ -11,6 +11,7 @@ use App\Enums\PhoneCountry;
 use App\Enums\SweetAlertToastType;
 use App\Enums\WeightUnit;
 use App\Http\Livewire\MultiStepForm;
+use App\Providers\RouteServiceProvider;
 use App\Validators\Auth\RegisterValidator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -101,7 +102,7 @@ class RegisterForm extends MultiStepForm
             ]
         ));
 
-        return to_route('auth.login.show')
+        return to_route(RouteServiceProvider::GUEST_USER_HOME)
         // TODO: Tłumaczenia
             ->with(
                 key: SweetAlertToastType::Success->type(),

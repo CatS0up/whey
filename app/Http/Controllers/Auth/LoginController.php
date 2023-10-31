@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         if ( ! $isAuth) {
             // TODO: Tłumaczenia
-            return to_route('auth.login.show')
+            return to_route(RouteServiceProvider::GUEST_USER_HOME)
                 ->with(
                     key: SweetAlertToastType::Error->type(),
                     value: 'Invalid credentials',
@@ -34,7 +34,7 @@ class LoginController extends Controller
 
         // TODO: Tłumaczenia
         return redirect()
-            ->intended(route(RouteServiceProvider::HOME))
+            ->intended(route(RouteServiceProvider::AUTH_USER_HOME))
             ->with(
                 key: SweetAlertToastType::Success->type(),
                 value: 'Login has been succesful',
