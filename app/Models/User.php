@@ -138,42 +138,6 @@ class User extends Authenticatable implements Mediable
     }
     /** Accessors/Mutators - end */
 
-    /** Setters/getter/hassers/issers - start */
-    public function markPasswordAsTemporary(): void
-    {
-        $this->has_temporary_password = self::HAS_TEMPORARY_PASSWORD;
-        $this->save();
-    }
-
-    public function unmarkPasswordAsTemporary(): void
-    {
-        // @phpstan-ignore-next-line
-        $this->has_temporary_password = ! self::HAS_TEMPORARY_PASSWORD;
-        $this->save();
-    }
-
-    public function hasTemporaryPassword(): bool
-    {
-        return $this->has_temporary_password;
-    }
-
-    public function hasNoTemporaryPassword(): bool
-    {
-        return ! $this->hasTemporaryPassword();
-    }
-
-    public function hasVerifiedEmail(): bool
-    {
-        return ! empty($this->email_verified_at);
-    }
-
-    public function verifyEmail(): void
-    {
-        $this->email_verified_at = now();
-        $this->save();
-    }
-    /** Setters/getter/hassers/issers - end */
-
     /** Relationships - start */
     public function emailVerifyToken(): HasOne
     {
