@@ -6,7 +6,7 @@ namespace App\Actions\Auth;
 
 use App\Actions\User\UpdateUserPasswordAction;
 use App\DataObjects\User\UpdatePasswordData;
-use App\Exceptions\Auth\UserHasNoTemporaryPassword;
+use App\Exceptions\Auth\UserHasNotTemporaryPassword;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -23,8 +23,8 @@ class ResetTemporaryPasswordAction
         /** @var User $user */
         $user = $this->user->query()->findOrFail($data->user_id);
 
-        if ($user->hasNoTemporaryPassword()) {
-            throw UserHasNoTemporaryPassword::because('Given user has no temporary password assigned');
+        if ($user->hasNotTemporaryPassword()) {
+            throw UserHasNotTemporaryPassword::because('Given user has no temporary password assigned');
         }
 
         return DB::transaction(function () use ($user, $data): bool {

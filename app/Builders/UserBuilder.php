@@ -34,7 +34,7 @@ class UserBuilder extends Builder
         return $this->model->has_temporary_password;
     }
 
-    public function hasNoTemporaryPassword(): bool
+    public function hasNotTemporaryPassword(): bool
     {
         return ! $this->model->hasTemporaryPassword();
     }

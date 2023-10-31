@@ -6,7 +6,7 @@ namespace Tests\Feature\Actions\Auth;
 
 use App\Actions\Auth\ResetTemporaryPasswordAction;
 use App\DataObjects\User\UpdatePasswordData;
-use App\Exceptions\Auth\UserHasNoTemporaryPassword;
+use App\Exceptions\Auth\UserHasNotTemporaryPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\Concerns\Authentication;
@@ -27,9 +27,9 @@ class ResetTemporaryPasswordActionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_throw_UserHasNoTemporaryPassword_exception_when_given_user_does_not_have_temporary_password(): void
+    public function it_should_throw_UserHasNotTemporaryPassword_exception_when_given_user_does_not_have_temporary_password(): void
     {
-        $this->expectException(UserHasNoTemporaryPassword::class);
+        $this->expectException(UserHasNotTemporaryPassword::class);
         $this->expectExceptionMessage('Given user has no temporary password assigned');
 
         $this->actionUnderTest->execute(

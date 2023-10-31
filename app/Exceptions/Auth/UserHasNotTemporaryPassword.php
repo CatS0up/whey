@@ -10,7 +10,7 @@ use App\Exceptions\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
-class UserHasNoTemporaryPassword extends Exception implements Renderable
+class UserHasNotTemporaryPassword extends Exception implements Renderable
 {
     public function render(Request $request): RedirectResponse
     {

@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\ResetTemporaryPasswordAction;
 use App\Enums\SweetAlertToastType;
-use App\Exceptions\Auth\UserHasNoTemporaryPassword;
+use App\Exceptions\Auth\UserHasNotTemporaryPassword;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Providers\RouteServiceProvider;
@@ -18,8 +18,8 @@ class ResetTemporaryPasswordController extends Controller
 {
     public function show(AuthManager $auth): View
     {
-        if ($auth->user()->hasNoTemporaryPassword()) {
-            throw UserHasNoTemporaryPassword::because('Given user has no temporary password assigned');
+        if ($auth->user()->hasNotTemporaryPassword()) {
+            throw UserHasNotTemporaryPassword::because('Given user has no temporary password assigned');
         }
 
         return view('auth.sections.reset-temporary-password');
