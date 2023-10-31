@@ -12,31 +12,35 @@ class PermissionSeeder extends Seeder
     private static function dataTable(): array
     {
         return [
-            // Exercise   start
+            // Exercise -  start
             'create exercises',
             'edit exercises',
             'delete exercises',
             'verify exercises',
-            // Exercise   end
+            // Exercise - end
 
-            // Muscle   start
+            // Muscle - start
             'create muscles',
             'edit muscles',
             'delete muscles',
             'verify muscles',
-            // Muscle   end
+            // Muscle - end
 
-            // Permission   start
+            // Permission - start
             'give permissions',
             'withdraw permissions',
             'reset permissions',
-            // Permission   end
+            // Permission - end
 
-            // Role   start
+            // Role - start
             'give roles',
             'withdraw roles',
             'reset roles',
-            // Role   end
+            // Role - end
+
+            // Media - start
+            'upload ckeditor images',
+            // Media - end
         ];
     }
 

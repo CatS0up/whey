@@ -23,12 +23,13 @@ class PermissionRoleSeeder extends Seeder
                 Permission::query()
                     ->whereSlugIn([
                         'create-exercises',
+                        'upload-ckeditor-images',
                     ])
                     ->pluck('id'),
             );
 
         Role::query()
-            ->findOrFail(RoleType::User->id())
+            ->findOrFail(RoleType::Trainer->id())
             ->permissions()
             ->sync(
                 Permission::query()
@@ -41,12 +42,13 @@ class PermissionRoleSeeder extends Seeder
                         'edit-muscles',
                         'delete-muscles',
                         'verify-muscles',
+                        'upload-ckeditor-images',
                     ])
                     ->pluck('id'),
             );
 
         Role::query()
-            ->findOrFail(RoleType::User->id())
+            ->findOrFail(RoleType::Admin->id())
             ->permissions()
             ->sync(
                 Permission::query()
@@ -65,6 +67,7 @@ class PermissionRoleSeeder extends Seeder
                         'give-roles',
                         'withdraw-roles',
                         'reset-roles',
+                        'upload-ckeditor-images',
                     ])
                     ->pluck('id'),
             );
