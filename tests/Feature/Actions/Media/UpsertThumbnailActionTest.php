@@ -8,7 +8,6 @@ use App\Actions\Media\UpsertThumbnailAction;
 use App\Models\Media;
 use Tests\Concerns\Media as HasMedia;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class UpsertThumbnailActionTest extends TestCase

@@ -8,7 +8,6 @@ use Tests\TestCase;
 use App\Actions\User\UpsertUserAvatarAction;
 use App\Models\Media;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use Tests\Concerns\Authentication;
 use Tests\Concerns\Media as HasMedia;
 

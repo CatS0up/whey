@@ -6,7 +6,6 @@ namespace Tests\Feature\Actions\Media;
 
 use App\Actions\Media\UpsertSmallThumbnailAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use App\Models\Media;
 use Tests\Concerns\Media as HasMedia;
 use Tests\TestCase;
