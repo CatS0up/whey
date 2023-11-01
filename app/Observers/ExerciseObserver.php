@@ -8,12 +8,7 @@ use App\Models\Exercise;
 
 class ExerciseObserver
 {
-    public function creating(Exercise $exercise): void
-    {
-        $this->prepareInstructionsRawValue($exercise);
-    }
-
-    public function updating(Exercise $exercise): void
+    public function saving(Exercise $exercise): void
     {
         $this->prepareInstructionsRawValue($exercise);
     }
