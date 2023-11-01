@@ -8,12 +8,14 @@ use App\Models\Media;
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Concerns\Authentication;
+use Tests\Concerns\Authorization;
 use Tests\Concerns\Media as HasMedia;
 use Tests\TestCase;
 
 class CKEditorImageUploadTest extends TestCase
 {
     use Authentication;
+    use Authorization;
     use HasMedia;
     use RefreshDatabase;
 
@@ -48,7 +50,10 @@ class CKEditorImageUploadTest extends TestCase
     /** @test */
     public function auth_user_can_upload_a_Ckeditor_image_when_their_has_assigned_upload_ckeditor_images_permission(): void
     {
-        $this->assignPermissionToUser(Permission::factory()->create(['name' => 'upload-ckeditor-images']));
+        $this->assignPermissionToUser(
+            user: $this->user,
+            permission: Permission::factory()->create(['name' => 'upload-ckeditor-images']),
+        );
 
         $this->authenticated()
             ->post(
@@ -63,7 +68,10 @@ class CKEditorImageUploadTest extends TestCase
     /** @test */
     public function it_should_return_file_full_path_when_auth_user_upload_the_Ckeditor_image_succeed(): void
     {
-        $this->assignPermissionToUser(Permission::factory()->create(['name' => 'upload-ckeditor-images']));
+        $this->assignPermissionToUser(
+            user: $this->user,
+            permission: Permission::factory()->create(['name' => 'upload-ckeditor-images']),
+        );
         $file = $this->createTestImage();
 
         $response = $this->authenticated()
