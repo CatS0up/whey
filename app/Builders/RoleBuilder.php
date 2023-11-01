@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class RoleBuilder extends Builder
 {
+    /** Builder methods - start */
     public function whereSlugIn(array $slugs): self
     {
         return $this->whereIn('slug', $slugs);
@@ -21,4 +22,5 @@ class RoleBuilder extends Builder
     {
         return $this->whereRelation('permissions', 'slug', $slug);
     }
+    /** Builder methods - end */
 }

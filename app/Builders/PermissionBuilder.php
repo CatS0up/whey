@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class PermissionBuilder extends Builder
 {
+    /** Builder methods - start */
     public function whereSlugIn(array $slugs): self
     {
         return $this->whereIn('slug', $slugs);
     }
+    /** Builder methods - end */
 }
