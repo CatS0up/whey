@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Builders\ExerciseBuilder;
 use App\DataObjects\ExerciseData;
 use App\Enums\DifficultyLevel;
 use App\Enums\ExerciseType;
@@ -77,6 +78,11 @@ class Exercise extends Model implements Mediable
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function verifier(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'verifier_id');
     }
 
     public function muscles(): BelongsToMany

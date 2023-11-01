@@ -149,6 +149,11 @@ class User extends Authenticatable implements Mediable
         return $this->morphOne(Media::class, 'mediable');
     }
 
+    public function verifiedExercises(): HasMany
+    {
+        return $this->hasMany(Exercise::class);
+    }
+
     public function exercises(): HasMany
     {
         return $this->hasMany(Exercise::class, 'author_id');
