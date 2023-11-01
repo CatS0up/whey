@@ -77,5 +77,31 @@ class UserBuilder extends Builder
     {
         return $this->whereEmail($email)->firstOrFail();
     }
+
+    public function whereRole(string ...$slugs): self
+    {
+        return $this->whereHas(
+            relation: 'roles',
+            callback: fn (RoleBuilder $q) => $q->whereSlugIn($slugs),
+            operator: '=',
+            count: count($slugs),
+        );
+    }
+
+    public function wherePermissionTo(string ...$slugs): self
+    {
+        return $this->whereHas(
+            relation: 'permissions',
+            callback: fn (PermissionBuilder $q) => $q->whereSlugIn($slugs),
+            operator: '=',
+            count: count($slugs),
+        )
+            ->orWhereHas(
+                relation: 'roles.permissions',
+                callback: fn (PermissionBuilder $q) => $q->whereSlugIn($slugs),
+                operator: '=',
+                count: count($slugs),
+            );
+    }
     /** Builder methods - end */
 }
