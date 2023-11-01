@@ -26,6 +26,14 @@ class ExerciseFactory extends Factory
             'type' => fake()->randomElement(ExerciseType::cases())->value,
             'instructions_html' => fake()->text(),
             'is_public' => fake()->boolean(),
+            'verified_at' => now(),
         ];
+    }
+
+    public function unverified(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'verified_at' => null,
+        ]);
     }
 }
