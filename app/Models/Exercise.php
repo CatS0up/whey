@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\LaravelData\WithData;
 
+/**
+ * @property \Illuminate\Support\Carbon|null $verified_at
+ */
 class Exercise extends Model implements Mediable
 {
     use HasFactory;
@@ -60,10 +63,21 @@ class Exercise extends Model implements Mediable
         'difficulty_level' => DifficultyLevel::class,
         'type' => ExerciseType::class,
         'is_public' => 'boolean',
+        'verified_at' => 'datetime',
     ];
 
     /** @var string */
     protected $dataClass = ExerciseData::class;
+
+    /**
+     * @param \Illuminate\Database\Query\Builder $query
+     *
+     * @return ExerciseBuilder<Exercise>
+     */
+    public function newEloquentBuilder($query): ExerciseBuilder
+    {
+        return new ExerciseBuilder($query);
+    }
 
     public function id(): int
     {
