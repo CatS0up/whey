@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 if ( ! function_exists('compare_float')) {
@@ -23,6 +24,13 @@ if ( ! function_exists('compare_float')) {
         function file_url(string $disk, string $path): string
         {
             return Storage::disk($disk)->url($path);
+        }
+    }
+
+    if ( ! function_exists('route_is')) {
+        function route_is(string ...$patterns): bool
+        {
+            return Route::is(...$patterns);
         }
     }
 }
