@@ -8,6 +8,7 @@ use App\Builders\UserBuilder;
 use App\Casts\Height;
 use App\Casts\Phone;
 use App\Casts\Weight;
+use App\DataObjects\User\UserData;
 use App\Enums\HeightUnit;
 use App\Enums\PhoneCountry;
 use App\Enums\WeightUnit;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
+use Spatie\LaravelData\WithData;
 
 /**
  * @method static UserBuilder<User> query()
@@ -37,6 +39,7 @@ class User extends Authenticatable implements Mediable
     use HasSubdirectoryFilePath;
     use Notifiable;
     use Sluggable;
+    use WithData;
 
     public const MIN_PASSWORD_LENGTH = 8;
     /** @var int */
@@ -103,6 +106,9 @@ class User extends Authenticatable implements Mediable
         'height_unit' => HeightUnit::class,
         'has_temporary_password' => 'boolean',
     ];
+
+    /** @var string */
+    protected $dataClass = UserData::class;
 
     /**
      * @param \Illuminate\Database\Query\Builder $query
