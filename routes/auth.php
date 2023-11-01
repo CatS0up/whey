@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')
     ->group(function (): void {
         /** REGISTRATION - START */
-        Route::view('/register', 'auth.sections.register')->name('register.show');
+        Route::view('/register', 'auth.sections.register')
+            ->name('register.show');
         /** REGISTRATION - END */
 
         /** LOGIN - START */
@@ -23,8 +24,11 @@ Route::middleware('guest')
             ->as('login.')
             ->controller(LoginController::class)
             ->group(function (): void {
-                Route::get('/', 'show')->name('show');
-                Route::post('/', 'login')->name('request');
+                Route::get('/', 'show')
+                    ->name('show');
+
+                Route::post('/', 'login')
+                    ->name('request');
             });
         /** LOGIN - END */
 
@@ -33,7 +37,8 @@ Route::middleware('guest')
             ->as('emailVerification.')
             ->group(function (): void {
                 /** VERIFY - START */
-                Route::post('/', EmailVerifyController::class)->name('verify');
+                Route::post('/', EmailVerifyController::class)
+                    ->name('verify');
                 /** VERIFY - END */
 
                 /** RESEND - START */
@@ -41,8 +46,11 @@ Route::middleware('guest')
                     ->as('resend.')
                     ->controller(EmailVerifyResendController::class)
                     ->group(function (): void {
-                        Route::get('/', 'show')->name('show');
-                        Route::post('/', 'resend')->name('request');
+                        Route::get('/', 'show')
+                            ->name('show');
+
+                        Route::post('/', 'resend')
+                            ->name('request');
                     });
                 /** RESEND - END */
             });
@@ -60,8 +68,11 @@ Route::prefix('temporary-password')
             ->as('reset.')
             ->controller(ResetTemporaryPasswordController::class)
             ->group(function (): void {
-                Route::get('/', 'show')->name('show');
-                Route::post('/', 'reset')->name('request');
+                Route::get('/', 'show')
+                    ->name('show');
+
+                Route::post('/', 'reset')
+                    ->name('request');
             });
         /** RESET - END */
 
@@ -71,8 +82,11 @@ Route::prefix('temporary-password')
             ->as('send.')
             ->controller(SendTemporaryPasswordController::class)
             ->group(function (): void {
-                Route::get('/', 'show')->name('show');
-                Route::post('/', 'send')->name('request');
+                Route::get('/', 'show')
+                    ->name('show');
+
+                Route::post('/', 'send')
+                    ->name('request');
             });
         /** SEND - END */
     });
@@ -84,13 +98,18 @@ Route::middleware('authenticate')
     ->as('confirmPassword.')
     ->controller(PasswordConfirmationController::class)
     ->group(function (): void {
-        Route::get('/', 'show')->name('show');
-        Route::post('/', 'confirm')->name('request');
+        Route::get('/', 'show')
+            ->name('show');
+
+        Route::post('/', 'confirm')
+            ->name('request');
     });
 /** CONFIRM PASSWORD - END */
 
 /** LOGOUT - START */
-Route::post('logout', LogoutController::class)->middleware('authenticate')->name('logout');
+Route::post('logout', LogoutController::class)
+    ->middleware('authenticate')
+    ->name('logout');
 /** LOGOUT - END */
 
 /** DEMO USERS - START */
@@ -100,8 +119,11 @@ if (config('auth.demo_users_enable')) {
         ->as('demoUser.')
         ->controller(DemoUserLoginController::class)
         ->group(function (): void {
-            Route::get('/', 'show')->name('show');
-            Route::post('/{role}', 'login')->name('request');
+            Route::get('/', 'show')
+                ->name('show');
+
+            Route::post('/{role}', 'login')
+                ->name('request');
         });
 }
 /** DEMO USERS - END */
