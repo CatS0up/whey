@@ -20,7 +20,7 @@ class Height implements CastsAttributes
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         return HeightValueObject::fromValueAndUnit(
-            value: $attributes['height'],
+            value: (float) $attributes['height'],
             unit: HeightUnit::tryFrom($attributes['height_unit']),
         );
     }

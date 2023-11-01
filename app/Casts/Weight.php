@@ -20,7 +20,7 @@ class Weight implements CastsAttributes
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         return WeightValueObject::fromValueAndUnit(
-            value: $attributes['weight'],
+            value: (float) $attributes['weight'],
             unit: WeightUnit::tryFrom($attributes['weight_unit']),
         );
     }
