@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\DataObjects;
 
+use App\DataObjects\User\UserData;
 use App\Enums\DifficultyLevel;
 use App\Enums\ExerciseType;
 use App\Models\Exercise;
 use App\Models\Media;
 use App\Models\Muscle;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
@@ -33,6 +35,7 @@ final class ExerciseData extends Data
         public readonly Lazy|FileData $small_thumbnail,
         #[DataCollectionOf(MuscleData::class)]
         public readonly Lazy|DataCollection $muscles,
+        public readonly Lazy|UserData $verifier,
         public readonly bool $is_public = true,
         public readonly ?string $instructions_raw = null,
         public readonly ?Carbon $verified_at = null,
@@ -44,6 +47,7 @@ final class ExerciseData extends Data
         $thumbnailId = data_get($data, 'thumbnail_id');
         $smallThumbnailId = data_get($data, 'small_thumbnail_id');
         $muscleIds =  data_get($data, 'muscle_ids');
+        $verifierId = data_get($data, 'verifier_id');
 
         return self::from(
             [
@@ -57,7 +61,8 @@ final class ExerciseData extends Data
                 'small_thumbnail' => Lazy::when(fn () => $smallThumbnailId, fn () => Media::findOrFail($smallThumbnailId)->getData()),
                 'muscles' => MuscleData::collection(
                     Muscle::query()->whereIn('id', $muscleIds)->get(),
-                )
+                ),
+                'verifier' => Lazy::when(fn () => $verifierId, fn () => User::findOrFail($verifierId)->getData()),
             ]
         );
     }
@@ -80,6 +85,11 @@ final class ExerciseData extends Data
                 relation: 'muscles',
                 model: $exercise,
                 value: fn () => MuscleData::collection($exercise->muscles),
+            ),
+            'verifier' => Lazy::whenLoaded(
+                relation: 'verifier',
+                model: $exercise,
+                value: fn (): DataObject|FileData => $exercise->verifier->getData(),
             ),
         ]);
     }
