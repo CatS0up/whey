@@ -13,7 +13,7 @@
         this.isOpen = false;
     }
 }" class="relative">
-    <div @click="toggle" @keyup.escape.window="close" class="cursor-pointer" data-index="-1">
+    <div @click="toggle" @keyup.escape.window="close" class="cursor-pointer h-full" data-index="-1">
         {{ $trigger }}
     </div>
 
