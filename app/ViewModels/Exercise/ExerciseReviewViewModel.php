@@ -15,10 +15,10 @@ class ExerciseReviewViewModel extends ViewModel
     {
     }
 
-    public function exercise(): ExerciseData|DataObject|null
+    public function exercise(): DataObject|ExerciseData|null
     {
         return $this->exercise
-            ->load('thumbnail', 'muscles')
+            ->load('author', 'thumbnail', 'muscles')
             ->getData();
     }
 }
