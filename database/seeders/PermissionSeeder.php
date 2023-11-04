@@ -16,7 +16,7 @@ class PermissionSeeder extends Seeder
             'create exercises',
             'edit exercises',
             'delete exercises',
-            'verify exercises',
+            'review exercises',
             // Exercise - end
 
             // Muscle - start

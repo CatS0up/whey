@@ -21,11 +21,11 @@ class SendVerificationEmailAction
     public function execute(int $id): void
     {
         $authorizedUsers = $this->user->query()
-            ->wherePermissionTo('verify-exercises')
+            ->wherePermissionTo('review-exercises')
             ->get();
 
         if ($authorizedUsers->isEmpty()) {
-            throw AuthorizedUsersNotFound::because('In your system, there are no users who have the \'verify-exercises\' permission');
+            throw AuthorizedUsersNotFound::because('In your system, there are no users who have the \'review exercises\' permission');
         }
 
         /** @var Exercise $exercise */
