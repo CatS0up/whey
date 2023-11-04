@@ -15,7 +15,7 @@ trait Sluggable
     /** @var int */
     public const INITIAL_SUFFIX = 0;
 
-    abstract public function sluggableField(): string;
+    abstract private function sluggableField(): string;
 
     public static function bootSluggable(): void
     {
