@@ -34,6 +34,7 @@ final class ExerciseData extends Data
         #[WithCast(EnumCast::class)]
         public readonly ExerciseStatus $status,
         public readonly string $instructions_html,
+        public readonly Lazy|UserData $author,
         public readonly Lazy|FileData $thumbnail,
         public readonly Lazy|FileData $small_thumbnail,
         #[DataCollectionOf(MuscleData::class)]
@@ -47,6 +48,7 @@ final class ExerciseData extends Data
 
     public static function createFromArray(array $data): self
     {
+        $authorId = data_get($data, 'author_id');
         $thumbnailId = data_get($data, 'thumbnail_id');
         $smallThumbnailId = data_get($data, 'small_thumbnail_id');
         $muscleIds =  data_get($data, 'muscle_ids');
@@ -60,6 +62,7 @@ final class ExerciseData extends Data
                 'type' => data_get($data, 'type'),
                 'instructions_html' => data_get($data, 'instructions_html'),
                 'is_public' => data_get($data, 'is_public', Exercise::IS_PUBLIC),
+                'author' => Lazy::when(fn () => $authorId, fn () => User::findOrFail($authorId)->getData()),
                 'thumbnail' => Lazy::when(fn () => $thumbnailId, fn () => Media::findOrFail($thumbnailId)->getData()),
                 'small_thumbnail' => Lazy::when(fn () => $smallThumbnailId, fn () => Media::findOrFail($smallThumbnailId)->getData()),
                 'muscles' => MuscleData::collection(
@@ -74,6 +77,11 @@ final class ExerciseData extends Data
     {
         return self::from([
             ...$exercise->toArray(),
+            'author' => Lazy::whenLoaded(
+                relation: 'author',
+                model: $exercise,
+                value: fn (): DataObject|UserData => $exercise->author->getData(),
+            ),
             'thumbnail' => Lazy::whenLoaded(
                 relation: 'thumbnail',
                 model: $exercise,
