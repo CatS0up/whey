@@ -35,7 +35,7 @@ class SendVerificationEmailActionTest extends TestCase
     public function it_should_throw_AuthorizedUsersNotFound_exception_when_there_are_no_users_in_the_system_authorized_to_verify_exercises(): void
     {
         $this->expectException(AuthorizedUsersNotFound::class);
-        $this->expectExceptionMessage('In your system, there are no users who have the \'review-exercises\' permission');
+        $this->expectExceptionMessage('In your system, there are no users who have the \'review exercises\' permission');
 
         $exercise = Exercise::factory()->for($this->user, 'author')->create();
         $this->actionUnderTest->execute($exercise->id);
