@@ -9,6 +9,7 @@ enum ExerciseStatus: string
     case Verified = 'verified';
     case ForVerification = 'for_verification';
     case Rejected = 'rejected';
+    case Private = 'private';
 
     public function isVerified(): bool
     {
@@ -23,5 +24,20 @@ enum ExerciseStatus: string
     public function isRejected(): bool
     {
         return self::Rejected === $this;
+    }
+
+    public function isPrivate(): bool
+    {
+        return self::Rejected === $this;
+    }
+
+    public function isReviewable(): bool
+    {
+        return in_array($this, [self::ForVerification, self::Rejected]);
+    }
+
+    public function isNotReviewable(): bool
+    {
+        return ! $this->isReviewable();
     }
 }

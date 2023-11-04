@@ -47,5 +47,20 @@ class ExerciseBuilder extends Builder
     {
         return $this->model->status->isRejected();
     }
+
+    public function isPrivate(): bool
+    {
+        return $this->model->status->isPrivate();
+    }
+
+    public function isReviewable(): bool
+    {
+        return $this->model->status->isReviewable();
+    }
+
+    public function isNotReviewable(): bool
+    {
+        return $this->model->status->isNotReviewable();
+    }
     /** Model methods - end */
 }
