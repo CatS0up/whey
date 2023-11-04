@@ -10,7 +10,7 @@ use App\Exceptions\Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class ExerciseHasBeenVerified extends Exception implements Renderable
+class ExerciseHasNotReviewableStatus extends Exception implements Renderable
 {
     public function render(Request $request): RedirectResponse|false
     {
@@ -19,7 +19,7 @@ class ExerciseHasBeenVerified extends Exception implements Renderable
             return to_route('web.exercises.index')
                 ->with(
                     key: SweetAlertToastType::Info->type(),
-                    value: 'The given exercise has already been verified earlier',
+                    value: 'The given exercise has not reviewable status. It has probably already been verified by another user.',
                 );
         }
 
