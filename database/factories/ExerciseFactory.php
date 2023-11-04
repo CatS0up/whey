@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\DifficultyLevel;
+use App\Enums\ExerciseStatus;
 use App\Enums\ExerciseType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,16 +25,24 @@ class ExerciseFactory extends Factory
             'name' => fake()->unique()->word(),
             'difficulty_level' => fake()->randomElement(DifficultyLevel::cases())->value,
             'type' => fake()->randomElement(ExerciseType::cases())->value,
+            'status' => fake()->randomElement(ExerciseStatus::cases())->value,
             'instructions_html' => fake()->text(),
             'is_public' => fake()->boolean(),
-            'verified_at' => now(),
+            'reviewed_at' => now(),
         ];
     }
 
-    public function unverified(): static
+    public function verified(): static
     {
         return $this->state(fn (array $attributes) => [
-            'verified_at' => null,
+            'status' => ExerciseStatus::Verified,
+        ]);
+    }
+
+    public function rejected(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => ExerciseStatus::Rejected,
         ]);
     }
 }
