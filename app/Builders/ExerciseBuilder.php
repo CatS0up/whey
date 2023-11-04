@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Builders;
 
+use App\Enums\ExerciseStatus;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Exercise;
 
@@ -16,24 +17,30 @@ use App\Models\Exercise;
 class ExerciseBuilder extends Builder
 {
     /** Model methods - start */
-    public function verify(int $verifierId): void
+    public function verify(int $reviewerId): void
     {
-        $this->model->verifier_id = $verifierId;
-        $this->model->verified_at = now();
+        $this->model->reviewer_id = $reviewerId;
+        $this->model->reviewed_at = now();
+        $this->model->status = ExerciseStatus::Verified;
         $this->model->save();
     }
 
-    /** Model methods - start */
-    public function unverify(): void
+    public function reject(int $reviewerId): void
     {
-        $this->model->verifier_id = null;
-        $this->model->verified_at = null;
+        $this->model->reviewer_id = $reviewerId;
+        $this->model->reviewed_at = now();
+        $this->model->status = ExerciseStatus::Rejected;
         $this->model->save();
     }
 
     public function isVerified(): bool
     {
-        return isset($this->model->verified_at);
+        return $this->model->status->isVerified();
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->model->status->isRejected();
     }
     /** Model methods - end */
 }
