@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Builders\ExerciseBuilder;
 use App\DataObjects\ExerciseData;
 use App\Enums\DifficultyLevel;
+use App\Enums\ExerciseStatus;
 use App\Enums\ExerciseType;
 use App\Models\Concerns\HasSmallThumbnail;
 use App\Models\Concerns\HasSubdirectoryFilePath;
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\LaravelData\WithData;
 
 /**
- * @property \Illuminate\Support\Carbon|null $verified_at
+ * @property \Illuminate\Support\Carbon|null $reviewed_at
  */
 class Exercise extends Model implements Mediable
 {
@@ -63,7 +64,8 @@ class Exercise extends Model implements Mediable
         'difficulty_level' => DifficultyLevel::class,
         'type' => ExerciseType::class,
         'is_public' => 'boolean',
-        'verified_at' => 'datetime',
+        'status' => ExerciseStatus::class,
+        'reviewed_at' => 'datetime',
     ];
 
     /** @var string */
@@ -94,9 +96,9 @@ class Exercise extends Model implements Mediable
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function verifier(): BelongsTo
+    public function reviewer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'verifier_id');
+        return $this->belongsTo(User::class, 'reviewer_id');
     }
 
     public function muscles(): BelongsToMany
