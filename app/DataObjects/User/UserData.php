@@ -19,6 +19,7 @@ final class UserData extends Data
         public readonly ?int $id = null,
         public readonly Lazy|FileData $avatar,
         public readonly string $name,
+        public readonly string $slug,
         public readonly string $email,
         public readonly PhoneNumber $phone,
         public readonly float $bmi,
