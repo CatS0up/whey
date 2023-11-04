@@ -6,6 +6,7 @@ namespace App\DataObjects;
 
 use App\DataObjects\User\UserData;
 use App\Enums\DifficultyLevel;
+use App\Enums\ExerciseStatus;
 use App\Enums\ExerciseType;
 use App\Models\Exercise;
 use App\Models\Media;
@@ -30,6 +31,8 @@ final class ExerciseData extends Data
         public readonly DifficultyLevel $difficulty_level,
         #[WithCast(EnumCast::class)]
         public readonly ExerciseType $type,
+        #[WithCast(EnumCast::class)]
+        public readonly ExerciseStatus $status,
         public readonly string $instructions_html,
         public readonly Lazy|FileData $thumbnail,
         public readonly Lazy|FileData $small_thumbnail,
@@ -38,7 +41,7 @@ final class ExerciseData extends Data
         public readonly Lazy|UserData $verifier,
         public readonly bool $is_public = true,
         public readonly ?string $instructions_raw = null,
-        public readonly ?Carbon $verified_at = null,
+        public readonly ?Carbon $review_at = null,
     ) {
     }
 
