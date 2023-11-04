@@ -54,7 +54,6 @@ class LoginAsDemoUserActionTest extends LoginAsDemoUserTestCase
     public static function usersProvider(): array
     {
         return [
-            // Grams - start
             'log in as user' => [
                 Role::User,
                 'user',
