@@ -38,6 +38,11 @@ class ExerciseBuilder extends Builder
         return $this->model->status->isVerified();
     }
 
+    public function isForVerification(): bool
+    {
+        return $this->model->status->isForVerification();
+    }
+
     public function isRejected(): bool
     {
         return $this->model->status->isRejected();
