@@ -35,9 +35,9 @@ class Exercise extends Model implements Mediable
     /** @var bool */
     public const IS_PUBLIC = true;
     /** @var int */
-    public const THUMBNAIL_WIDTH = 200;
+    public const THUMBNAIL_WIDTH = 500;
     /** @var int */
-    public const THUMBNAIL_HEIGHT = 200;
+    public const THUMBNAIL_HEIGHT = 500;
     /** @var int */
     public const SMALL_THUMBNAIL_WIDTH = 50;
     /** @var int */
