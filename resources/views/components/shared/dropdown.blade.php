@@ -1,5 +1,5 @@
 @props([
-'position' => 'bottom-center',
+    'position' => 'bottom-center',
 ])
 
 <div x-data="{
