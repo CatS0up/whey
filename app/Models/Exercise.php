@@ -12,6 +12,7 @@ use App\Enums\ExerciseType;
 use App\Models\Concerns\HasSmallThumbnail;
 use App\Models\Concerns\HasSubdirectoryFilePath;
 use App\Models\Concerns\HasThumbnail;
+use App\Models\Concerns\Sluggable;
 use App\Models\Contracts\Mediable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,7 @@ class Exercise extends Model implements Mediable
     use HasSmallThumbnail;
     use HasSubdirectoryFilePath;
     use HasThumbnail;
+    use Sluggable;
     use WithData;
 
     /** @var bool */
@@ -79,6 +81,11 @@ class Exercise extends Model implements Mediable
     public function newEloquentBuilder($query): ExerciseBuilder
     {
         return new ExerciseBuilder($query);
+    }
+
+    private function sluggableField(): string
+    {
+        return 'name';
     }
 
     public function id(): int
