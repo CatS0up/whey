@@ -9,15 +9,10 @@ use App\DataObjects\Exercise\ExerciseReviewData;
 use App\Enums\ExerciseStatus;
 use App\Exceptions\Exercise\ExerciseHasNotReviewableStatus;
 use App\Models\Exercise;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\Concerns\Authentication;
-use Tests\TestCase;
+use Tests\Abstracts\ExerciseTestCase;
 
-class ReviewExerciseActionTest extends TestCase
+class ReviewExerciseActionTest extends ExerciseTestCase
 {
-    use Authentication;
-    use RefreshDatabase;
-
     private ReviewExerciseAction $actionUnderTest;
 
     protected function setUp(): void
@@ -28,7 +23,7 @@ class ReviewExerciseActionTest extends TestCase
     }
 
     /**
-     * @dataProvider notReviewableStatusesProvider
+     * @dataProvider Tests\Abstracts\ExerciseTestCase::notReviewableStatusesProvider
      * @test
      */
     public function it_should_throw_ExerciseHasNotReviewableStatus_when_given_exercise_has_not_reviewable_status(ExerciseStatus $status): void
@@ -36,7 +31,7 @@ class ReviewExerciseActionTest extends TestCase
         $this->expectException(ExerciseHasNotReviewableStatus::class);
         $this->expectExceptionMessage('Only exercises with the \'for_verification\' and \'rejected\' statuses can be verified');
 
-        $exercise = Exercise::factory()->for($this->user, 'author')->create(['status' => $status]);
+        $exercise = Exercise::factory()->create(['status' => $status]);
 
         $this->actionUnderTest->execute(
             ExerciseReviewData::from([
@@ -50,7 +45,7 @@ class ReviewExerciseActionTest extends TestCase
     /** @test */
     public function it_should_verify_given_exercise_when_it_is_ready_for_verification(): void
     {
-        $exercise = Exercise::factory()->for($this->user, 'author')->create([
+        $exercise = Exercise::factory()->create([
             'status' => ExerciseStatus::ForVerification,
         ]);
 
@@ -72,7 +67,7 @@ class ReviewExerciseActionTest extends TestCase
     /** @test */
     public function it_should_reject_given_exercise_when_it_is_ready_for_verification(): void
     {
-        $exercise = Exercise::factory()->for($this->user, 'author')->create([
+        $exercise = Exercise::factory()->create([
             'status' => ExerciseStatus::ForVerification,
         ]);
 
@@ -89,17 +84,5 @@ class ReviewExerciseActionTest extends TestCase
             'reviewer_id' => $verified->reviewer->id,
             'status' => $verified->status,
         ]);
-    }
-
-    public static function notReviewableStatusesProvider(): array
-    {
-        return [
-            'verified status' => [
-                ExerciseStatus::Verified,
-            ],
-            'private status' => [
-                ExerciseStatus::Private,
-            ],
-        ];
     }
 }
