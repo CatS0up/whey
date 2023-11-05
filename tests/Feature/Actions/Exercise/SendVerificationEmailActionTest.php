@@ -7,7 +7,6 @@ namespace Tests\Feature\Actions\Exercise;
 use App\Actions\Exercise\SendVerificationEmailAction;
 use App\Exceptions\Authorization\AuthorizedUsersNotFound;
 use App\Models\Exercise;
-use App\Models\Permission;
 use App\Models\User;
 use App\Notifications\Exercise\ExerciseVerificationNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,14 +46,14 @@ class SendVerificationEmailActionTest extends TestCase
         Notification::fake();
 
         $exercise = Exercise::factory()->for($this->user, 'author')->create();
-        $permission = Permission::factory()->create(['name' => 'review-exercises']);
+        $permission = 'review-exercises';
         $recipients = User::factory(3)->create();
         $unauthorizedUsers = User::factory(3)->create();
 
         foreach ($recipients as $recipient) {
             $this->assignPermissionToUser(
                 user: $recipient,
-                permission: $permission,
+                name: $permission,
             );
         }
 

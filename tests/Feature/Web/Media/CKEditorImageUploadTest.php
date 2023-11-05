@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Web\Media;
 
 use App\Models\Media;
-use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Concerns\Authentication;
 use Tests\Concerns\Authorization;
@@ -52,7 +51,7 @@ class CKEditorImageUploadTest extends TestCase
     {
         $this->assignPermissionToUser(
             user: $this->user,
-            permission: Permission::factory()->create(['name' => 'upload-ckeditor-images']),
+            name: 'upload-ckeditor-images',
         );
 
         $this->authenticated()
@@ -70,7 +69,7 @@ class CKEditorImageUploadTest extends TestCase
     {
         $this->assignPermissionToUser(
             user: $this->user,
-            permission: Permission::factory()->create(['name' => 'upload-ckeditor-images']),
+            name: 'upload-ckeditor-images'
         );
         $file = $this->createTestImage();
 
