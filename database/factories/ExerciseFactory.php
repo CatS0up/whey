@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Enums\DifficultyLevel;
 use App\Enums\ExerciseStatus;
 use App\Enums\ExerciseType;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,7 +29,7 @@ class ExerciseFactory extends Factory
             'status' => fake()->randomElement(ExerciseStatus::cases())->value,
             'instructions_html' => fake()->text(),
             'is_public' => fake()->boolean(),
-            'reviewed_at' => now(),
+            'author_id' => User::factory()->create()->id,
         ];
     }
 
@@ -36,6 +37,8 @@ class ExerciseFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => ExerciseStatus::Verified,
+            'reviewed_at' => now(),
+            'reviewer_id' => User::factory()->create()->id,
         ]);
     }
 
@@ -43,6 +46,8 @@ class ExerciseFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => ExerciseStatus::Rejected,
+            'reviewed_at' => now(),
+            'reviewer_id' => User::factory()->create()->id,
         ]);
     }
 }
