@@ -22,6 +22,8 @@ use Spatie\LaravelData\WithData;
 
 /**
  * @property \Illuminate\Support\Carbon|null $reviewed_at
+ *
+ *  @method ExerciseData getData()
  */
 class Exercise extends Model implements Mediable
 {
