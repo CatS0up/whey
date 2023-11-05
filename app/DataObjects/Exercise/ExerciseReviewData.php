@@ -16,6 +16,7 @@ final class ExerciseReviewData extends Data
         public readonly int $reviewer_id,
         #[WithCast(EnumCast::class)]
         public readonly ExerciseStatus $status,
+        public readonly ?string $explanation = null,
     ) {
     }
 }
