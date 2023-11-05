@@ -67,12 +67,12 @@
                 }
             }
 
-
                 ClassicEditor
                     .create($refs.input)
                     .then(editor => {
                         editor.model.document.on('change:data', () => {
                             @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', editor.getData());
+                            @this.emitSelf('ckeditorReady');
                         });
 
                         editor.plugins.get('FileRepository').createUploadAdapter = ( loader ) => {
