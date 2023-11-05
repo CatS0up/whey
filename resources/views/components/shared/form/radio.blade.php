@@ -7,10 +7,12 @@
     'required' => false,
     'checked' => false,
 ])
-<div {{ $attributes->class([
-    'flex flex-row items-center',
-])->except('wire:model') }}>
-    <input {{ $attributes->whereStartsWith('wire:model') }}
+<div {{ $attributes
+        ->only('class')
+        ->merge([
+            'class' => 'flex items-center',
+        ])  }}>
+    <input {{ $attributes->except('class') }}
         id="{{ $id }}"
         name="{{ $name }}"
         value="{{ $value }}"
