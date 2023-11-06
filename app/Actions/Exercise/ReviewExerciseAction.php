@@ -38,7 +38,7 @@ class ReviewExerciseAction
 
     private function markExerciseAsRejected(Exercise $exercise, int $reviewerId): Exercise
     {
-        return tap($exercise, fn () => $exercise->verify($reviewerId));
+        return tap($exercise, fn () => $exercise->reject($reviewerId));
     }
 
     private function ensureExerciseIsReviewable(bool $isNotReviewable): void
