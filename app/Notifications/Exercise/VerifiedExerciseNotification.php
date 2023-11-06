@@ -6,10 +6,11 @@ namespace App\Notifications\Exercise;
 
 use App\Models\Exercise;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VerifiedExerciseNotification extends Notification
+class VerifiedExerciseNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
