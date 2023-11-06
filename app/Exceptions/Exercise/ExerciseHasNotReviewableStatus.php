@@ -18,8 +18,8 @@ class ExerciseHasNotReviewableStatus extends Exception implements Renderable
             // TODO: Tłumaczenia
             return to_route('web.exercises.index')
                 ->with(
-                    key: SweetAlertToastType::Info->type(),
-                    value: 'The given exercise has not reviewable status. It has probably already been verified by another user.',
+                    key: SweetAlertToastType::Warning->type(),
+                    value: 'The given exercise has not reviewable status. It has probably already been verified by another user',
                 );
         }
 

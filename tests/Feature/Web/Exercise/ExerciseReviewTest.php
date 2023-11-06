@@ -64,10 +64,13 @@ class ExerciseReviewTest extends ExerciseTestCase
 
         $this->assignPermissionToUser($this->user, 'review exercises');
 
-        $this->authenticated()
+        $response = $this->authenticated()
             ->get("/exercises/{$exercise->slug}/review")
             ->assertRedirect('/exercises')
-            ->assertSessionHas('info', 'The given exercise has not reviewable status. It has probably already been verified by another user.');
+            ->assertSessionHas('warning', 'The given exercise has not reviewable status. It has probably already been verified by another user');
+
+        $this->followRedirects($response)
+            ->assertSee('The given exercise has not reviewable status. It has probably already been verified by another user');
     }
 
     /**
