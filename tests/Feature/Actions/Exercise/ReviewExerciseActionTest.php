@@ -42,11 +42,14 @@ class ReviewExerciseActionTest extends ExerciseTestCase
         );
     }
 
-    /** @test */
-    public function it_should_verify_given_exercise_when_it_is_ready_for_verification(): void
+    /**
+     * @dataProvider Tests\Abstracts\ExerciseTestCase::reviewableStatusesProvider
+     * @test
+     */
+    public function it_should_verify_the_given_exercise_when_it_has_a_reviewable_status(ExerciseStatus $status): void
     {
         $exercise = Exercise::factory()->create([
-            'status' => ExerciseStatus::ForVerification,
+            'status' => $status,
         ]);
 
         $verified = $this->actionUnderTest->execute(
@@ -64,11 +67,14 @@ class ReviewExerciseActionTest extends ExerciseTestCase
         ]);
     }
 
-    /** @test */
-    public function it_should_reject_given_exercise_when_it_is_ready_for_verification(): void
+    /**
+     * @dataProvider Tests\Abstracts\ExerciseTestCase::reviewableStatusesProvider
+     * @test
+     */
+    public function it_should_reject_the_given_exercise_when_it_has_a_reviewable_status(ExerciseStatus $status): void
     {
         $exercise = Exercise::factory()->create([
-            'status' => ExerciseStatus::ForVerification,
+            'status' => $status,
         ]);
 
         $verified = $this->actionUnderTest->execute(
