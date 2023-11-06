@@ -7,6 +7,7 @@ namespace App\Models\Concerns;
 use App\Exceptions\Shared\ModelHasNoProperty;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 trait Sluggable
 {
@@ -14,6 +15,8 @@ trait Sluggable
     public const SLUG_FIELD = 'slug';
     /** @var int */
     public const INITIAL_SUFFIX = 0;
+    /** @var int */
+    public const CHUNK_SIZE = 200;
 
     abstract private function sluggableField(): string;
 
@@ -21,7 +24,10 @@ trait Sluggable
     {
         static::saving(function (Model $model): void {
             // @phpstan-ignore-next-line
-            $model->slug = $model->generateUniqueSlug();
+            if ($model->isDirty($model->sluggableField())) {
+                // @phpstan-ignore-next-line
+                $model->slug = $model->generateUniqueSlug();
+            }
         });
     }
 
@@ -38,8 +44,8 @@ trait Sluggable
         $rawSlug = $this->generateRawSlug($this->getSluggableFieldValue());
         $maxSlugSuffix = $this->findMaxSlugSuffix($rawSlug);
 
-        if ($maxSlugSuffix) {
-            return $this->addSuffiToRawSlug($rawSlug, $maxSlugSuffix);
+        if (null !== $maxSlugSuffix) {
+            return $this->addSuffixToRawSlug($rawSlug, $maxSlugSuffix);
         }
 
         return $rawSlug;
@@ -97,42 +103,53 @@ trait Sluggable
         return $this->query()
             // When the model is being created, the id property is not assigned, so we need to check it
             ->when(
-                value: property_exists(self::class, 'id'),
-                callback: fn (Builder $q) => $q->where('id', '!=', $this->id),
+                value: property_exists(self::class, $this->getKeyName()),
+                callback: fn (Builder $q) => $q->where($this->getKeyName(), '!=', $this->getKey()),
             )
             ->whereSlug($rawSlug)
             ->exists();
     }
 
-    private function findModelWithMaxSuffix(string $rawSlug): ?self
+    private function findMaxSuffix(string $rawSlug): ?int
     {
         // @phpstan-ignore-next-line
-        return $this->query()
-            ->selectRaw("SUBSTRING(slug, '[0-9]+$') as max_slug_suffix")
+        $maxSlugSuffix = 0;
+
+        $this->query()
             ->where('slug', 'like', "{$rawSlug}%")
+            ->where('slug', '<>', $rawSlug) // Slug without any suffix
             // When the model is being created, the id property is not assigned, so we need to check it.
             ->when(
-                value: property_exists(self::class, 'id'),
-                callback: fn (Builder $q) => $q->where('id', '!=', $this->id),
+                value: property_exists(self::class, $this->getKeyName()),
+                callback: fn (Builder $q) => $q->where('id', '!=', $this->getKey())
             )
-            ->orderByDesc('max_slug_suffix')
-            ->first();
+            ->orderBy($this->getKeyName()) // It's important to order by id for chunk method
+            ->chunk(self::CHUNK_SIZE, function ($models) use (&$maxSlugSuffix): void {
+                $maxSlugSuffix = $models->map(function (Model $model) {
+                    // @phpstan-ignore-next-line
+                    preg_match('/(\d+)$/', $model->slug, $matches);
+
+                    return (int) Arr::first($matches);
+                })->max();
+            });
+
+        return $maxSlugSuffix;
     }
 
     private function findMaxSlugSuffix(string $rawSlug): ?int
     {
-        if ($this->rawSlugExists($rawSlug)) {
-            return self::INITIAL_SUFFIX;
+        if ($maxSuffix = $this->findMaxSuffix($rawSlug)) {
+            return $maxSuffix;
         }
 
-        if ($modelWithMaxSuffix = $this->findModelWithMaxSuffix($rawSlug)) {
-            return $modelWithMaxSuffix->max_slug_suffix;
+        if ($this->rawSlugExists($rawSlug)) {
+            return self::INITIAL_SUFFIX;
         }
 
         return null;
     }
 
-    private function addSuffiToRawSlug(string $rawSlug, int $maxSuffix): string
+    private function addSuffixToRawSlug(string $rawSlug, int $maxSuffix): string
     {
         return str($rawSlug)
             ->finish('-'.($maxSuffix + 1))
