@@ -66,9 +66,24 @@ class UserBuilder extends Builder
         return false;
     }
 
+    public function hasAnyPermissionToBySlug(string ...$slugs): bool
+    {
+        if ($this->model->permissions->whereIn('slug', $slugs)->isNotEmpty()) {
+            return true;
+        }
+
+        $permissions = $this->model->roles->pluck('permissions')->collapse();
+        return (bool) ($permissions->whereIn('slug', $slugs)->isNotEmpty());
+    }
+
     public function hasRoleBySlug(string ...$slugs): bool
     {
         return $this->model->roles->contains('slug', ...$slugs);
+    }
+
+    public function hasAnyRoleBySlug(string ...$slugs): bool
+    {
+        return $this->model->roles->whereIn('slug', $slugs)->isNotEmpty();
     }
     /** Model methods - end */
 
