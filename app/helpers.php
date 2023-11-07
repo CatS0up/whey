@@ -6,10 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 if ( ! function_exists('compare_float')) {
-    function compare_float(float $target, float $compareTo): bool
+    function compare_float(float $target, float $compareTo, float $delta = 0.00001): bool
     {
-        $delta = 0.00001;
-
         return abs($target - $compareTo) < $delta;
     }
 
