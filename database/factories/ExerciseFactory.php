@@ -27,7 +27,7 @@ class ExerciseFactory extends Factory
             'difficulty_level' => fake()->randomElement(DifficultyLevel::cases())->value,
             'type' => fake()->randomElement(ExerciseType::cases())->value,
             'status' => fake()->randomElement(ExerciseStatus::cases())->value,
-            'instructions_html' => fake()->text(),
+            'instructions_html' => fake()->randomHtml(),
             'is_public' => fake()->boolean(),
             'author_id' => User::factory()->create()->id,
         ];
