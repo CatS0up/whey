@@ -5,22 +5,20 @@ declare(strict_types=1);
 namespace Tests\Abstracts;
 
 use Database\Seeders\DemoUserSeeder;
-use Database\Seeders\PermissionRoleSeeder;
-use Database\Seeders\PermissionSeeder;
-use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Config;
+use Tests\Concerns\Authorization;
 use Tests\TestCase;
 
 abstract class LoginAsDemoUserTestCase extends TestCase
 {
+    use Authorization {
+        runPermissionSeeders as traitRunPermissionSeeders;
+    }
+
     protected function runPermissionSeeders(): void
     {
-        $this->seed([
-            RoleSeeder::class,
-            PermissionSeeder::class,
-            PermissionRoleSeeder::class,
-            DemoUserSeeder::class,
-        ]);
+        $this->traitRunPermissionSeeders();
+        $this->seed(DemoUserSeeder::class);
     }
 
     protected function enableDemoUsersInConfig(): void

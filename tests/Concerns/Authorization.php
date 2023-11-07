@@ -6,10 +6,22 @@ namespace Tests\Concerns;
 
 use App\Models\Permission;
 use App\Models\User;
+use Database\Seeders\PermissionRoleSeeder;
+use Database\Seeders\PermissionSeeder;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Gate;
 
 trait Authorization
 {
+    protected function runPermissionSeeders(): void
+    {
+        $this->seed([
+            RoleSeeder::class,
+            PermissionSeeder::class,
+            PermissionRoleSeeder::class,
+        ]);
+    }
+
     protected function assignPermissionToUser(User $user, string $name): void
     {
         $permission = Permission::query()
