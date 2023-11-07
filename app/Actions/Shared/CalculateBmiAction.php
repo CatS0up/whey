@@ -14,14 +14,14 @@ class CalculateBmiAction
     /** @var int */
     private const SQUARE_POWER = 2;
     /** @var int */
-    private const BMI_RESULT_PRECISION = 1;
+    private const BMI_RESULT_PRECISION = 2;
 
-    public function execute(Weight $weight, Height $height): float
+    public function execute(Weight $weight, Height $height, $precision = self::BMI_RESULT_PRECISION): float
     {
         $kilograms = $weight->toOtherUnit(WeightUnit::Kilograms);
         $meters = $height->toOtherUnit(HeightUnit::Meters);
         $result = $kilograms->value / ($meters->value ** self::SQUARE_POWER);
 
-        return round($result, self::BMI_RESULT_PRECISION);
+        return round($result, $precision);
     }
 }
