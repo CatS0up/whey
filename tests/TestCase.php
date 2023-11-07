@@ -51,4 +51,20 @@ abstract class TestCase extends BaseTestCase
     {
         DB::table($table)->truncate();
     }
+
+    protected function assertHtmlSame(string $expected, string $actual, string $message = ''): void
+    {
+        $expected = preg_replace('/\s+/', ' ', trim($expected));
+        $actual = preg_replace('/\s+/', ' ', trim($actual));
+
+        $this->assertSame($expected, $actual, $message);
+    }
+
+    protected function assertHtmlNotSame(string $expected, string $actual, string $message = ''): void
+    {
+        $expected = preg_replace('/\s+/', ' ', trim($expected));
+        $actual = preg_replace('/\s+/', ' ', trim($actual));
+
+        $this->assertNotSame($expected, $actual, $message);
+    }
 }
