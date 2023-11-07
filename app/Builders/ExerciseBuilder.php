@@ -33,6 +33,22 @@ class ExerciseBuilder extends Builder
         $this->model->save();
     }
 
+    public function makePrivate(): void
+    {
+        $this->model->reviewer_id = null;
+        $this->model->reviewed_at = null;
+        $this->model->status = ExerciseStatus::Private;
+        $this->model->save();
+    }
+
+    public function makeForVerification(): void
+    {
+        $this->model->reviewer_id = null;
+        $this->model->reviewed_at = null;
+        $this->model->status = ExerciseStatus::ForVerification;
+        $this->model->save();
+    }
+
     public function isVerified(): bool
     {
         return $this->model->status->isVerified();
