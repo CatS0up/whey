@@ -48,35 +48,5 @@ class ExerciseBuilder extends Builder
         $this->model->status = ExerciseStatus::ForVerification;
         $this->model->save();
     }
-
-    public function isVerified(): bool
-    {
-        return $this->model->status->isVerified();
-    }
-
-    public function isForVerification(): bool
-    {
-        return $this->model->status->isForVerification();
-    }
-
-    public function isRejected(): bool
-    {
-        return $this->model->status->isRejected();
-    }
-
-    public function isPrivate(): bool
-    {
-        return $this->model->status->isPrivate();
-    }
-
-    public function isReviewable(): bool
-    {
-        return $this->model->status->isReviewable();
-    }
-
-    public function isNotReviewable(): bool
-    {
-        return $this->model->status->isNotReviewable();
-    }
     /** Model methods - end */
 }

@@ -20,7 +20,7 @@ class ReviewExerciseAction
         $exercise = $this->exercise->query()
             ->findOrFail($data->exercise_id);
 
-        $this->ensureExerciseIsReviewable($exercise->isNotReviewable());
+        $this->ensureExerciseIsReviewable($exercise->status->isNotReviewable());
 
         if ($data->status->isVerified()) {
             $this->markExerciseAsVerified($exercise, $data->reviewer_id);

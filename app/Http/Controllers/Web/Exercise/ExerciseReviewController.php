@@ -14,7 +14,7 @@ class ExerciseReviewController extends Controller
 {
     public function show(Exercise $exercise): View
     {
-        if ($exercise->isNotReviewable()) {
+        if ($exercise->status->isNotReviewable()) {
             throw ExerciseHasNotReviewableStatus::because('Only exercises with the \'for_verification\' and \'rejected\' statuses can be verified');
         }
 
