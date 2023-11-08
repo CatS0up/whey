@@ -95,7 +95,7 @@ class ExerciseReviewTest extends ExerciseTestCase
             ->assertSeeText($exercise->type->label())
             ->assertSeeText($exercise->difficulty_level->label())
             ->assertSeeText($exercise->muscles->pluck('name')->join(', '))
-            ->assertSeeText($exercise->instructions_html);
+            ->assertSee($exercise->instructions_html, false);
     }
 
     /**
