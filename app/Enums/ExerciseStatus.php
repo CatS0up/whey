@@ -10,7 +10,6 @@ enum ExerciseStatus: string
     case ForVerification = 'for_verification';
     case Rejected = 'rejected';
     case Private = 'private';
-    case Failed = 'failed';
 
     public function isVerified(): bool
     {
@@ -28,11 +27,6 @@ enum ExerciseStatus: string
     }
 
     public function isPrivate(): bool
-    {
-        return self::Rejected === $this;
-    }
-
-    public function isFailed(): bool
     {
         return self::Rejected === $this;
     }
