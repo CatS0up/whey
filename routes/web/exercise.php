@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Web\Exercise\ExerciseController;
 use App\Http\Controllers\Web\Exercise\ExerciseReviewController;
 use Illuminate\Support\Facades\Route;
 
